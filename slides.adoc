@@ -1,7 +1,7 @@
-= Deck.js
-:author: Code-Troopers
-:keywords: @codetroopers
-:email: contact@code-troopers.com
+= Docker Jenkins Slave
+:author: Cedric Gatay
+:keywords: @Cedric_Gatay #Tours_Jug
+:email: c.gatay@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
@@ -10,8 +10,199 @@
 :menu:
 :status:
 
-== Slide 1
-Fusce finibus mi at eleifend aliquam. Sed sagittis vestibulum lorem vitae pulvinar. Donec malesuada elit ex. Aenean interdum eu dolor sed semper. In vulputate enim in lectus sagittis, sit amet dignissim augue tempus. Aliquam erat volutpat. Morbi auctor nibh vel ligula ullamcorper, at commodo neque egestas. Mauris at commodo leo. Ut vitae quam felis. Donec vel erat at risus rhoncus sodales. Etiam fermentum, lectus eu interdum feugiat, lacus enim eleifend diam, laoreet consectetur nisi nibh id nibh.
+// T'es qui ?
+== Qui
+Freelance
 
-== Slide 2
-Integer tincidunt egestas nisi, sit amet fermentum metus blandit ac. Nulla a rhoncus dui, at facilisis nulla. Aenean porta venenatis pulvinar. Morbi eget justo ut sem tempor aliquam. Donec ornare augue quis fringilla aliquam. Fusce est lectus, blandit id placerat sed, facilisis eu arcu. Phasellus semper ut leo sed aliquet. Fusce tincidunt felis eget risus elementum aliquam. Vestibulum rhoncus enim id est auctor, auctor porta eros gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus pharetra vehicula lacus. Sed quis ornare nunc.
+Code-Troopers
+
+BrownBagLunch
+
+Packt publishing
+
+== Jenkins dans Docker ?
+// Pourquoi t'as eu envie de le faire ?
+Jenkins évolue vite (weekly, LTS tous les mois)
+
+Mise à jour un peu pénibles
+
+ * wget du war
+ * cp / restart
+
+J'aime bien être bleeding edge
+
+L'occasion de jouer avec Docker de façon "utile".
+
+== Setup Jenkins ?
+// Et pourquoi t'as eu besoin de réinstaller un CI
+Notre ancien serveur était sur les genoux.
+
+Projets internes avec des stacks différentes.
+
+Pas envie de pourrir la config système comme sur l'ancien.
+
+== Archi cible
+// Donc c'est quoi l'archi finale ?
+//[graphviz]
+--------
+Host - [Docker]Jenkins -SSH- [Docker]Jenkins-slave
+                       \SSH- [Docker]Jenkins-slave
+--------
+Management des slaves
+
+ * WMI + DCOM
+ * SSH
+ * JNLP
+
+== Quickstart
+// Ok, du coup comment on démarre ?
+//Vu que le travail principal est fait, il suffit d'utiliser les bonnes images Docker
+Docker Hub
+
+Images préconfigurées
+
+// * agileek/jenkins
+// * evarga/jenkins-slave
+
+== agileek/jenkins
+Maintenue par mbitard
+
+Fork de l'image officielle
+
+Bleeding edge
+
+Montage du volume `JENKINS_HOME`
+
+Expose du port 8080
+
+== evarga/jenkins-slave
+Image avec OpenJDK7
+
+Serveur SSH
+
+Login `jenkins`/`jenkins`
+
+== Gentlemen start your engines
+[source,shell]
+------
+docker run -d -p 8080:8080 -v /home/jenkins:/var/jenkins_home agileek/jenkins
+------
+
+== Configuration Jenkins
+Plugin Docker-Cloud
+
+Configuration :
+ 
+ * nom d'image
+ * volumes montés
+
+== Premier build
+
+Ca marchera ...  pour un Hello World !
+
+Maven télécharge internet, LENT
+
+== Petit à petit //l'oiseau fait son nid
+// La personnalisation ? > check list
+//comment personnaliser votre environnement?
+Prenez votre stack et listez ce qu'il faut installer
+// Avec un exemple ? > pour nous 
+
+== Exemple
+// Chez CT //// mettre le logo CT :) ////  on aime beaucoup restx, nos projets l'utilisant ont la stack suivante :@CT : Restx
+image:ct/logo.png[] 
+
+
+ * git
+ * java 8 // oui oui on fait du java 8 en prod !!
+ * maven
+ * sass/compass
+ * npm
+ * bower
+ * grunt
+
+== D.R.Y
+
+Itération sur chaque élément pour se poser la question si une image "seule" est intéressante 
+
+ * git X
+ * git + java 8 Y
+ * git + java 8 + Maven Y
+ * git + java 8 + Maven + sass N
+ * (...)
+ * git + ... + grunt Y
+
+En essayant de construire notre image, on a réussi a en faire trois en fait, qui pourront resservir 
+
+ * jdk8
+ * jdk8-mvn
+ * jdk8-mvn-restx
+
+== Android SDK
+//et pour Android ?
+Android SDK est lourd à installer, on a fait le taff avec des images.
+
+ * images pour le build
+ * images pour l'émulation (qemu x86) //l'emulation nécessite de lancer les container en priviledged)
+// on peut réutiliser vos images ? / Distribution sur DockerHub
+
+
+== Points de douleurs
+// T'as eu quoi comme problèmes ?
+Le plugin Docker Jenkins est pas complétement sec
+
+ * configuration lourdingue
+ * gestion des variables d'env difficile
+ * pas de feedback rapide lors du pull des images //et ca peut prendre trois plombes)
+
+Du coup il faut bien comprendre ce qu'on veut éphémère ou pas.
+// cas du .m2/ .gradle si on veut des temps de build raisonnables
+// warmup via un build pour peupler le .m2 / ou monter le volume
+
+Le registry est parfois en carafe.
+
+Le registry est difficile a parcourir (recherche)
+
+Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docker in Docker)
+
+== Ok, count me in
+// Génial, comment je fais pareil ? 
+Les slides sont disponibles avec les liens vers nos images.
+
+=== Images
+
+Accessibles sur 
+
+ * http://github.com/code-troopers/docker-jenkins-slaves
+ * https://registry.hub.docker.com/repos/codetroopers/
+
+== Tips
+
+== http://jenkins.code-troopers.com:8080 -> UGLY
+
+Image nginx pour gérer les vhosts:
+
+ * jwilder/nginx-proxy
+ * `docker run -d -e VIRTUAL_HOST=jenkins.code-troopers.com -e VIRTUAL_PORT=8080`
+
+== D.R.Y.ness
+Beaucoup de copier / coller entre images
+
+Projet en cours pour apporter des mixins
+
+Pouvoir importer des fragments communs 
+
+Dockerfile "composite"
+
+http://github.com/CedricGatay/manifest-mixin
+
+ * Cross platform (en Go comme Docker)
+ * Très simple (mix'n merge)
+
+== Bénéfices
+
+Notre serveur ne contient rien d'autre que le daemon Docker
+
+On est hype !
+
+== Q&A
