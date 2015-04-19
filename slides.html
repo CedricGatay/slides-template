@@ -6,7 +6,7 @@
 <meta content="Asciidoctor 1.5.2" name="generator">
 <meta content="Joris Potier" name="author">
 <meta content="@Joris_Potier" name="keywords">
-<title>Développement Android : quelques librairies à connaître</title>
+<title>Développer sur Android : quelques librairies à connaître</title>
 <link href="deck.js/core/deck.core.css" rel="stylesheet">
 <link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet">
 <link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet">
@@ -21,14 +21,14 @@
 <body class="article">
 <div class="deck-container">
 <section class="slide" id="title-slide">
-<h1>Développement Android : quelques librairies à connaître</h1>
+<h1>Développer sur Android : quelques librairies à connaître</h1>
 <span id="author">Joris Potier</span>
 <br>
 <span id="email"><a href="mailto:j.potier@code-troopers.com">j.potier@code-troopers.com</a></span>
 <br>
 </section>
 <section class="slide" id="_joris_potier">
-<h2>Joris Potier</h2>
+<h2>Joris POTIER</h2>
 <table class="tableblock frame-all grid-all" style="width:100%">
 <colgroup>
 <col style="width:75%">
@@ -80,28 +80,152 @@
 </tbody>
 </table>
 </section>
-<section class="slide" id="_slide_2">
-<h2>Slide 2</h2>
-<table class="tableblock frame-all grid-all" style="width:100%">
-<colgroup>
-<col style="width:50%">
-<col style="width:50%">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Firefox</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Web Browser</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ruby</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming Language</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TorqueBox</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Application Server</p></td>
-</tr>
-</tbody>
-</table>
+<section class="slide" id="_disclaimer">
+<h2>Disclaimer</h2>
+<div class="ulist">
+<ul>
+<li>Librairies adaptées au développement sur Android, mais pas que</li>
+<li>Sélection complètement subjective</li>
+<li>Simple retour d&#8217;expérience</li>
+<li>Quelques exemples d&#8217;implémentation : <a class="bare" href="https://github.com/code-troopers/material-android-bootstrap">https://github.com/code-troopers/material-android-bootstrap</a></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_sommaire">
+<h2>Sommaire</h2>
+<div class="ulist">
+<ul>
+<li>Timber</li>
+<li>Dagger v2</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Retrofit</li>
+<li>Picasso</li>
+<li>OkHttp</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber">
+<h2>Timber</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/JakeWharton/timber">https://github.com/JakeWharton/timber</a></li>
+<li>API de logging</li>
+<li>Permet de s&#8217;abstraire de la classe Log du SDK Android</li>
+<li>Pouvoir injecter ses propres loggers facilement</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber_2">
+<h2>Timber</h2>
+<div class="paragraph"><p>Permet de s&#8217;abstraire de la classe Log du SDK Android :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Log.i(getClass().getName(), "Hello Tours JUG!");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Log.i(getClass().getName(),
+ 	String.format("Hello %s!", userName));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Log.e(getClass().getName(), "Oups", exception);</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_3">
+<h2>Timber</h2>
+<div class="paragraph"><p>Permet de s&#8217;abstraire de la classe Log du SDK Android :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Log.i(getClass().getName(), "Hello Tours JUG!");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>04-19 18:48:07.500 2409-2409/com.ct.materialAndroidBootstrap
+I/com.ct.materialAndroidBootstrap.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_4">
+<h2>Timber</h2>
+<div class="ulist">
+<div class="title">Principe :</div>
+<ul>
+<li>configurer ses loggers auprès de Timber</li>
+<li>demander à Timber de tracer les informations en renseignant le minimum</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber_5">
+<h2>Timber</h2>
+<div class="paragraph"><p>Configuration des loggers :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">public class AndroidBootstrapApplication extends android.app.Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+         // custom implementations
+         // can be made by
+         // extending Timber.HollowTree
+         Timber.plant(new CustomCrashReporter());
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph"><p>Possibilité de "planter" plusieurs loggers</p></div>
+</section>
+<section class="slide" id="_timber_6">
+<h2>Timber</h2>
+<div class="paragraph"><p>Tracer des informations :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Timber.i("Hello Tours JUG!");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Timber.i("Hello %s!", userName);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Timber.e(exception, "Oups");</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_7">
+<h2>Timber</h2>
+<div class="paragraph"><p>Résultat du Timber.DebugTree :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="java language-java">Timber.i("Hello Tours JUG!");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>04-19 19:11:09.972 2514-2514/com.codetroopers.materialAndroidBootstrap I/HomeActivity﹕ Hello Tours JUG!</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_8">
+<h2>Timber</h2>
+<div class="ulist">
+<div class="title">Conclusion :</div>
+<ul>
+<li>Simple et efficace</li>
+<li>Évite la recopie de code polluant et/ou la réimplémentation d&#8217;une surcouche à la classe Log pour chaque projet</li>
+</ul>
+</div>
 </section>
 <p aria-role="status" class="deck-status">
 <span class="deck-status-current"></span>

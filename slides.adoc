@@ -1,4 +1,4 @@
-= Développement Android : quelques librairies à connaître
+= Développer sur Android : quelques librairies à connaître
 :author: Joris Potier
 :keywords: @Joris_Potier
 :email: j.potier@code-troopers.com
@@ -11,7 +11,7 @@
 :status:
 :imagesdir: ./images
 
-== Joris Potier
+== Joris POTIER
 [cols="3a,1a"]
 |===
 |
@@ -36,3 +36,115 @@ a!//
 |image::logo_text.png[]
 |===
 
+
+
+== Disclaimer
+* Librairies adaptées au développement sur Android, mais pas que
+* Sélection complètement subjective
+* Simple retour d'expérience
+* Quelques exemples d'implémentation : https://github.com/code-troopers/material-android-bootstrap
+
+
+== Sommaire
+* Timber
+* Dagger v2
+* Butterknife
+* Otto
+* Retrofit
+* Picasso
+* OkHttp
+
+== Timber
+* https://github.com/JakeWharton/timber
+* API de logging
+* Permet de s'abstraire de la classe Log du SDK Android
+* Pouvoir injecter ses propres loggers facilement
+
+== Timber
+Permet de s'abstraire de la classe Log du SDK Android :
+[source, java]
+----
+Log.i(getClass().getName(), "Hello Tours JUG!");
+----
+[source, java]
+----
+Log.i(getClass().getName(),
+ 	String.format("Hello %s!", userName));
+----
+[source, java]
+----
+Log.e(getClass().getName(), "Oups", exception);
+----
+
+
+== Timber
+Permet de s'abstraire de la classe Log du SDK Android :
+[source, java]
+----
+Log.i(getClass().getName(), "Hello Tours JUG!");
+----
+
+[source]
+----
+04-19 18:48:07.500 2409-2409/com.ct.materialAndroidBootstrap 
+I/com.ct.materialAndroidBootstrap.ui.activity.HomeActivity﹕ Hello Tours JUG!
+----
+
+== Timber
+.Principe :
+* configurer ses loggers auprès de Timber
+* demander à Timber de tracer les informations en renseignant le minimum
+
+
+== Timber
+Configuration des loggers :
+[source, java]
+----
+public class AndroidBootstrapApplication extends android.app.Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+         // custom implementations 
+         // can be made by 
+         // extending Timber.HollowTree
+         Timber.plant(new CustomCrashReporter());
+        }
+    }
+}
+----
+Possibilité de "planter" plusieurs loggers
+
+== Timber
+Tracer des informations : 
+[source, java]
+----
+Timber.i("Hello Tours JUG!");
+----
+[source, java]
+----
+Timber.i("Hello %s!", userName);
+----
+[source, java]
+----
+Timber.e(exception, "Oups");
+----
+
+== Timber
+Résultat du Timber.DebugTree : 
+[source, java]
+----
+Timber.i("Hello Tours JUG!");
+----
+
+[source]
+----
+04-19 19:11:09.972 2514-2514/com.codetroopers.materialAndroidBootstrap I/HomeActivity﹕ Hello Tours JUG!
+----
+
+== Timber
+.Conclusion :
+* Simple et efficace
+* Évite la recopie de code polluant et/ou la réimplémentation d'une surcouche à la classe Log pour chaque projet
