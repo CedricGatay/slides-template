@@ -1,7 +1,7 @@
 = Deck.js
-:author: Code-Troopers
-:keywords: @codetroopers
-:email: contact@code-troopers.com
+:author: Joris Potier
+:keywords: @Joris_Potier
+:email: j.potier@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
