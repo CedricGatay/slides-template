@@ -1,4 +1,4 @@
-= Deck.js
+= Développement Android : quelques librairies à connaître
 :author: Joris Potier
 :keywords: @Joris_Potier
 :email: j.potier@code-troopers.com
@@ -9,9 +9,30 @@
 :goto:
 :menu:
 :status:
+:imagesdir: ./images
 
-== Slide 1
-Fusce finibus mi at eleifend aliquam. Sed sagittis vestibulum lorem vitae pulvinar. Donec malesuada elit ex. Aenean interdum eu dolor sed semper. In vulputate enim in lectus sagittis, sit amet dignissim augue tempus. Aliquam erat volutpat. Morbi auctor nibh vel ligula ullamcorper, at commodo neque egestas. Mauris at commodo leo. Ut vitae quam felis. Donec vel erat at risus rhoncus sodales. Etiam fermentum, lectus eu interdum feugiat, lacus enim eleifend diam, laoreet consectetur nisi nibh id nibh.
+== Joris Potier
+[cols="3a,1a"]
+|===
+|
+* \http://code-troopers.com
+* \j.potier@code-troopers.com
+* @Joris_Potier
+* \https://github.com/JorisPotier 
+* \https://github.com/code-troopers
+|image::profile.jpeg[]
 
-== Slide 2
-Integer tincidunt egestas nisi, sit amet fermentum metus blandit ac. Nulla a rhoncus dui, at facilisis nulla. Aenean porta venenatis pulvinar. Morbi eget justo ut sem tempor aliquam. Donec ornare augue quis fringilla aliquam. Fusce est lectus, blandit id placerat sed, facilisis eu arcu. Phasellus semper ut leo sed aliquet. Fusce tincidunt felis eget risus elementum aliquam. Vestibulum rhoncus enim id est auctor, auctor porta eros gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus pharetra vehicula lacus. Sed quis ornare nunc.
+|
+[width="75%", cols="3*"]
+!===
+!image:navigtours-logo.png[] 
+!image:aucard.png[] 
+!image:terresduson-logo.png[] 
+
+!image:nowly-logo.png[] 
+!image:srmvision-logo.png[]
+a!//
+!===
+|image::logo_text.png[]
+|===
+
