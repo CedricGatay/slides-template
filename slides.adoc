@@ -20,7 +20,18 @@ BrownBagLunch
 
 Packt publishing
 
-== Jenkins dans Docker ?
+== Jenkins
+Serveur d'intégration continue
+
+Permet de piloter des noeuds
+
+Management des slaves
+
+ * WMI + DCOM
+ * SSH
+ * JNLP
+
+== Raisons 
 // Pourquoi t'as eu envie de le faire ?
 Jenkins évolue vite (weekly, LTS tous les mois)
 
@@ -29,11 +40,9 @@ Mise à jour un peu pénibles
  * wget du war
  * cp / restart
 
-J'aime bien être bleeding edge
-
 L'occasion de jouer avec Docker de façon "utile".
 
-== Setup Jenkins ?
+== Raisons
 // Et pourquoi t'as eu besoin de réinstaller un CI
 Notre ancien serveur était sur les genoux.
 
@@ -48,29 +57,26 @@ Pas envie de pourrir la config système comme sur l'ancien.
 Host - [Docker]Jenkins -SSH- [Docker]Jenkins-slave
                        \SSH- [Docker]Jenkins-slave
 --------
-Management des slaves
-
- * WMI + DCOM
- * SSH
- * JNLP
 
 == Quickstart
 // Ok, du coup comment on démarre ?
 //Vu que le travail principal est fait, il suffit d'utiliser les bonnes images Docker
-Docker Hub
+1. Docker Hub
 
-Images préconfigurées
+2. Images préconfigurées
 
-// * agileek/jenkins
-// * evarga/jenkins-slave
+   * agileek/jenkins
+   * evarga/jenkins-slave
 
 == agileek/jenkins
+//bitos pic
 Maintenue par mbitard
-
+//fork and knives
 Fork de l'image officielle
-
+//bleeding haxe
 Bleeding edge
 
+//is this relevant ?
 Montage du volume `JENKINS_HOME`
 
 Expose du port 8080
@@ -82,6 +88,7 @@ Serveur SSH
 
 Login `jenkins`/`jenkins`
 
+//motor pic
 == Gentlemen start your engines
 [source,shell]
 ------
@@ -96,6 +103,8 @@ Configuration :
  * nom d'image
  * volumes montés
 
+Utilisation des labels Jenkins
+
 == Premier build
 
 Ca marchera ...  pour un Hello World !
@@ -108,42 +117,46 @@ Maven télécharge internet, LENT
 Prenez votre stack et listez ce qu'il faut installer
 // Avec un exemple ? > pour nous 
 
-== Exemple
+== Aucard de Tours - Web
 // Chez CT //// mettre le logo CT :) ////  on aime beaucoup restx, nos projets l'utilisant ont la stack suivante :@CT : Restx
 image:ct/logo.png[] 
 
 
- * git
- * java 8 // oui oui on fait du java 8 en prod !!
- * maven
- * sass/compass
+ * Git
+ * Java 8 // oui oui on fait du java 8 en prod !!
+ * Maven
+ * Sass/compass
  * npm
- * bower
- * grunt
+ * Bower
+ * Grunt
 
 == D.R.Y
 
 Itération sur chaque élément pour se poser la question si une image "seule" est intéressante 
 
- * git X
- * git + java 8 Y
- * git + java 8 + Maven Y
- * git + java 8 + Maven + sass N
- * (...)
- * git + ... + grunt Y
+[options="step"]
+ * Git X
+ * Git + Java 8 Y
+ * Git + Java 8 + Maven Y
+ * Git + java 8 + Maven + sass N
+ * Git + ... + grunt Y
 
 En essayant de construire notre image, on a réussi a en faire trois en fait, qui pourront resservir 
 
+[options="step"]
  * jdk8
  * jdk8-mvn
  * jdk8-mvn-restx
 
-== Android SDK
+== Aucard de Tours - Android
 //et pour Android ?
-Android SDK est lourd à installer, on a fait le taff avec des images.
+Android SDK est lourd à installer,
+// on a fait le taff avec des images.
 
+[options="step"]
  * images pour le build
- * images pour l'émulation (qemu x86) //l'emulation nécessite de lancer les container en priviledged)
+ * images pour l'émulation (qemu x86) 
+//l'emulation nécessite de lancer les container en priviledged)
 // on peut réutiliser vos images ? / Distribution sur DockerHub
 
 
@@ -151,23 +164,28 @@ Android SDK est lourd à installer, on a fait le taff avec des images.
 // T'as eu quoi comme problèmes ?
 Le plugin Docker Jenkins est pas complétement sec
 
+[options="step"]
  * configuration lourdingue
  * gestion des variables d'env difficile
- * pas de feedback rapide lors du pull des images //et ca peut prendre trois plombes)
-
-Du coup il faut bien comprendre ce qu'on veut éphémère ou pas.
-// cas du .m2/ .gradle si on veut des temps de build raisonnables
-// warmup via un build pour peupler le .m2 / ou monter le volume
-
-Le registry est parfois en carafe.
-
-Le registry est difficile a parcourir (recherche)
+ * pas de feedback rapide lors du pull des images 
+//et ca peut prendre trois plombes)
 
 Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docker in Docker)
+-> Définir ce qui peut être éphémère
+// cas du .m2/ .gradle si on veut des temps de build raisonnables
+// warmup via un build pour peupler le .m2 / ou monter le volume
+== Points de douleurs
+ Registry central : 
+ 
+[options="step"]
+ * builds en erreurs.
+ * recherche nulle
+
 
 == Ok, count me in
 // Génial, comment je fais pareil ? 
-Les slides sont disponibles avec les liens vers nos images.
+=== Slides
+  * http://github.com/CedricGatay/slides-template/tree/docker-jenkins-slave
 
 === Images
 
@@ -178,10 +196,13 @@ Accessibles sur
 
 == Tips
 
-== http://jenkins.code-troopers.com:8080 -> UGLY
+== nginx en frontal
+
+http://jenkins.code-troopers.com:8080 -> UGLY
+
 
 Image nginx pour gérer les vhosts:
-
+[options="step"]
  * jwilder/nginx-proxy
  * `docker run -d -e VIRTUAL_HOST=jenkins.code-troopers.com -e VIRTUAL_PORT=8080`
 
@@ -204,5 +225,6 @@ http://github.com/CedricGatay/manifest-mixin
 Notre serveur ne contient rien d'autre que le daemon Docker
 
 On est hype !
+//hipster pic
 
 == Q&A
