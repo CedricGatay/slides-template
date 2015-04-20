@@ -10,6 +10,7 @@
 :menu:
 :status:
 :imagesdir: ./images
+:source-highlighter: pygments
 
 == Joris POTIER
 [cols="3a,1a"]
@@ -47,12 +48,14 @@ a!//
 
 == Sommaire
 * Timber
-* Dagger v2
+* Dagger 2
 * Butterknife
 * Otto
 * Retrofit
 * Picasso
 * OkHttp
+
+== Timber
 
 == Timber
 * https://github.com/JakeWharton/timber
@@ -64,7 +67,8 @@ a!//
 Permet de s'abstraire de la classe Log du SDK Android :
 [source, java]
 ----
-Log.i(getClass().getName(), "Hello Tours JUG!");
+Log.i(getClass().getName(), 
+	"Hello Tours JUG!");
 ----
 [source, java]
 ----
@@ -73,7 +77,9 @@ Log.i(getClass().getName(),
 ----
 [source, java]
 ----
-Log.e(getClass().getName(), "Oups", exception);
+Log.e(getClass().getName(), 
+	"Oups", 
+	exception);
 ----
 
 
@@ -81,7 +87,8 @@ Log.e(getClass().getName(), "Oups", exception);
 Permet de s'abstraire de la classe Log du SDK Android :
 [source, java]
 ----
-Log.i(getClass().getName(), "Hello Tours JUG!");
+Log.i(getClass().getName(), 
+	"Hello Tours JUG!");
 ----
 
 [source]
@@ -105,12 +112,14 @@ public class AndroidBootstrapApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
+            Timber.plant(
+            	new Timber.DebugTree());
         } else {
          // custom implementations 
          // can be made by 
          // extending Timber.HollowTree
-         Timber.plant(new CustomCrashReporter());
+         Timber.plant(
+         	new CustomCrashReporter());
         }
     }
 }
@@ -141,10 +150,50 @@ Timber.i("Hello Tours JUG!");
 
 [source]
 ----
-04-19 19:11:09.972 2514-2514/com.codetroopers.materialAndroidBootstrap I/HomeActivity﹕ Hello Tours JUG!
+04-19 19:11:09.972 2514-2514/com.codetroopers.materialAndroidBootstrap 
+I/HomeActivity﹕ Hello Tours JUG!
 ----
 
 == Timber
 .Conclusion :
 * Simple et efficace
-* Évite la recopie de code polluant et/ou la réimplémentation d'une surcouche à la classe Log pour chaque projet
+* Évite la recopie de code polluant
+* Évite la réimplémentation d'une surcouche à la classe Log pour chaque projet
+
+== Dagger 2
+
+== Dagger 2
+* https://github.com/google/dagger
+* Framework d'injection de dépendances (DI)
+* S'appuie sur des annotations standards (JSR300)
+* Meilleure structuration du code
+* Permet de se concentrer sur l'implémentation plutôt que sur configuration des modules
+* Plus facile à tester, modules intercheangeables facilement
+
+== Dagger 2
+* De nombreux frameworks de DI 
+** Spring
+** Guice
+** Dagger 1
+** CDI
+** etc...
+
+* Mais contraintes de ressources sur Android
+* Obfuscation du code difficile
+
+== Dagger 2
+* Guice (RoboGuice) : performances limitées car analyse des dépendances au Runtime
+* Dagger 1
+** génération de code à la compilation
+** permet d'éviter au maximum la réflection au Runtime... mais quand même
+** le code généré reste difficile à obfusquer
+** le code généré est difficile à lire/débugger
+
+== Dagger 2
+* Fork de Dagger 1
+* Release disponible depuis peu
+* *Tout* le code est généré à la compilation
+* Plus aucune analyse au Runtime
+* Performances++
+* Code généré très lisible/débuggable
+* Plus aucun problème d'obfuscation
