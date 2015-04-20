@@ -25,11 +25,9 @@ Serveur d'intégration continue
 
 Permet de piloter des noeuds
 
-Management des slaves
-
  * WMI + DCOM
- * SSH
  * JNLP
+ * SSH
 
 == Raisons 
 // Pourquoi t'as eu envie de le faire ?
@@ -77,9 +75,9 @@ Fork de l'image officielle
 Bleeding edge
 
 //is this relevant ?
-Montage du volume `JENKINS_HOME`
+//Montage du volume `JENKINS_HOME`
 
-Expose du port 8080
+//Expose du port 8080
 
 == evarga/jenkins-slave
 Image avec OpenJDK7
@@ -111,11 +109,15 @@ Ca marchera ...  pour un Hello World !
 
 Maven télécharge internet, LENT
 
-== Petit à petit //l'oiseau fait son nid
+== Petit à petit 
 // La personnalisation ? > check list
 //comment personnaliser votre environnement?
-Prenez votre stack et listez ce qu'il faut installer
+//Prenez votre stack et listez ce qu'il faut installer
 // Avec un exemple ? > pour nous 
+[options="step"]
+ * Détaillez votre stack 
+ * Cherchez sur le registry
+ * Construisez votre Dockerfile
 
 == Aucard de Tours - Web
 // Chez CT //// mettre le logo CT :) ////  on aime beaucoup restx, nos projets l'utilisant ont la stack suivante :@CT : Restx
@@ -123,7 +125,8 @@ image:ct/logo.png[]
 
 
  * Git
- * Java 8 // oui oui on fait du java 8 en prod !!
+ * Java 8 
+// oui oui on fait du java 8 en prod !!
  * Maven
  * Sass/compass
  * npm
@@ -139,9 +142,11 @@ Itération sur chaque élément pour se poser la question si une image "seule" e
  * Git + Java 8 Y
  * Git + Java 8 + Maven Y
  * Git + java 8 + Maven + sass N
- * Git + ... + grunt Y
+ * Git + ... + Grunt Y
 
-En essayant de construire notre image, on a réussi a en faire trois en fait, qui pourront resservir 
+//En essayant de construire notre image, on a réussi a en faire trois en fait, qui pourront resservir 
+
+Trois images résultats :
 
 [options="step"]
  * jdk8
@@ -181,6 +186,27 @@ Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docke
  * builds en erreurs.
  * recherche nulle
 
+== Points de douleurs
+Construction des Dockerfile
+ 
+ * copier/coller 
+ * trouver le bon "héritage"
+
+== D.R.Y.ness
+Beaucoup de copier / coller entre images
+
+Projet en cours pour apporter des mixins
+
+Pouvoir importer des fragments communs 
+
+Dockerfile "composite"
+
+http://github.com/CedricGatay/manifest-mixin
+
+ * Cross platform (en Go comme Docker)
+ * Très simple (mix'n merge)
+
+
 
 == Ok, count me in
 // Génial, comment je fais pareil ? 
@@ -205,20 +231,6 @@ Image nginx pour gérer les vhosts:
 [options="step"]
  * jwilder/nginx-proxy
  * `docker run -d -e VIRTUAL_HOST=jenkins.code-troopers.com -e VIRTUAL_PORT=8080`
-
-== D.R.Y.ness
-Beaucoup de copier / coller entre images
-
-Projet en cours pour apporter des mixins
-
-Pouvoir importer des fragments communs 
-
-Dockerfile "composite"
-
-http://github.com/CedricGatay/manifest-mixin
-
- * Cross platform (en Go comme Docker)
- * Très simple (mix'n merge)
 
 == Bénéfices
 
