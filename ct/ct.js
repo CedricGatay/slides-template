@@ -9,4 +9,7 @@ $(document).ready(function(){
  $footer.append("<span class='ctlogo'><img src='ct/logo.png'/></span>");
  $deckStatus.empty();
  $footer.appendTo($deckStatus);
+ $(document.head).append('<script src="http://'
+ + location.host.split(':')[0]
+ + ':35729/livereload.js"></script>');
 });

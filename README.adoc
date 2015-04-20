@@ -5,13 +5,8 @@ Basic slide templates for talk given by Code-Troopers
 == Setup
 Fork this project, then run `git clone --recursive` to fetch submodules.
 
-== Requirements
-You will need rubygem, haml, asciidoctor, tilt. 
-
-The `build.sh` script installs the prerequisite
-
 == Docker run
 If you've got a Docker engine available you can build and serve your slides
 with the provided Dockerfile.
-`docker build .` will build your slides
-`docker run -p 9000:9000 [containerId]` will run a webserver on port 9000
+`docker build .` will prepare the image
+`docker run -d -v $(pwd):/documents/ -p 9000:9000 -p 35729:35729 [containerId]` will run a webserver on port 9000, with livereload enabled
