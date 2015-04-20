@@ -93,8 +93,8 @@ Log.i(getClass().getName(),
 
 [source]
 ----
-04-19 18:48:07.500 2409-2409/com.ct.materialAndroidBootstrap 
-I/com.ct.materialAndroidBootstrap.ui.activity.HomeActivity﹕ Hello Tours JUG!
+04-19 18:48:07.500 2409-2409/com.codetroopers.jug 
+I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!
 ----
 
 == Timber
@@ -107,21 +107,21 @@ I/com.ct.materialAndroidBootstrap.ui.activity.HomeActivity﹕ Hello Tours JUG!
 Configuration des loggers :
 [source, java]
 ----
-public class AndroidBootstrapApplication extends android.app.Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        if (BuildConfig.DEBUG) {
-            Timber.plant(
-            	new Timber.DebugTree());
-        } else {
-         // custom implementations 
-         // can be made by 
-         // extending Timber.HollowTree
-         Timber.plant(
-         	new CustomCrashReporter());
-        }
-    }
+public class MyApplication extends android.app.Application {
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		if (BuildConfig.DEBUG) {
+			Timber.plant(
+				new Timber.DebugTree());
+		} else {
+			// custom implementations 
+			// can be made by 
+			// extending Timber.HollowTree
+		 	Timber.plant(
+				new CustomCrashReporter());
+		}
+	}
 }
 ----
 Possibilité de "planter" plusieurs loggers
@@ -150,7 +150,7 @@ Timber.i("Hello Tours JUG!");
 
 [source]
 ----
-04-19 19:11:09.972 2514-2514/com.codetroopers.materialAndroidBootstrap 
+04-19 19:11:09.972 2514-2514/com.codetroopers.jug 
 I/HomeActivity﹕ Hello Tours JUG!
 ----
 
@@ -166,8 +166,8 @@ I/HomeActivity﹕ Hello Tours JUG!
 * https://github.com/google/dagger
 * Framework d'injection de dépendances (DI)
 * S'appuie sur des annotations standards (JSR300)
-* Meilleure structuration du code
-* Permet de se concentrer sur l'implémentation plutôt que sur configuration des modules
+* Meilleure structuration du code : DAOs, service d'authentification, Factories, ...
+* Permet de se concentrer sur l'implémentation plutôt que sur la configuration des modules
 * Plus facile à tester, modules intercheangeables facilement
 
 == Dagger 2
@@ -195,5 +195,194 @@ I/HomeActivity﹕ Hello Tours JUG!
 * *Tout* le code est généré à la compilation
 * Plus aucune analyse au Runtime
 * Performances++
-* Code généré très lisible/débuggable
+* Code généré facilement lisible/débuggable
 * Plus aucun problème d'obfuscation
+* Utilisable dans n'importe quel environnement Java
+
+== Dagger 2
+.Utilisation : étape 1, écriture des modules
+* on indique à Dagger comment fournir une dépendance => Instanciation + Configuration
+* on indique à Dagger le "scope" des dépendances
+[source, java]
+@Module
+public class MyModule {
+	@Singleton
+	@Provides
+	DataSource provideDataSource() {
+		return new DataSource();
+	}
+	@Provides
+	ContactDao provideContactDao(DataSource ds) {
+		ContactDao dao = new ContactDao();
+		dao.setDataSource(ds);
+		return dao;
+	}
+}
+* Dagger se chargera à la compilation de l'analyse du graphe de dépendances (qui dépend de qui) via les annotations, les valeurs de retour et les paramètres
+
+== Dagger 2
+* Possibilité de faire de la composition de modules pour construire le graphe final
+[source, java]
+@Module
+public class AndroidModule {
+	@Provides
+	@Singleton
+	Context provideApplicationContext() {
+		return MyApplication.getInstance();
+	}
+	@Provides
+	@Singleton
+	LocationManager provideLocationManager(Context ctx) {
+		return (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
+	}
+	@Provides
+	SharedPreferences provideDefaultSharedPreferences(Context ctx) {
+		return PreferenceManager.getDefaultSharedPreferences(ctx);
+	}
+}
+
+== Dagger 2
+.Utilisation : étape 2, demander une dépendance
+* @Inject sur un constructeur 
+** un paramètre = une dépendance
+** permet donc d'éliminer des @Provides !
+
+[source, java]
+----
+public class ContactDao {
+	private final DataSource dataSource;
+	@Inject
+	public ContactDao(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+}
+----
+[source, java]
+@Module
+public class MyModule {
+	@Singleton
+	@Provides
+	DataSource provideDataSource() {
+		return new DataSource();
+	}
+	/* @Provides
+	ContactDao provideContactDao(DataSource ds) {
+		ContactDao dao = new ContactDao();
+		dao.setDataSource(ds);
+		return dao;
+	} */
+}
+
+== Dagger 2
+
+[source, java]
+----
+@Singleton
+public class DataSource {
+	@Inject
+	public DataSource() {
+		// ...
+	}
+}
+----
+[source, java]
+@Module
+public class MyModule {
+	/* @Singleton
+	@Provides
+	DataSource provideDataSource() {
+		return new DataSource();
+	}
+	@Provides
+	ContactDao provideContactDao(DataSource ds) {
+		ContactDao dao = new ContactDao();
+		dao.setDataSource(ds);
+		return dao;
+	} */
+}
+
+== Dagger 2
+.Utilisation : étape 2, demander une dépendance
+* @Inject sur une méthode
+** un paramètre = une dépendance
+** seul cas d'utilisation : on veut passer "this" à la dépendance (ex : bus.register(this);)
+* @Inject sur un champ
+** cas d'utilisation : l'instance n'est pas créée par l'utilisateur
+** particulièrement utile sur Android pour les instances créées par le système (ex: Activity, Fragment, ...)
+
+== Dagger 2
+[source, java]
+public class MyActivity extends Activity {
+	@Inject
+	ContactDao contactDao;
+//
+	@Override
+	protected void onCreate(Bundle b) {
+		super.onCreate(b);
+		/* Déclenchement des injections... On va voir ça après ! */
+		TextView textView = /* ... */
+		textView.setText(contactDao.getRandomContact());
+	}
+}
+
+== Dagger 2
+.Utilisation : étape 3, faire le lien entre les @Module et les @Inject => l'"Injecteur"
+* on indique à Dagger les modules concernés par notre injecteur
+* on indique à Dagger qui va demander des injections par une interface
+* l'implémentation de l'interface est fournie directement par Dagger
+[source, java]
+@Singleton
+@Component(
+	modules = {
+		AndroidModule.class,
+		MyModule.class
+	}
+)
+public interface Injector {
+	void inject(MyActivity activity);
+}
+
+== Dagger 2
+[source, java]
+public class MyApplication extends android.app.Application {
+	public static Injector injector;
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		injector = DaggerInjector.create();
+	}
+}
+
+== Dagger 2
+[source, java]
+public class MyActivity extends Activity {
+	@Inject
+	ContactDao contactDao;
+//
+	@Override
+	protected void onCreate(Bundle b) {
+		super.onCreate(b);
+		MyApplication.injector.inject(this);
+		TextView textView = /* ... */
+		textView.setText(contactDao.getRandomContact());
+	}
+}
+
+
+== Dagger 2
+.En résumé :
+* Fournir une dépendance : implémentation des modules
+** @Provides : pour les méthodes qui fournissent les instances, avec éventuellement des dépendances à satisfaire => Configuration
+** @Module : pour définir les classes qui fournissent un ensemble de dépendances
+* Demander une dépendance : 
+** @Inject : lorsqu'on désire injecter un service donné, sans se soucier de son implémentation (et donc ses propres dépendances...)
+* Mécanisme pour relier les 2 :
+** @Component : "l'injecteur", permet de déléguer au compilateur l'écriture du code sans valeur ajoutée qui fera la glue
+
+== Dagger 2
+.Bonus :
+* Mocks injectables dans les tests par simple extension des modules, mais pas encore de pattern standardisé
+* Custom Scopes possible
+* Lazy injections
+* Provider injections
+* Qualifier
