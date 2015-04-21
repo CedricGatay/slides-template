@@ -508,3 +508,8 @@ a:hover, a:focus {
   background-color: white;
   border-radius: 3px;
 }
+.csstransforms .deck-container.deck-scale:not(.deck-menu) > .slide > .deck-slide-scaler{
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
