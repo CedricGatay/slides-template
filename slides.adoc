@@ -393,6 +393,8 @@ public class MyActivity extends Activity {
 * Qualifier
 
 == Butter Knife
+
+== Butter Knife
 * https://github.com/JakeWharton/butterknife
 * Framework d'injection de view Android
 * Permet de mapper simplement les composants d'une vue à partir de son ID
@@ -472,7 +474,9 @@ Possibilité d'injecter une liste de Views pour faire des traitements par lots
 ----
 @InjectViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
 List<EditText> nameViews;
+
 // ...
+
 ButterKnife.apply(nameViews, DISABLE);
 ButterKnife.apply(nameViews, ENABLED, false);
 ButterKnife.apply(nameViews, View.ALPHA, 0);
@@ -495,6 +499,11 @@ public void onItemSelected(int position) {
 
 == Butter Knife
 .Conclusion :
+* D'autres options sont disponibles, se référer au projet : 
+** @OnLongClick, 
+** @OnTouch, 
+** @OnCheckedChanged, 
+** @OnPageChange, 
+** ...
 * Aucune réflexion, tout le code est généré à la compilation => n'affecte pas les performances
 * Toute la "glue" est gérée par Butter Knife => gain en lisibilité, donc en maintenabilité
-* D'autres options sont disponibles, se référer au projet
