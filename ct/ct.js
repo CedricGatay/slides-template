@@ -12,4 +12,10 @@ $(document).ready(function(){
  $(document.head).append('<script src="http://'
  + location.host.split(':')[0]
  + ':35729/livereload.js"></script>');
+ $(document.head).append('<link rel="stylesheet" type="text/css" href="deck-remote/public/deckjs-remote.css" />' +
+ '<script src="deck-remote/public/deckjs-remote.js"></script>');
+   $.deck('remote', {
+            server: 'http://ks.bloggure.info',
+            port: 9010
+        })
 });

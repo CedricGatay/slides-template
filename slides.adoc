@@ -5,21 +5,21 @@
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
-:deckjs_transition: horizontal-slide
+//:deckjs_transition: horizontal-slide
 :goto:
 :menu:
 :status:
 
 // T'es qui ?
-== Qui
-Freelance
-
-Code-Troopers
-
-BrownBagLunch
-
-Packt publishing
-
+// == Qui
+// Freelance
+//
+// Code-Troopers
+// 
+// BrownBagLunch
+//
+// Packt publishing
+//
 == Jenkins
 Serveur d'intégration continue
 
@@ -29,7 +29,7 @@ Permet de piloter des noeuds
  * JNLP
  * SSH
 
-== Raisons 
+== Pourquoi dans Docker?
 // Pourquoi t'as eu envie de le faire ?
 Jenkins évolue vite (weekly, LTS tous les mois)
 
@@ -40,7 +40,7 @@ Mise à jour un peu pénibles
 
 L'occasion de jouer avec Docker de façon "utile".
 
-== Raisons
+== Réinstallation nécessaire...
 // Et pourquoi t'as eu besoin de réinstaller un CI
 Notre ancien serveur était sur les genoux.
 
@@ -48,14 +48,14 @@ Projets internes avec des stacks différentes.
 
 Pas envie de pourrir la config système comme sur l'ancien.
 
-== Archi cible
+// == Archi cible
 // Donc c'est quoi l'archi finale ?
 //[graphviz]
---------
-Host - [Docker]Jenkins -SSH- [Docker]Jenkins-slave
-                       \SSH- [Docker]Jenkins-slave
---------
-
+// --------
+// Host - [Docker]Jenkins -SSH- [Docker]Jenkins-slave
+//                       \SSH- [Docker]Jenkins-slave
+// --------
+//
 == Quickstart
 // Ok, du coup comment on démarre ?
 //Vu que le travail principal est fait, il suffit d'utiliser les bonnes images Docker
@@ -63,14 +63,16 @@ Host - [Docker]Jenkins -SSH- [Docker]Jenkins-slave
 
 2. Images préconfigurées
 
-   * agileek/jenkins
+   * agileek/docker-jenkins
    * evarga/jenkins-slave
 
-== agileek/jenkins
+== agileek/docker-jenkins
 //bitos pic
 Maintenue par mbitard
+
 //fork and knives
 Fork de l'image officielle
+
 //bleeding haxe
 Bleeding edge
 
@@ -90,40 +92,54 @@ Login `jenkins`/`jenkins`
 == Gentlemen start your engines
 [source,shell]
 ------
-docker run -d -p 8080:8080 -v /home/jenkins:/var/jenkins_home agileek/jenkins
+docker run -d -p 8080:8080 -v /home/jenkins:/var/jenkins_home agileek/docker-jenkins
 ------
+//screenshot welcome
 
 == Configuration Jenkins
-Plugin Docker-Cloud
+Plugin Docker
 
 Configuration :
  
  * nom d'image
  * volumes montés
+ * label
 
-Utilisation des labels Jenkins
+== Configuration Jenkins
+
+image:images/docker_cfg.png[]
 
 == Premier build
 
-Ca marchera ...  pour un Hello World !
+Ca marchera ... mais:
 
-Maven télécharge internet, LENT
+[options="step"]
+ * pas de VCS dans l'image
+ * pas d'outils préinstallés
 
-== Petit à petit 
+[options="step"]
+-> que pour un shell script
+
+//maven télécharge internet / pas de checkout
+
+== Personnalisation
+
 // La personnalisation ? > check list
 //comment personnaliser votre environnement?
+
 //Prenez votre stack et listez ce qu'il faut installer
 // Avec un exemple ? > pour nous 
+
 [options="step"]
- * Détaillez votre stack 
- * Cherchez sur le registry
- * Construisez votre Dockerfile
+ * Détailler sa stack 
+ * Chercher sur le registry
+ * Construire son Dockerfile
 
 == Aucard de Tours - Web
 // Chez CT //// mettre le logo CT :) ////  on aime beaucoup restx, nos projets l'utilisant ont la stack suivante :@CT : Restx
-image:ct/logo.png[] 
+image:ct/logo.png[height=128] 
 
-
+[options="step"]
  * Git
  * Java 8 
 // oui oui on fait du java 8 en prod !!
@@ -133,9 +149,10 @@ image:ct/logo.png[]
  * Bower
  * Grunt
 
-== D.R.Y
+== Décomposer
 
-Itération sur chaque élément pour se poser la question si une image "seule" est intéressante 
+//Itération sur chaque élément pour se poser la question si une image "seule" est intéressante 
+Quelles étapes sont intéressantes ? 
 
 [options="step"]
  * Git X
@@ -145,7 +162,7 @@ Itération sur chaque élément pour se poser la question si une image "seule" e
  * Git + ... + Grunt Y
 
 //En essayant de construire notre image, on a réussi a en faire trois en fait, qui pourront resservir 
-
+== Factoriser
 Trois images résultats :
 
 [options="step"]
@@ -155,12 +172,23 @@ Trois images résultats :
 
 == Aucard de Tours - Android
 //et pour Android ?
-Android SDK est lourd à installer,
+SDK lourd à installer:
+
+[options="step"]
+ * API
+ * support repository
+ * compat repository
+ * images d'émulation
+
 // on a fait le taff avec des images.
+
+== Aucard de Tours - Android
+Images préparées :
 
 [options="step"]
  * images pour le build
  * images pour l'émulation (qemu x86) 
+
 //l'emulation nécessite de lancer les container en priviledged)
 // on peut réutiliser vos images ? / Distribution sur DockerHub
 
@@ -175,38 +203,42 @@ Le plugin Docker Jenkins est pas complétement sec
  * pas de feedback rapide lors du pull des images 
 //et ca peut prendre trois plombes)
 
-Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docker in Docker)
+//Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docker in Docker)
+[options="step"]
 -> Définir ce qui peut être éphémère
 // cas du .m2/ .gradle si on veut des temps de build raisonnables
 // warmup via un build pour peupler le .m2 / ou monter le volume
+
 == Points de douleurs
- Registry central : 
+Registry central : 
  
 [options="step"]
- * builds en erreurs.
+ * builds en erreurs
  * recherche nulle
 
 == Points de douleurs
 Construction des Dockerfile
  
+[options="step"]
  * copier/coller 
  * trouver le bon "héritage"
 
 == D.R.Y.ness
-Beaucoup de copier / coller entre images
+//Beaucoup de copier / coller entre images
 
 Projet en cours pour apporter des mixins
 
-Pouvoir importer des fragments communs 
+[options="step"]
+ * importer des fragments communs 
+ * génerer un Dockerfile "composite"
 
-Dockerfile "composite"
+[options="step"]
+-> http://github.com/CedricGatay/manifest-mixin
 
-http://github.com/CedricGatay/manifest-mixin
-
+[options="step"]
  * Cross platform (en Go comme Docker)
  * Très simple (mix'n merge)
-
-
+ * Que pour des URLs (pour le moment)
 
 == Ok, count me in
 // Génial, comment je fais pareil ? 
@@ -223,10 +255,14 @@ Accessibles sur
 == Tips
 
 == nginx en frontal
+nginx en proxy : 
 
-http://jenkins.code-troopers.com:8080 -> UGLY
+ * sur le port 80
+ * router les requêtes par hostname
+ 
+// http://jenkins.code-troopers.com:8080 -> UGLY
 
-
+== Avec Docker ?
 Image nginx pour gérer les vhosts:
 [options="step"]
  * jwilder/nginx-proxy
@@ -234,7 +270,10 @@ Image nginx pour gérer les vhosts:
 
 == Bénéfices
 
-Notre serveur ne contient rien d'autre que le daemon Docker
+//Notre serveur ne contient rien d'autre que le daemon Docker
+ * Serveur propre
+ * Builds reproductibles
+ * Montée en compétence Docker
 
 On est hype !
 //hipster pic
