@@ -185,7 +185,7 @@ I/HomeActivity﹕ Hello Tours JUG!
 * Guice (RoboGuice) : performances limitées car analyse des dépendances au Runtime
 * Dagger 1
 ** génération de code à la compilation
-** permet d'éviter au maximum la réflection au Runtime... mais quand même
+** permet d'éviter au maximum la réflexion au Runtime... mais quand même
 ** le code généré reste difficile à obfusquer
 ** le code généré est difficile à lire/débugger
 
@@ -321,7 +321,7 @@ public class MyActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle b) {
-		super.onCreate(b);
+		/* ... */
 		/* Déclenchement des injections... On va voir ça après ! */
 		TextView textView = /* ... */
 		textView.setText(contactDao.getRandomContact());
@@ -366,7 +366,7 @@ public class MyActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle b) {
-		super.onCreate(b);
+		/* ... */
 		MyApplication.injector.inject(this);
 		TextView textView = /* ... */
 		textView.setText(contactDao.getRandomContact());
@@ -391,3 +391,110 @@ public class MyActivity extends Activity {
 * Lazy injections
 * Provider injections
 * Qualifier
+
+== Butter Knife
+* https://github.com/JakeWharton/butterknife
+* Framework d'injection de view Android
+* Permet de mapper simplement les composants d'une vue à partir de son ID
+* Typage des vues injectées
+
+
+== Butter Knife
+Sans Butter Knife :
+[source, xml]
+.my_activity.xml
+----
+<!-- ... -->
+<TextView
+	android:id="@+id/contact"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="" />
+<!-- ... -->
+----
+[source, java]
+----
+public class MyActivity extends Activity {
+	@Inject
+	ContactDao contactDao;
+
+	@Override
+	protected void onCreate(Bundle b) {
+		super.onCreate(b);
+        setContentView(R.layout.my_activity);
+
+		MyApplication.injector.inject(this);
+
+		TextView textView = (TextView) findViewById(R.id.contact);
+		textView.setText(contactDao.getRandomContact());
+	}
+}
+----
+
+== Butter Knife
+Avec Butter Knife :
+[source, xml]
+.my_activity.xml
+----
+<!-- ... -->
+<TextView
+	android:id="@+id/contact"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="" />
+<!-- ... -->
+----
+[source, java]
+----
+public class MyActivity extends Activity {
+	@Inject
+	ContactDao contactDao;
+
+	@InjectView(R.id.contact)
+	TextView textView;
+
+	@Override
+	protected void onCreate(Bundle b) {
+		super.onCreate(b);
+        setContentView(R.layout.my_activity);
+
+		MyApplication.injector.inject(this);
+		ButterKnife.inject(this);
+
+		textView.setText(contactDao.getRandomContact());
+	}
+}
+----
+
+== Butter Knife
+Possibilité d'injecter une liste de Views pour faire des traitements par lots
+[source, java]
+----
+@InjectViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+List<EditText> nameViews;
+// ...
+ButterKnife.apply(nameViews, DISABLE);
+ButterKnife.apply(nameViews, ENABLED, false);
+ButterKnife.apply(nameViews, View.ALPHA, 0);
+----
+
+== Butter Knife
+Possibilité d'injecter des listeners : 
+[source, java]
+----
+@OnClick(R.id.contact)
+public void onClickContact(TextView textView) {
+  textView.setText("Hello!");
+}
+
+@OnItemSelected(R.id.list_contact)
+public void onItemSelected(int position) {
+  Timber.d("Selected position %s!", position);
+}
+----
+
+== Butter Knife
+.Conclusion :
+* Aucune réflexion, tout le code est généré à la compilation => n'affecte pas les performances
+* Toute la "glue" est gérée par Butter Knife => gain en lisibilité, donc en maintenabilité
+* D'autres options sont disponibles, se référer au projet

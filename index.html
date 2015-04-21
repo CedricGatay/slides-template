@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="Asciidoctor 1.5.2" name="generator">
+<meta content="Joris Potier" name="author">
+<meta content="@Joris_Potier" name="keywords">
+<title>Développer sur Android : quelques librairies à connaître</title>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+<link href="deck.js/core/deck.core.css" rel="stylesheet">
+<link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/style/web-2.0.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/transition/horizontal-slide.css" media="screen" rel="stylesheet">
+<link href="ct/ct.css" rel="stylesheet">
+<link href="deck.js/core/print.css" media="print" rel="stylesheet">
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+<body class="article">
+<div class="deck-container">
+<section class="slide" id="title-slide">
+<h1>Développer sur Android : quelques librairies à connaître</h1>
+<span id="author">Joris Potier</span>
+<br>
+<span id="email"><a href="mailto:j.potier@code-troopers.com">j.potier@code-troopers.com</a></span>
+<br>
+</section>
+<section class="slide" id="_joris_potier">
+<h2>Joris POTIER</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:75%">
+<col style="width:25%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>http://code-troopers.com</li>
+<li>j.potier@code-troopers.com</li>
+<li>@Joris_Potier</li>
+<li>https://github.com/JorisPotier</li>
+<li>https://github.com/code-troopers</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img alt="profile" src="./images/profile.jpeg">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all" style="width:75%">
+<colgroup>
+<col style="width:33%">
+<col style="width:33%">
+<col style="width:33%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="navigtours-logo" src="./images/navigtours-logo.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="aucard" src="./images/aucard.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="terresduson-logo" src="./images/terresduson-logo.png"></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="nowly-logo" src="./images/nowly-logo.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="srmvision-logo" src="./images/srmvision-logo.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><div></div></td>
+</tr>
+</tbody>
+</table></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img alt="logo text" src="./images/logo_text.png">
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_disclaimer">
+<h2>Disclaimer</h2>
+<div class="ulist">
+<ul>
+<li>Librairies adaptées au développement sur Android, mais pas que</li>
+<li>Sélection complètement subjective</li>
+<li>Simple retour d&#8217;expérience</li>
+<li>Quelques exemples d&#8217;implémentation : <a class="bare" href="https://github.com/code-troopers/material-android-bootstrap">https://github.com/code-troopers/material-android-bootstrap</a></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_sommaire">
+<h2>Sommaire</h2>
+<div class="ulist">
+<ul>
+<li>Timber</li>
+<li>Dagger 2</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Retrofit</li>
+<li>Picasso</li>
+<li>OkHttp</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber">
+<h2>Timber</h2>
+
+</section>
+<section class="slide" id="_timber_2">
+<h2>Timber</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/JakeWharton/timber">https://github.com/JakeWharton/timber</a></li>
+<li>API de logging</li>
+<li>Permet de s&#8217;abstraire de la classe Log du SDK Android</li>
+<li>Pouvoir injecter ses propres loggers facilement</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber_3">
+<h2>Timber</h2>
+<div class="paragraph"><p>Permet de s&#8217;abstraire de la classe Log du SDK Android :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">(),</span>
+	<span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">(),</span>
+ 	<span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">format</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello %s!&quot;</span><span class="tok-o">,</span> <span class="tok-n">userName</span><span class="tok-o">));</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">(),</span>
+	<span class="tok-s">&quot;Oups&quot;</span><span class="tok-o">,</span>
+	<span class="tok-n">exception</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_4">
+<h2>Timber</h2>
+<div class="paragraph"><p>Permet de s&#8217;abstraire de la classe Log du SDK Android :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">(),</span>
+	<span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>04-19 18:48:07.500 2409-2409/com.codetroopers.jug
+I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_5">
+<h2>Timber</h2>
+<div class="ulist">
+<div class="title">Principe :</div>
+<ul>
+<li>configurer ses loggers auprès de Timber</li>
+<li>demander à Timber de tracer les informations en renseignant le minimum</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_timber_6">
+<h2>Timber</h2>
+<div class="paragraph"><p>Configuration des loggers :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">android</span><span class="tok-o">.</span><span class="tok-na">app</span><span class="tok-o">.</span><span class="tok-na">Application</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
+		<span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">BuildConfig</span><span class="tok-o">.</span><span class="tok-na">DEBUG</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+			<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span>
+				<span class="tok-k">new</span> <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">DebugTree</span><span class="tok-o">());</span>
+		<span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+			<span class="tok-c1">// custom implementations</span>
+			<span class="tok-c1">// can be made by</span>
+			<span class="tok-c1">// extending Timber.HollowTree</span>
+		 	<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span>
+				<span class="tok-k">new</span> <span class="tok-nf">CustomCrashReporter</span><span class="tok-o">());</span>
+		<span class="tok-o">}</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph"><p>Possibilité de "planter" plusieurs loggers</p></div>
+</section>
+<section class="slide" id="_timber_7">
+<h2>Timber</h2>
+<div class="paragraph"><p>Tracer des informations :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello %s!&quot;</span><span class="tok-o">,</span> <span class="tok-n">userName</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">exception</span><span class="tok-o">,</span> <span class="tok-s">&quot;Oups&quot;</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_8">
+<h2>Timber</h2>
+<div class="paragraph"><p>Résultat du Timber.DebugTree :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>04-19 19:11:09.972 2514-2514/com.codetroopers.jug
+I/HomeActivity﹕ Hello Tours JUG!</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_timber_9">
+<h2>Timber</h2>
+<div class="ulist">
+<div class="title">Conclusion :</div>
+<ul>
+<li>Simple et efficace</li>
+<li>Évite la recopie de code polluant</li>
+<li>Évite la réimplémentation d&#8217;une surcouche à la classe Log pour chaque projet</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2">
+<h2>Dagger 2</h2>
+
+</section>
+<section class="slide" id="_dagger_2_2">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/google/dagger">https://github.com/google/dagger</a></li>
+<li>Framework d&#8217;injection de dépendances (DI)</li>
+<li>S&#8217;appuie sur des annotations standards (JSR300)</li>
+<li>Meilleure structuration du code : DAOs, service d&#8217;authentification, Factories, &#8230;&#8203;</li>
+<li>Permet de se concentrer sur l&#8217;implémentation plutôt que sur la configuration des modules</li>
+<li>Plus facile à tester, modules intercheangeables facilement</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_3">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<ul>
+<li><p>
+De nombreux frameworks de DI<div class="ulist">
+<ul>
+<li>Spring</li>
+<li>Guice</li>
+<li>Dagger 1</li>
+<li>CDI</li>
+<li>etc&#8230;&#8203;</li>
+</ul>
+</div></p></li>
+<li>Mais contraintes de ressources sur Android</li>
+<li>Obfuscation du code difficile</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_4">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<ul>
+<li>Guice (RoboGuice) : performances limitées car analyse des dépendances au Runtime</li>
+<li><p>
+Dagger 1<div class="ulist">
+<ul>
+<li>génération de code à la compilation</li>
+<li>permet d&#8217;éviter au maximum la réflexion au Runtime&#8230;&#8203; mais quand même</li>
+<li>le code généré reste difficile à obfusquer</li>
+<li>le code généré est difficile à lire/débugger</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_5">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<ul>
+<li>Fork de Dagger 1</li>
+<li>Release disponible depuis peu</li>
+<li><strong>Tout</strong> le code est généré à la compilation</li>
+<li>Plus aucune analyse au Runtime</li>
+<li>Performances++</li>
+<li>Code généré facilement lisible/débuggable</li>
+<li>Plus aucun problème d&#8217;obfuscation</li>
+<li>Utilisable dans n&#8217;importe quel environnement Java</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_6">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">Utilisation : étape 1, écriture des modules</div>
+<ul>
+<li>on indique à Dagger comment fournir une dépendance &#8658; Instanciation + Configuration</li>
+<li><p>
+on indique à Dagger le "scope" des dépendances<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyModule</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Singleton</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
+	<span class="tok-o">}</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-n">ContactDao</span> <span class="tok-nf">provideContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">ds</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-n">ContactDao</span> <span class="tok-n">dao</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ContactDao</span><span class="tok-o">();</span>
+		<span class="tok-n">dao</span><span class="tok-o">.</span><span class="tok-na">setDataSource</span><span class="tok-o">(</span><span class="tok-n">ds</span><span class="tok-o">);</span>
+		<span class="tok-k">return</span> <span class="tok-n">dao</span><span class="tok-o">;</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></p></li>
+<li>Dagger se chargera à la compilation de l&#8217;analyse du graphe de dépendances (qui dépend de qui) via les annotations, les valeurs de retour et les paramètres</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_7">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<ul>
+<li><p>
+Possibilité de faire de la composition de modules pour construire le graphe final<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">AndroidModule</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-nd">@Singleton</span>
+	<span class="tok-n">Context</span> <span class="tok-nf">provideApplicationContext</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">();</span>
+	<span class="tok-o">}</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-nd">@Singleton</span>
+	<span class="tok-n">LocationManager</span> <span class="tok-nf">provideLocationManager</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-o">(</span><span class="tok-n">LocationManager</span><span class="tok-o">)</span> <span class="tok-n">ctx</span><span class="tok-o">.</span><span class="tok-na">getSystemService</span><span class="tok-o">(</span><span class="tok-n">LOCATION_SERVICE</span><span class="tok-o">);</span>
+	<span class="tok-o">}</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-n">SharedPreferences</span> <span class="tok-nf">provideDefaultSharedPreferences</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-n">PreferenceManager</span><span class="tok-o">.</span><span class="tok-na">getDefaultSharedPreferences</span><span class="tok-o">(</span><span class="tok-n">ctx</span><span class="tok-o">);</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_8">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">Utilisation : étape 2, demander une dépendance</div>
+<ul>
+<li><p>
+@Inject sur un constructeur<div class="ulist">
+<ul>
+<li>un paramètre = une dépendance</li>
+<li>permet donc d&#8217;éliminer des @Provides !</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">ContactDao</span> <span class="tok-o">{</span>
+	<span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
+	<span class="tok-nd">@Inject</span>
+	<span class="tok-kd">public</span> <span class="tok-nf">ContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">dataSource</span> <span class="tok-o">=</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyModule</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Singleton</span>
+	<span class="tok-nd">@Provides</span>
+	<span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
+	<span class="tok-o">}</span>
+	<span class="tok-cm">/* @Provides</span>
+<span class="tok-cm">	ContactDao provideContactDao(DataSource ds) {</span>
+<span class="tok-cm">		ContactDao dao = new ContactDao();</span>
+<span class="tok-cm">		dao.setDataSource(ds);</span>
+<span class="tok-cm">		return dao;</span>
+<span class="tok-cm">	} */</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_dagger_2_9">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">Utilisation : étape 2, demander une dépendance</div>
+<ul>
+<li><p>
+@Inject sur une méthode<div class="ulist">
+<ul>
+<li>un paramètre = une dépendance</li>
+<li>seul cas d&#8217;utilisation : on veut passer "this" à la dépendance (ex : bus.register(this);)</li>
+</ul>
+</div></p></li>
+<li><p>
+@Inject sur un champ<div class="ulist">
+<ul>
+<li>cas d&#8217;utilisation : l&#8217;instance n&#8217;est pas créée par l&#8217;utilisateur</li>
+<li>particulièrement utile sur Android pour les instances créées par le système (ex: Activity, Fragment, &#8230;&#8203;)</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_10">
+<h2>Dagger 2</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Inject</span>
+	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-cm">/* ... */</span>
+		<span class="tok-cm">/* Déclenchement des injections... On va voir ça après ! */</span>
+		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
+		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_dagger_2_11">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">Utilisation : étape 3, faire le lien entre les @Module et les @Inject &#8658; l'"Injecteur"</div>
+<ul>
+<li>on indique à Dagger les modules concernés par notre injecteur</li>
+<li>on indique à Dagger qui va demander des injections par une interface</li>
+<li><p>
+l&#8217;implémentation de l&#8217;interface est fournie directement par Dagger<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Singleton</span>
+<span class="tok-nd">@Component</span><span class="tok-o">(</span>
+	<span class="tok-n">modules</span> <span class="tok-o">=</span> <span class="tok-o">{</span>
+		<span class="tok-n">AndroidModule</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span>
+		<span class="tok-n">MyModule</span><span class="tok-o">.</span><span class="tok-na">class</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kd">interface</span> <span class="tok-nc">Injector</span> <span class="tok-o">{</span>
+	<span class="tok-kt">void</span> <span class="tok-nf">inject</span><span class="tok-o">(</span><span class="tok-n">MyActivity</span> <span class="tok-n">activity</span><span class="tok-o">);</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_12">
+<h2>Dagger 2</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">android</span><span class="tok-o">.</span><span class="tok-na">app</span><span class="tok-o">.</span><span class="tok-na">Application</span> <span class="tok-o">{</span>
+	<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Injector</span> <span class="tok-n">injector</span><span class="tok-o">;</span>
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
+		<span class="tok-n">injector</span> <span class="tok-o">=</span> <span class="tok-n">DaggerInjector</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_dagger_2_13">
+<h2>Dagger 2</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Inject</span>
+	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-cm">/* ... */</span>
+		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
+		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_dagger_2_14">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">En résumé :</div>
+<ul>
+<li><p>
+Fournir une dépendance : implémentation des modules<div class="ulist">
+<ul>
+<li>@Provides : pour les méthodes qui fournissent les instances, avec éventuellement des dépendances à satisfaire &#8658; Configuration</li>
+<li>@Module : pour définir les classes qui fournissent un ensemble de dépendances</li>
+</ul>
+</div></p></li>
+<li><p>
+Demander une dépendance :<div class="ulist">
+<ul>
+<li>@Inject : lorsqu&#8217;on désire injecter un service donné, sans se soucier de son implémentation (et donc ses propres dépendances&#8230;&#8203;)</li>
+</ul>
+</div></p></li>
+<li><p>
+Mécanisme pour relier les 2 :<div class="ulist">
+<ul>
+<li>@Component : "l&#8217;injecteur", permet de déléguer au compilateur l&#8217;écriture du code sans valeur ajoutée qui fera la glue</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dagger_2_15">
+<h2>Dagger 2</h2>
+<div class="ulist">
+<div class="title">Bonus :</div>
+<ul>
+<li>Mocks injectables dans les tests par simple extension des modules, mais pas encore de pattern standardisé</li>
+<li>Custom Scopes possible</li>
+<li>Lazy injections</li>
+<li>Provider injections</li>
+<li>Qualifier</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_butter_knife">
+<h2>Butter Knife</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/JakeWharton/butterknife">https://github.com/JakeWharton/butterknife</a></li>
+<li>Framework d&#8217;injection de view Android</li>
+<li>Permet de mapper simplement les composants d&#8217;une vue à partir de son ID</li>
+<li>Typage des vues injectées</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_butter_knife_2">
+<h2>Butter Knife</h2>
+<div class="paragraph"><p>Sans Butter Knife :</p></div>
+<div class="listingblock">
+<div class="title">my_activity.xml</div>
+<div class="content">
+<pre class="pygments highlight"><code class="xml language-xml"><span class="tok-c">&lt;!-- ... --&gt;</span>
+<span class="tok-nt">&lt;TextView</span>
+	<span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
+	<span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+	<span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+	<span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
+<span class="tok-c">&lt;!-- ... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Inject</span>
+	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
+        <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+
+		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+
+		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-n">TextView</span><span class="tok-o">)</span> <span class="tok-n">findViewById</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">);</span>
+		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_butter_knife_3">
+<h2>Butter Knife</h2>
+<div class="paragraph"><p>Avec Butter Knife :</p></div>
+<div class="listingblock">
+<div class="title">my_activity.xml</div>
+<div class="content">
+<pre class="pygments highlight"><code class="xml language-xml"><span class="tok-c">&lt;!-- ... --&gt;</span>
+<span class="tok-nt">&lt;TextView</span>
+	<span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
+	<span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+	<span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+	<span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
+<span class="tok-c">&lt;!-- ... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Inject</span>
+	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+
+	<span class="tok-nd">@InjectView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">)</span>
+	<span class="tok-n">TextView</span> <span class="tok-n">textView</span><span class="tok-o">;</span>
+
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
+        <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+
+		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+		<span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+
+		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_butter_knife_4">
+<h2>Butter Knife</h2>
+<div class="paragraph"><p>Possibilité d&#8217;injecter une liste de Views pour faire des traitements par lots</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@InjectViews</span><span class="tok-o">({</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">first_name</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">middle_name</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">last_name</span> <span class="tok-o">})</span>
+<span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">EditText</span><span class="tok-o">&gt;</span> <span class="tok-n">nameViews</span><span class="tok-o">;</span>
+<span class="tok-c1">// ...</span>
+<span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">apply</span><span class="tok-o">(</span><span class="tok-n">nameViews</span><span class="tok-o">,</span> <span class="tok-n">DISABLE</span><span class="tok-o">);</span>
+<span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">apply</span><span class="tok-o">(</span><span class="tok-n">nameViews</span><span class="tok-o">,</span> <span class="tok-n">ENABLED</span><span class="tok-o">,</span> <span class="tok-kc">false</span><span class="tok-o">);</span>
+<span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">apply</span><span class="tok-o">(</span><span class="tok-n">nameViews</span><span class="tok-o">,</span> <span class="tok-n">View</span><span class="tok-o">.</span><span class="tok-na">ALPHA</span><span class="tok-o">,</span> <span class="tok-mi">0</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_butter_knife_5">
+<h2>Butter Knife</h2>
+<div class="paragraph"><p>Possibilité d&#8217;injecter des listeners :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@OnClick</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onClickContact</span><span class="tok-o">(</span><span class="tok-n">TextView</span> <span class="tok-n">textView</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello!&quot;</span><span class="tok-o">);</span>
+<span class="tok-o">}</span>
+
+<span class="tok-nd">@OnItemSelected</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">list_contact</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onItemSelected</span><span class="tok-o">(</span><span class="tok-kt">int</span> <span class="tok-n">position</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">d</span><span class="tok-o">(</span><span class="tok-s">&quot;Selected position %s!&quot;</span><span class="tok-o">,</span> <span class="tok-n">position</span><span class="tok-o">);</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_butter_knife_6">
+<h2>Butter Knife</h2>
+<div class="ulist">
+<div class="title">Conclusion :</div>
+<ul>
+<li>Aucune réflexion, tout le code est généré à la compilation &#8658; n&#8217;affecte pas les performances</li>
+<li>Toute la "glue" est gérée par Butter Knife &#8658; gain en lisibilité, donc en maintenabilité</li>
+<li>D&#8217;autres options sont disponibles, se référer au projet</li>
+</ul>
+</div>
+</section>
+<p aria-role="status" class="deck-status">
+<span class="deck-status-current"></span>
+/
+<span class="deck-status-total"></span>
+</p>
+<form action="." class="goto-form" method="get">
+<label for="goto-slide">Go to Slide:</label>
+<input id="goto-slide" list="goto-datalist" name="slidenum" type="text">
+<datalist id="goto-data-list"></datalist>
+<input type="submit" value="Go">
+</form>
+</div>
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="ct/ct.js"></script>
+<script>
+  (function($, deck, undefined) {
+    $.deck.defaults.keys['previous'] = [8, 33, 37, 39];
+    $.deck.defaults.keys['next'] = [13, 32, 34, 39];
+  
+    $.extend(true, $[deck].defaults, {
+        countNested: false
+    });
+  
+    $.deck('.slide');
+  })(jQuery, 'deck');
+</script>
+<style>
+  .slide.canvas-image {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-align: start;
+  -webkit-box-align: start;
+  -ms-box-align: start;
+  box-align: start;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;}
+  
+  .bottom-left {
+    left: 1%;
+    bottom: 20%; }
+  
+  .top-left {
+    left: 1%;
+    top: 20%; }
+  
+  .bottom-right {
+    right: 1%;
+    bottom: 20%; }
+  
+  .top-right {
+    right: 1%;
+    top: 20%; }
+  
+  .center-up {
+    right: 50%;
+    top: 1%;
+  }
+  
+  .center-down {
+    right: 50%;
+    bottom: 1%;
+  }
+  .canvas-image .canvas-caption p {
+    text-align: center;
+    padding-top: 0;
+    padding: 0;
+    -moz-transform: none;
+    -webkit-transform: none;
+    -o-transform: none;
+    -ms-transform: none;
+    transform: none;
+    display: inline;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 58px;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    box-shadow: 2px 2px 2px #000;
+    padding: 1rem;
+    color: white; }
+  kbd.keyseq { color: #555555; }
+  kbd:not(.keyseq) {
+    display: inline-block;
+    color: #222222;
+    font-size: 0.7em;
+    line-height: 1.4;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    margin: -0.15em 0.15em 0 0.15em;
+    padding: 0.2em 0.6em;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  kbd kbd:first-child { margin-left: 0; }
+  kbd kbd:last-child { margin-right: 0; }
+</style>
+</body>
+</html>
