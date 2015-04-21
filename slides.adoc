@@ -273,6 +273,7 @@ public class MyModule {
 	} */
 }
 
+////
 == Dagger 2
 
 [source, java]
@@ -300,6 +301,7 @@ public class MyModule {
 		return dao;
 	} */
 }
+////
 
 == Dagger 2
 .Utilisation : étape 2, demander une dépendance
@@ -312,10 +314,11 @@ public class MyModule {
 
 == Dagger 2
 [source, java]
+----
 public class MyActivity extends Activity {
 	@Inject
 	ContactDao contactDao;
-//
+
 	@Override
 	protected void onCreate(Bundle b) {
 		super.onCreate(b);
@@ -324,6 +327,7 @@ public class MyActivity extends Activity {
 		textView.setText(contactDao.getRandomContact());
 	}
 }
+----
 
 == Dagger 2
 .Utilisation : étape 3, faire le lien entre les @Module et les @Inject => l'"Injecteur"
@@ -355,10 +359,11 @@ public class MyApplication extends android.app.Application {
 
 == Dagger 2
 [source, java]
+----
 public class MyActivity extends Activity {
 	@Inject
 	ContactDao contactDao;
-//
+
 	@Override
 	protected void onCreate(Bundle b) {
 		super.onCreate(b);
@@ -367,7 +372,7 @@ public class MyActivity extends Activity {
 		textView.setText(contactDao.getRandomContact());
 	}
 }
-
+----
 
 == Dagger 2
 .En résumé :
