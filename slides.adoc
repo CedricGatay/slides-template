@@ -50,10 +50,13 @@ a!//
 * Timber
 * Dagger 2
 * Butterknife
-* Otto
 * Retrofit
+* (Bonus ...)
+////
+* Otto
 * Picasso
 * OkHttp
+////
 
 == Timber
 
@@ -81,16 +84,6 @@ Log.e(getClass().getName(),
 	"Oups", 
 	exception);
 ----
-
-
-== Timber
-Permet de s'abstraire de la classe Log du SDK Android :
-[source, java]
-----
-Log.i(getClass().getName(), 
-	"Hello Tours JUG!");
-----
-
 [source]
 ----
 04-19 18:48:07.500 2409-2409/com.codetroopers.jug 
@@ -98,16 +91,10 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!
 ----
 
 == Timber
-.Principe :
-* configurer ses loggers auprès de Timber
-* demander à Timber de tracer les informations en renseignant le minimum
-
-
-== Timber
 Configuration des loggers :
 [source, java]
 ----
-public class MyApplication extends android.app.Application {
+public class MyApplication extendsA pplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -140,14 +127,6 @@ Timber.i("Hello %s!", userName);
 ----
 Timber.e(exception, "Oups");
 ----
-
-== Timber
-Résultat du Timber.DebugTree : 
-[source, java]
-----
-Timber.i("Hello Tours JUG!");
-----
-
 [source]
 ----
 04-19 19:11:09.972 2514-2514/com.codetroopers.jug 
@@ -163,7 +142,7 @@ I/HomeActivity﹕ Hello Tours JUG!
 == Dagger 2
 
 == Dagger 2
-* https://github.com/google/dagger
+* http://google.github.io/dagger
 * Framework d'injection de dépendances (DI)
 * S'appuie sur des annotations standards (JSR300)
 * Meilleure structuration du code : DAOs, service d'authentification, Factories, ...
@@ -191,13 +170,12 @@ I/HomeActivity﹕ Hello Tours JUG!
 
 == Dagger 2
 * Fork de Dagger 1
+* Toujours utilisable dans n'importe quel environnement Java
 * Release disponible depuis peu
 * *Tout* le code est généré à la compilation
-* Plus aucune analyse au Runtime
-* Performances++
+** Plus aucune analyse au Runtime => Performances++
+** Plus aucun problème d'obfuscation
 * Code généré facilement lisible/débuggable
-* Plus aucun problème d'obfuscation
-* Utilisable dans n'importe quel environnement Java
 
 == Dagger 2
 .Utilisation : étape 1, écriture des modules
@@ -348,7 +326,7 @@ public interface Injector {
 
 == Dagger 2
 [source, java]
-public class MyApplication extends android.app.Application {
+public class MyApplication extends Application {
 	public static Injector injector;
 	@Override
 	public void onCreate() {
@@ -395,7 +373,7 @@ public class MyActivity extends Activity {
 == Butter Knife
 
 == Butter Knife
-* https://github.com/JakeWharton/butterknife
+* http://jakewharton.github.io/butterknife
 * Framework d'injection de view Android
 * Permet de mapper simplement les composants d'une vue à partir de son ID
 * Typage des vues injectées
@@ -505,5 +483,99 @@ public void onItemSelected(int position) {
 ** @OnCheckedChanged, 
 ** @OnPageChange, 
 ** ...
+* Simple et efficace
+* Évite la recopie de code polluant
 * Aucune réflexion, tout le code est généré à la compilation => n'affecte pas les performances
 * Toute la "glue" est gérée par Butter Knife => gain en lisibilité, donc en maintenabilité
+
+== Retrofit
+
+== Retrofit
+* http://square.github.io/retrofit
+* Client REST pour Android et Java
+* Permet de mapper facilement une interface java à une API REST
+
+== Retrofit
+[source, java]
+----
+public interface ContactService {
+	// appel synchrone
+	@GET("/contacts/{contactId}")
+	Contact getContact(@Path("contactId") Long contactId);
+
+	// appel asynchrone
+	@GET("/contacts")
+	void listContacts(Callback<List<Contact>> callback);
+
+	// appel asynchrone
+	@POST("/contacts/create")
+	void createContact(@Body Contact contact, Callback<Contact> callback);
+
+	// appel synchrone
+	@DELETE("/contacts")
+	Response deleteContact(
+		@Query("firstName") String firstName, 
+		@Query("lastName") String lastName);
+
+  // ...
+}
+----
+
+== Retrofit
+L'implémentation est alors fournie par la classe RestAdapter de l'API :
+[source, java]
+----
+RestAdapter restAdapter = new RestAdapter.Builder()
+    .setEndpoint("http://code-troopers.com")
+    .build();
+
+ContactService service = restAdapter.create(ContactService.class);
+----
+
+== Retrofit
+Chaque appel sur le service généré effectue une requête HTTP au web service
+[source, java]
+----
+Contact c = service.getContact(10L);
+
+service.listContacts(new Callback<List<Contact>>() {
+	@Override
+	public void success(List<Contact> contacts, Response response) {
+		Timber.i("Nombre de contacts recus = %d", contacts.size());
+	}
+
+	@Override
+	public void failure(RetrofitError error) {
+		Timber.e("Unable to get contacts : %s", error);
+	}
+});
+
+// ...
+----
+
+== Retrofit
+* Par défaut les objets sont sérialisés en JSON, mais possibilité de définir ses propres converters
+* De nombreuses options possibles, se référer à la documentation : 
+** Form-encoded, Multipart
+** manipulation du header
+** Utilisation de RxJava pour remplacer les Callbacks
+** ...
+
+== Bonus
+* Otto 
+** http://square.github.io/otto
+** Gestion d'évènements synchrones sur un Bus
+** Forte valeur ajoutée en combinaison avec Retrofit en mode asynchrone
+* Picasso
+** http://square.github.io/picasso/
+** Gestion améliorée des images sur Android
+** Téléchargement simplifié
+** Gestion de cache
+* OkHttp
+** http://square.github.io/okhttp/
+** un client HTTP simple et performant
+* Et bien d'autres!
+
+== Questions ?
+
+== Merci

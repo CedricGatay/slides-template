@@ -163,10 +163,8 @@
 <li>Timber</li>
 <li>Dagger 2</li>
 <li>Butterknife</li>
-<li>Otto</li>
 <li>Retrofit</li>
-<li>Picasso</li>
-<li>OkHttp</li>
+<li>(Bonus &#8230;&#8203;)</li>
 </ul>
 </div>
 </section>
@@ -207,16 +205,6 @@
 	<span class="tok-n">exception</span><span class="tok-o">);</span></code></pre>
 </div>
 </div>
-</section>
-<section class="slide" id="_timber_4">
-<h2>Timber</h2>
-<div class="paragraph"><p>Permet de s&#8217;abstraire de la classe Log du SDK Android :</p></div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Log</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">(),</span>
-	<span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
-</div>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>04-19 18:48:07.500 2409-2409/com.codetroopers.jug
@@ -224,22 +212,12 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
 </div>
 </div>
 </section>
-<section class="slide" id="_timber_5">
-<h2>Timber</h2>
-<div class="ulist">
-<div class="title">Principe :</div>
-<ul>
-<li>configurer ses loggers auprès de Timber</li>
-<li>demander à Timber de tracer les informations en renseignant le minimum</li>
-</ul>
-</div>
-</section>
-<section class="slide" id="_timber_6">
+<section class="slide" id="_timber_4">
 <h2>Timber</h2>
 <div class="paragraph"><p>Configuration des loggers :</p></div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">android</span><span class="tok-o">.</span><span class="tok-na">app</span><span class="tok-o">.</span><span class="tok-na">Application</span> <span class="tok-o">{</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-n">extendsA</span> <span class="tok-n">pplication</span> <span class="tok-o">{</span>
 	<span class="tok-nd">@Override</span>
 	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
 		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
@@ -259,7 +237,7 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
 </div>
 <div class="paragraph"><p>Possibilité de "planter" plusieurs loggers</p></div>
 </section>
-<section class="slide" id="_timber_7">
+<section class="slide" id="_timber_5">
 <h2>Timber</h2>
 <div class="paragraph"><p>Tracer des informations :</p></div>
 <div class="listingblock">
@@ -277,15 +255,6 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-n">exception</span><span class="tok-o">,</span> <span class="tok-s">&quot;Oups&quot;</span><span class="tok-o">);</span></code></pre>
 </div>
 </div>
-</section>
-<section class="slide" id="_timber_8">
-<h2>Timber</h2>
-<div class="paragraph"><p>Résultat du Timber.DebugTree :</p></div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Hello Tours JUG!&quot;</span><span class="tok-o">);</span></code></pre>
-</div>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>04-19 19:11:09.972 2514-2514/com.codetroopers.jug
@@ -293,7 +262,7 @@ I/HomeActivity﹕ Hello Tours JUG!</code></pre>
 </div>
 </div>
 </section>
-<section class="slide" id="_timber_9">
+<section class="slide" id="_timber_6">
 <h2>Timber</h2>
 <div class="ulist">
 <div class="title">Conclusion :</div>
@@ -312,7 +281,7 @@ I/HomeActivity﹕ Hello Tours JUG!</code></pre>
 <h2>Dagger 2</h2>
 <div class="ulist">
 <ul>
-<li><a class="bare" href="https://github.com/google/dagger">https://github.com/google/dagger</a></li>
+<li><a class="bare" href="http://google.github.io/dagger">http://google.github.io/dagger</a></li>
 <li>Framework d&#8217;injection de dépendances (DI)</li>
 <li>S&#8217;appuie sur des annotations standards (JSR300)</li>
 <li>Meilleure structuration du code : DAOs, service d&#8217;authentification, Factories, &#8230;&#8203;</li>
@@ -362,13 +331,16 @@ Dagger 1<div class="ulist">
 <div class="ulist">
 <ul>
 <li>Fork de Dagger 1</li>
+<li>Toujours utilisable dans n&#8217;importe quel environnement Java</li>
 <li>Release disponible depuis peu</li>
-<li><strong>Tout</strong> le code est généré à la compilation</li>
-<li>Plus aucune analyse au Runtime</li>
-<li>Performances++</li>
-<li>Code généré facilement lisible/débuggable</li>
+<li><p>
+<strong>Tout</strong> le code est généré à la compilation<div class="ulist">
+<ul>
+<li>Plus aucune analyse au Runtime &#8658; Performances++</li>
 <li>Plus aucun problème d&#8217;obfuscation</li>
-<li>Utilisable dans n&#8217;importe quel environnement Java</li>
+</ul>
+</div></p></li>
+<li>Code généré facilement lisible/débuggable</li>
 </ul>
 </div>
 </section>
@@ -544,7 +516,7 @@ l&#8217;implémentation de l&#8217;interface est fournie directement par Dagger<
 <h2>Dagger 2</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">android</span><span class="tok-o">.</span><span class="tok-na">app</span><span class="tok-o">.</span><span class="tok-na">Application</span> <span class="tok-o">{</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">Application</span> <span class="tok-o">{</span>
 	<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Injector</span> <span class="tok-n">injector</span><span class="tok-o">;</span>
 	<span class="tok-nd">@Override</span>
 	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
@@ -622,7 +594,7 @@ Mécanisme pour relier les 2 :<div class="ulist">
 <h2>Butter Knife</h2>
 <div class="ulist">
 <ul>
-<li><a class="bare" href="https://github.com/JakeWharton/butterknife">https://github.com/JakeWharton/butterknife</a></li>
+<li><a class="bare" href="http://jakewharton.github.io/butterknife">http://jakewharton.github.io/butterknife</a></li>
 <li>Framework d&#8217;injection de view Android</li>
 <li>Permet de mapper simplement les composants d&#8217;une vue à partir de son ID</li>
 <li>Typage des vues injectées</li>
@@ -750,10 +722,147 @@ D&#8217;autres options sont disponibles, se référer au projet :<div class="uli
 <li>&#8230;&#8203;</li>
 </ul>
 </div></p></li>
+<li>Simple et efficace</li>
+<li>Évite la recopie de code polluant</li>
 <li>Aucune réflexion, tout le code est généré à la compilation &#8658; n&#8217;affecte pas les performances</li>
 <li>Toute la "glue" est gérée par Butter Knife &#8658; gain en lisibilité, donc en maintenabilité</li>
 </ul>
 </div>
+</section>
+<section class="slide" id="_retrofit">
+<h2>Retrofit</h2>
+
+</section>
+<section class="slide" id="_retrofit_2">
+<h2>Retrofit</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="http://square.github.io/retrofit">http://square.github.io/retrofit</a></li>
+<li>Client REST pour Android et Java</li>
+<li>Permet de mapper facilement une interface java à une API REST</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_retrofit_3">
+<h2>Retrofit</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">interface</span> <span class="tok-nc">ContactService</span> <span class="tok-o">{</span>
+	<span class="tok-c1">// appel synchrone</span>
+	<span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/{contactId}&quot;</span><span class="tok-o">)</span>
+	<span class="tok-n">Contact</span> <span class="tok-nf">getContact</span><span class="tok-o">(</span><span class="tok-nd">@Path</span><span class="tok-o">(</span><span class="tok-s">&quot;contactId&quot;</span><span class="tok-o">)</span> <span class="tok-n">Long</span> <span class="tok-n">contactId</span><span class="tok-o">);</span>
+
+	<span class="tok-c1">// appel asynchrone</span>
+	<span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
+	<span class="tok-kt">void</span> <span class="tok-nf">listContacts</span><span class="tok-o">(</span><span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
+
+	<span class="tok-c1">// appel asynchrone</span>
+	<span class="tok-nd">@POST</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/create&quot;</span><span class="tok-o">)</span>
+	<span class="tok-kt">void</span> <span class="tok-nf">createContact</span><span class="tok-o">(</span><span class="tok-nd">@Body</span> <span class="tok-n">Contact</span> <span class="tok-n">contact</span><span class="tok-o">,</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
+
+	<span class="tok-c1">// appel synchrone</span>
+	<span class="tok-nd">@DELETE</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
+	<span class="tok-n">Response</span> <span class="tok-nf">deleteContact</span><span class="tok-o">(</span>
+		<span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;firstName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">firstName</span><span class="tok-o">,</span>
+		<span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;lastName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">lastName</span><span class="tok-o">);</span>
+
+  <span class="tok-c1">// ...</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_retrofit_4">
+<h2>Retrofit</h2>
+<div class="paragraph"><p>L&#8217;implémentation est alors fournie par la classe RestAdapter de l&#8217;API :</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">RestAdapter</span> <span class="tok-n">restAdapter</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RestAdapter</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+    <span class="tok-o">.</span><span class="tok-na">setEndpoint</span><span class="tok-o">(</span><span class="tok-s">&quot;http://code-troopers.com&quot;</span><span class="tok-o">)</span>
+    <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+
+<span class="tok-n">ContactService</span> <span class="tok-n">service</span> <span class="tok-o">=</span> <span class="tok-n">restAdapter</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">ContactService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_retrofit_5">
+<h2>Retrofit</h2>
+<div class="paragraph"><p>Chaque appel sur le service généré effectue une requête HTTP au web service</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Contact</span> <span class="tok-n">c</span> <span class="tok-o">=</span> <span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">getContact</span><span class="tok-o">(</span><span class="tok-mi">10L</span><span class="tok-o">);</span>
+
+<span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">listContacts</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;()</span> <span class="tok-o">{</span>
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">success</span><span class="tok-o">(</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">contacts</span><span class="tok-o">,</span> <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Nombre de contacts recus = %d&quot;</span><span class="tok-o">,</span> <span class="tok-n">contacts</span><span class="tok-o">.</span><span class="tok-na">size</span><span class="tok-o">());</span>
+	<span class="tok-o">}</span>
+
+	<span class="tok-nd">@Override</span>
+	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">failure</span><span class="tok-o">(</span><span class="tok-n">RetrofitError</span> <span class="tok-n">error</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;Unable to get contacts : %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">});</span>
+
+<span class="tok-c1">// ...</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_retrofit_6">
+<h2>Retrofit</h2>
+<div class="ulist">
+<ul>
+<li>Par défaut les objets sont sérialisés en JSON, mais possibilité de définir ses propres converters</li>
+<li><p>
+De nombreuses options possibles, se référer à la documentation :<div class="ulist">
+<ul>
+<li>Form-encoded, Multipart</li>
+<li>manipulation du header</li>
+<li>Utilisation de RxJava pour remplacer les Callbacks</li>
+<li>&#8230;&#8203;</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_bonus">
+<h2>Bonus</h2>
+<div class="ulist">
+<ul>
+<li><p>
+Otto<div class="ulist">
+<ul>
+<li><a class="bare" href="http://square.github.io/otto">http://square.github.io/otto</a></li>
+<li>Gestion d&#8217;évènements synchrones sur un Bus</li>
+<li>Forte valeur ajoutée en combinaison avec Retrofit en mode asynchrone</li>
+</ul>
+</div></p></li>
+<li><p>
+Picasso<div class="ulist">
+<ul>
+<li><a class="bare" href="http://square.github.io/picasso/">http://square.github.io/picasso/</a></li>
+<li>Gestion améliorée des images sur Android</li>
+<li>Téléchargement simplifié</li>
+<li>Gestion de cache</li>
+</ul>
+</div></p></li>
+<li><p>
+OkHttp<div class="ulist">
+<ul>
+<li><a class="bare" href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a></li>
+<li>un client HTTP simple et performant</li>
+</ul>
+</div></p></li>
+<li>Et bien d&#8217;autres!</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_questions">
+<h2>Questions ?</h2>
+
+</section>
+<section class="slide" id="_merci">
+<h2>Merci</h2>
+
 </section>
 <p aria-role="status" class="deck-status">
 <span class="deck-status-current"></span>
