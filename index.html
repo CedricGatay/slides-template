@@ -218,20 +218,18 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">Application</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
-		<span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">BuildConfig</span><span class="tok-o">.</span><span class="tok-na">DEBUG</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-			<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span>
-				<span class="tok-k">new</span> <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">DebugTree</span><span class="tok-o">());</span>
-		<span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
-			<span class="tok-c1">// custom implementations</span>
-			<span class="tok-c1">// can be made by</span>
-			<span class="tok-c1">// extending Timber.HollowTree</span>
-		 	<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span>
-				<span class="tok-k">new</span> <span class="tok-nf">CustomCrashReporter</span><span class="tok-o">());</span>
-		<span class="tok-o">}</span>
-	<span class="tok-o">}</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
+
+  <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">BuildConfig</span><span class="tok-o">.</span><span class="tok-na">DEBUG</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+   <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">DebugTree</span><span class="tok-o">());</span>
+  <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-o">{</span>
+   <span class="tok-c1">// custom implementations can be made by</span>
+   <span class="tok-c1">// extending Timber.HollowTree</span>
+   <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">plant</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">CustomCrashReporter</span><span class="tok-o">());</span>
+  <span class="tok-o">}</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -355,17 +353,17 @@ on indique à Dagger le "scope" des dépendances<div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
 <span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyModule</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Singleton</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-		<span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
-	<span class="tok-o">}</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-n">ContactDao</span> <span class="tok-nf">provideContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">ds</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-n">ContactDao</span> <span class="tok-n">dao</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ContactDao</span><span class="tok-o">();</span>
-		<span class="tok-n">dao</span><span class="tok-o">.</span><span class="tok-na">setDataSource</span><span class="tok-o">(</span><span class="tok-n">ds</span><span class="tok-o">);</span>
-		<span class="tok-k">return</span> <span class="tok-n">dao</span><span class="tok-o">;</span>
-	<span class="tok-o">}</span>
+ <span class="tok-nd">@Singleton</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
+ <span class="tok-o">}</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-n">ContactDao</span> <span class="tok-nf">provideContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">ds</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-n">ContactDao</span> <span class="tok-n">dao</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">ContactDao</span><span class="tok-o">();</span>
+  <span class="tok-n">dao</span><span class="tok-o">.</span><span class="tok-na">setDataSource</span><span class="tok-o">(</span><span class="tok-n">ds</span><span class="tok-o">);</span>
+  <span class="tok-k">return</span> <span class="tok-n">dao</span><span class="tok-o">;</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div></p></li>
@@ -382,20 +380,22 @@ Possibilité de faire de la composition de modules pour construire le graphe fin
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
 <span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">AndroidModule</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-nd">@Singleton</span>
-	<span class="tok-n">Context</span> <span class="tok-nf">provideApplicationContext</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-		<span class="tok-k">return</span> <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">();</span>
-	<span class="tok-o">}</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-nd">@Singleton</span>
-	<span class="tok-n">LocationManager</span> <span class="tok-nf">provideLocationManager</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-k">return</span> <span class="tok-o">(</span><span class="tok-n">LocationManager</span><span class="tok-o">)</span> <span class="tok-n">ctx</span><span class="tok-o">.</span><span class="tok-na">getSystemService</span><span class="tok-o">(</span><span class="tok-n">LOCATION_SERVICE</span><span class="tok-o">);</span>
-	<span class="tok-o">}</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-n">SharedPreferences</span> <span class="tok-nf">provideDefaultSharedPreferences</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-k">return</span> <span class="tok-n">PreferenceManager</span><span class="tok-o">.</span><span class="tok-na">getDefaultSharedPreferences</span><span class="tok-o">(</span><span class="tok-n">ctx</span><span class="tok-o">);</span>
-	<span class="tok-o">}</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-nd">@Singleton</span>
+ <span class="tok-n">Context</span> <span class="tok-nf">provideApplicationContext</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-k">return</span> <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">getInstance</span><span class="tok-o">();</span>
+ <span class="tok-o">}</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-nd">@Singleton</span>
+ <span class="tok-n">LocationManager</span> <span class="tok-nf">provideLocMngr</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-k">return</span> <span class="tok-o">(</span><span class="tok-n">LocationManager</span><span class="tok-o">)</span>
+      <span class="tok-n">ctx</span><span class="tok-o">.</span><span class="tok-na">getSystemService</span><span class="tok-o">(</span><span class="tok-n">LOCATION_SERVICE</span><span class="tok-o">);</span>
+ <span class="tok-o">}</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-n">SharedPreferences</span> <span class="tok-nf">providePreferences</span><span class="tok-o">(</span><span class="tok-n">Context</span> <span class="tok-n">ctx</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-k">return</span> <span class="tok-n">PreferenceManager</span>
+      <span class="tok-o">.</span><span class="tok-na">getDefaultSharedPreferences</span><span class="tok-o">(</span><span class="tok-n">ctx</span><span class="tok-o">);</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div></p></li>
@@ -419,11 +419,11 @@ Possibilité de faire de la composition de modules pour construire le graphe fin
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">ContactDao</span> <span class="tok-o">{</span>
-	<span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
-	<span class="tok-nd">@Inject</span>
-	<span class="tok-kd">public</span> <span class="tok-nf">ContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">dataSource</span> <span class="tok-o">=</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
-	<span class="tok-o">}</span>
+ <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
+ <span class="tok-nd">@Inject</span>
+ <span class="tok-kd">public</span> <span class="tok-nf">ContactDao</span><span class="tok-o">(</span><span class="tok-n">DataSource</span> <span class="tok-n">dataSource</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">dataSource</span> <span class="tok-o">=</span> <span class="tok-n">dataSource</span><span class="tok-o">;</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -431,17 +431,19 @@ Possibilité de faire de la composition de modules pour construire le graphe fin
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
 <span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyModule</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Singleton</span>
-	<span class="tok-nd">@Provides</span>
-	<span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-		<span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
-	<span class="tok-o">}</span>
-	<span class="tok-cm">/* @Provides</span>
-<span class="tok-cm">	ContactDao provideContactDao(DataSource ds) {</span>
-<span class="tok-cm">		ContactDao dao = new ContactDao();</span>
-<span class="tok-cm">		dao.setDataSource(ds);</span>
-<span class="tok-cm">		return dao;</span>
-<span class="tok-cm">	} */</span>
+ <span class="tok-nd">@Singleton</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-n">DataSource</span> <span class="tok-nf">provideDataSource</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-k">return</span> <span class="tok-k">new</span> <span class="tok-nf">DataSource</span><span class="tok-o">();</span>
+ <span class="tok-o">}</span>
+ <span class="tok-cm">/*</span>
+<span class="tok-cm"> @Provides</span>
+<span class="tok-cm"> ContactDao provideContactDao(DataSource ds) {</span>
+<span class="tok-cm">  ContactDao dao = new ContactDao();</span>
+<span class="tok-cm">  dao.setDataSource(ds);</span>
+<span class="tok-cm">  return dao;</span>
+<span class="tok-cm"> }</span>
+<span class="tok-cm"> */</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -473,16 +475,16 @@ Possibilité de faire de la composition de modules pour construire le graphe fin
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Inject</span>
-	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+ <span class="tok-nd">@Inject</span>
+ <span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
 
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-cm">/* ... */</span>
-		<span class="tok-cm">/* Déclenchement des injections... On va voir ça après ! */</span>
-		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
-		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
-	<span class="tok-o">}</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-cm">/* ... */</span>
+  <span class="tok-cm">/* Déclenchement des injections... à suivre ! */</span>
+  <span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
+  <span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -499,13 +501,13 @@ l&#8217;implémentation de l&#8217;interface est fournie directement par Dagger<
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Singleton</span>
 <span class="tok-nd">@Component</span><span class="tok-o">(</span>
-	<span class="tok-n">modules</span> <span class="tok-o">=</span> <span class="tok-o">{</span>
-		<span class="tok-n">AndroidModule</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span>
-		<span class="tok-n">MyModule</span><span class="tok-o">.</span><span class="tok-na">class</span>
-	<span class="tok-o">}</span>
+ <span class="tok-n">modules</span> <span class="tok-o">=</span> <span class="tok-o">{</span>
+  <span class="tok-n">AndroidModule</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">,</span>
+  <span class="tok-n">MyModule</span><span class="tok-o">.</span><span class="tok-na">class</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">)</span>
 <span class="tok-kd">public</span> <span class="tok-kd">interface</span> <span class="tok-nc">Injector</span> <span class="tok-o">{</span>
-	<span class="tok-kt">void</span> <span class="tok-nf">inject</span><span class="tok-o">(</span><span class="tok-n">MyActivity</span> <span class="tok-n">activity</span><span class="tok-o">);</span>
+ <span class="tok-kt">void</span> <span class="tok-nf">inject</span><span class="tok-o">(</span><span class="tok-n">MyActivity</span> <span class="tok-n">activity</span><span class="tok-o">);</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div></p></li>
@@ -517,12 +519,13 @@ l&#8217;implémentation de l&#8217;interface est fournie directement par Dagger<
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyApplication</span> <span class="tok-kd">extends</span> <span class="tok-n">Application</span> <span class="tok-o">{</span>
-	<span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Injector</span> <span class="tok-n">injector</span><span class="tok-o">;</span>
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
-		<span class="tok-n">injector</span> <span class="tok-o">=</span> <span class="tok-n">DaggerInjector</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
-	<span class="tok-o">}</span>
+ <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-n">Injector</span> <span class="tok-n">injector</span><span class="tok-o">;</span>
+
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">();</span>
+  <span class="tok-n">injector</span> <span class="tok-o">=</span> <span class="tok-n">DaggerInjector</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -532,16 +535,16 @@ l&#8217;implémentation de l&#8217;interface est fournie directement par Dagger<
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Inject</span>
-	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+ <span class="tok-nd">@Inject</span>
+ <span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
 
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-cm">/* ... */</span>
-		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
-		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
-		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
-	<span class="tok-o">}</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-cm">/* ... */</span>
+  <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+  <span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-cm">/* ... */</span>
+  <span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -609,29 +612,30 @@ Mécanisme pour relier les 2 :<div class="ulist">
 <div class="content">
 <pre class="pygments highlight"><code class="xml language-xml"><span class="tok-c">&lt;!-- ... --&gt;</span>
 <span class="tok-nt">&lt;TextView</span>
-	<span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
-	<span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
-	<span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
-	<span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
+ <span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
+ <span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+ <span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+ <span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
 <span class="tok-c">&lt;!-- ... --&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Inject</span>
-	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+ <span class="tok-nd">@Inject</span>
+ <span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
 
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
-        <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
+  <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+  <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
 
-		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+  <span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span>
+    <span class="tok-o">(</span><span class="tok-n">TextView</span><span class="tok-o">)</span> <span class="tok-n">findViewById</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">);</span>
 
-		<span class="tok-n">TextView</span> <span class="tok-n">textView</span> <span class="tok-o">=</span> <span class="tok-o">(</span><span class="tok-n">TextView</span><span class="tok-o">)</span> <span class="tok-n">findViewById</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">);</span>
-		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
-	<span class="tok-o">}</span>
+  <span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -644,32 +648,32 @@ Mécanisme pour relier les 2 :<div class="ulist">
 <div class="content">
 <pre class="pygments highlight"><code class="xml language-xml"><span class="tok-c">&lt;!-- ... --&gt;</span>
 <span class="tok-nt">&lt;TextView</span>
-	<span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
-	<span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
-	<span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
-	<span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
+ <span class="tok-na">android:id=</span><span class="tok-s">&quot;@+id/contact&quot;</span>
+ <span class="tok-na">android:layout_width=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+ <span class="tok-na">android:layout_height=</span><span class="tok-s">&quot;wrap_content&quot;</span>
+ <span class="tok-na">android:text=</span><span class="tok-s">&quot;&quot;</span> <span class="tok-nt">/&gt;</span>
 <span class="tok-c">&lt;!-- ... --&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyActivity</span> <span class="tok-kd">extends</span> <span class="tok-n">Activity</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Inject</span>
-	<span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
+ <span class="tok-nd">@Inject</span>
+ <span class="tok-n">ContactDao</span> <span class="tok-n">contactDao</span><span class="tok-o">;</span>
 
-	<span class="tok-nd">@InjectView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">)</span>
-	<span class="tok-n">TextView</span> <span class="tok-n">textView</span><span class="tok-o">;</span>
+ <span class="tok-nd">@InjectView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">contact</span><span class="tok-o">)</span>
+ <span class="tok-n">TextView</span> <span class="tok-n">textView</span><span class="tok-o">;</span>
 
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
-        <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">onCreate</span><span class="tok-o">(</span><span class="tok-n">Bundle</span> <span class="tok-n">b</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-kd">super</span><span class="tok-o">.</span><span class="tok-na">onCreate</span><span class="tok-o">(</span><span class="tok-n">b</span><span class="tok-o">);</span>
+  <span class="tok-n">setContentView</span><span class="tok-o">(</span><span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">layout</span><span class="tok-o">.</span><span class="tok-na">my_activity</span><span class="tok-o">);</span>
+  <span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
 
-		<span class="tok-n">MyApplication</span><span class="tok-o">.</span><span class="tok-na">injector</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
-		<span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
+  <span class="tok-n">ButterKnife</span><span class="tok-o">.</span><span class="tok-na">inject</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">);</span>
 
-		<span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
-	<span class="tok-o">}</span>
+  <span class="tok-n">textView</span><span class="tok-o">.</span><span class="tok-na">setText</span><span class="tok-o">(</span><span class="tok-n">contactDao</span><span class="tok-o">.</span><span class="tok-na">getRandomContact</span><span class="tok-o">());</span>
+ <span class="tok-o">}</span>
 <span class="tok-o">}</span></code></pre>
 </div>
 </div>
@@ -679,7 +683,13 @@ Mécanisme pour relier les 2 :<div class="ulist">
 <div class="paragraph"><p>Possibilité d&#8217;injecter une liste de Views pour faire des traitements par lots</p></div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@InjectViews</span><span class="tok-o">({</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">first_name</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">middle_name</span><span class="tok-o">,</span> <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">last_name</span> <span class="tok-o">})</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@InjectViews</span><span class="tok-o">(</span>
+ <span class="tok-o">{</span>
+  <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">first_name</span><span class="tok-o">,</span>
+  <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">middle_name</span><span class="tok-o">,</span>
+  <span class="tok-n">R</span><span class="tok-o">.</span><span class="tok-na">id</span><span class="tok-o">.</span><span class="tok-na">last_name</span>
+ <span class="tok-o">}</span>
+<span class="tok-o">)</span>
 <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">EditText</span><span class="tok-o">&gt;</span> <span class="tok-n">nameViews</span><span class="tok-o">;</span>
 
 <span class="tok-c1">// ...</span>
@@ -713,7 +723,7 @@ Mécanisme pour relier les 2 :<div class="ulist">
 <div class="title">Conclusion :</div>
 <ul>
 <li><p>
-D&#8217;autres options sont disponibles, se référer au projet :<div class="ulist">
+D&#8217;autres options sont disponibles, se référer à la documentation :<div class="ulist">
 <ul>
 <li>@OnLongClick,</li>
 <li>@OnTouch,</li>
@@ -723,9 +733,8 @@ D&#8217;autres options sont disponibles, se référer au projet :<div class="uli
 </ul>
 </div></p></li>
 <li>Simple et efficace</li>
-<li>Évite la recopie de code polluant</li>
-<li>Aucune réflexion, tout le code est généré à la compilation &#8658; n&#8217;affecte pas les performances</li>
 <li>Toute la "glue" est gérée par Butter Knife &#8658; gain en lisibilité, donc en maintenabilité</li>
+<li>Aucune réflexion, tout le code est généré à la compilation &#8658; n&#8217;affecte pas les performances</li>
 </ul>
 </div>
 </section>
@@ -745,26 +754,19 @@ D&#8217;autres options sont disponibles, se référer au projet :<div class="uli
 </section>
 <section class="slide" id="_retrofit_3">
 <h2>Retrofit</h2>
+<div class="paragraph"><p>Gestion des appels synchrones</p></div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">interface</span> <span class="tok-nc">ContactService</span> <span class="tok-o">{</span>
-	<span class="tok-c1">// appel synchrone</span>
-	<span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/{contactId}&quot;</span><span class="tok-o">)</span>
-	<span class="tok-n">Contact</span> <span class="tok-nf">getContact</span><span class="tok-o">(</span><span class="tok-nd">@Path</span><span class="tok-o">(</span><span class="tok-s">&quot;contactId&quot;</span><span class="tok-o">)</span> <span class="tok-n">Long</span> <span class="tok-n">contactId</span><span class="tok-o">);</span>
 
-	<span class="tok-c1">// appel asynchrone</span>
-	<span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
-	<span class="tok-kt">void</span> <span class="tok-nf">listContacts</span><span class="tok-o">(</span><span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
+ <span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/{contactId}&quot;</span><span class="tok-o">)</span>
+ <span class="tok-n">Contact</span> <span class="tok-nf">getContact</span><span class="tok-o">(</span>
+    <span class="tok-nd">@Path</span><span class="tok-o">(</span><span class="tok-s">&quot;contactId&quot;</span><span class="tok-o">)</span> <span class="tok-n">Long</span> <span class="tok-n">contactId</span><span class="tok-o">);</span>
 
-	<span class="tok-c1">// appel asynchrone</span>
-	<span class="tok-nd">@POST</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/create&quot;</span><span class="tok-o">)</span>
-	<span class="tok-kt">void</span> <span class="tok-nf">createContact</span><span class="tok-o">(</span><span class="tok-nd">@Body</span> <span class="tok-n">Contact</span> <span class="tok-n">contact</span><span class="tok-o">,</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
-
-	<span class="tok-c1">// appel synchrone</span>
-	<span class="tok-nd">@DELETE</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
-	<span class="tok-n">Response</span> <span class="tok-nf">deleteContact</span><span class="tok-o">(</span>
-		<span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;firstName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">firstName</span><span class="tok-o">,</span>
-		<span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;lastName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">lastName</span><span class="tok-o">);</span>
+ <span class="tok-nd">@DELETE</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
+ <span class="tok-n">Response</span> <span class="tok-nf">deleteContact</span><span class="tok-o">(</span>
+    <span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;firstName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">firstName</span><span class="tok-o">,</span>
+    <span class="tok-nd">@Query</span><span class="tok-o">(</span><span class="tok-s">&quot;lastName&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">lastName</span><span class="tok-o">);</span>
 
   <span class="tok-c1">// ...</span>
 <span class="tok-o">}</span></code></pre>
@@ -773,41 +775,70 @@ D&#8217;autres options sont disponibles, se référer au projet :<div class="uli
 </section>
 <section class="slide" id="_retrofit_4">
 <h2>Retrofit</h2>
-<div class="paragraph"><p>L&#8217;implémentation est alors fournie par la classe RestAdapter de l&#8217;API :</p></div>
+<div class="paragraph"><p>Gestion des appels asynchrones</p></div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">RestAdapter</span> <span class="tok-n">restAdapter</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RestAdapter</span><span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
-    <span class="tok-o">.</span><span class="tok-na">setEndpoint</span><span class="tok-o">(</span><span class="tok-s">&quot;http://code-troopers.com&quot;</span><span class="tok-o">)</span>
-    <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">interface</span> <span class="tok-nc">ContactService</span> <span class="tok-o">{</span>
 
-<span class="tok-n">ContactService</span> <span class="tok-n">service</span> <span class="tok-o">=</span> <span class="tok-n">restAdapter</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">ContactService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span></code></pre>
+ <span class="tok-nd">@GET</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts&quot;</span><span class="tok-o">)</span>
+ <span class="tok-kt">void</span> <span class="tok-nf">listContacts</span><span class="tok-o">(</span>
+    <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
+
+ <span class="tok-nd">@POST</span><span class="tok-o">(</span><span class="tok-s">&quot;/contacts/create&quot;</span><span class="tok-o">)</span>
+ <span class="tok-kt">void</span> <span class="tok-nf">createContact</span><span class="tok-o">(</span>
+    <span class="tok-nd">@Body</span> <span class="tok-n">Contact</span> <span class="tok-n">contact</span><span class="tok-o">,</span>
+    <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">callback</span><span class="tok-o">);</span>
+
+  <span class="tok-c1">// ...</span>
+<span class="tok-o">}</span></code></pre>
 </div>
 </div>
 </section>
 <section class="slide" id="_retrofit_5">
 <h2>Retrofit</h2>
-<div class="paragraph"><p>Chaque appel sur le service généré effectue une requête HTTP au web service</p></div>
+<div class="paragraph"><p>L&#8217;implémentation est alors fournie par la classe RestAdapter de l&#8217;API :</p></div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">Contact</span> <span class="tok-n">c</span> <span class="tok-o">=</span> <span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">getContact</span><span class="tok-o">(</span><span class="tok-mi">10L</span><span class="tok-o">);</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">RestAdapter</span> <span class="tok-n">restAdapter</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RestAdapter</span>
+    <span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+    <span class="tok-o">.</span><span class="tok-na">setEndpoint</span><span class="tok-o">(</span><span class="tok-s">&quot;http://code-troopers.com&quot;</span><span class="tok-o">)</span>
+    <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
 
-<span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">listContacts</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;()</span> <span class="tok-o">{</span>
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">success</span><span class="tok-o">(</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">contacts</span><span class="tok-o">,</span> <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Nombre de contacts recus = %d&quot;</span><span class="tok-o">,</span> <span class="tok-n">contacts</span><span class="tok-o">.</span><span class="tok-na">size</span><span class="tok-o">());</span>
-	<span class="tok-o">}</span>
-
-	<span class="tok-nd">@Override</span>
-	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">failure</span><span class="tok-o">(</span><span class="tok-n">RetrofitError</span> <span class="tok-n">error</span><span class="tok-o">)</span> <span class="tok-o">{</span>
-		<span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;Unable to get contacts : %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
-	<span class="tok-o">}</span>
-<span class="tok-o">});</span>
-
-<span class="tok-c1">// ...</span></code></pre>
+<span class="tok-n">ContactService</span> <span class="tok-n">service</span> <span class="tok-o">=</span>
+    <span class="tok-n">restAdapter</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">ContactService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span></code></pre>
 </div>
 </div>
 </section>
 <section class="slide" id="_retrofit_6">
+<h2>Retrofit</h2>
+<div class="paragraph"><p>Chaque appel sur le service généré effectue une requête HTTP au web service</p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Inject</span>
+<span class="tok-n">ContactService</span> <span class="tok-n">service</span><span class="tok-o">;</span>
+<span class="tok-c1">// ...</span>
+<span class="tok-n">Contact</span> <span class="tok-n">c</span> <span class="tok-o">=</span> <span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">getContact</span><span class="tok-o">(</span><span class="tok-mi">10L</span><span class="tok-o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">service</span><span class="tok-o">.</span><span class="tok-na">listContacts</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-n">Callback</span><span class="tok-o">&lt;</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;&gt;()</span> <span class="tok-o">{</span>
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">success</span><span class="tok-o">(</span><span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Contact</span><span class="tok-o">&gt;</span> <span class="tok-n">contacts</span><span class="tok-o">,</span>
+                     <span class="tok-n">Response</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">i</span><span class="tok-o">(</span><span class="tok-s">&quot;Nombre de contacts reçus = %d&quot;</span><span class="tok-o">,</span>
+           <span class="tok-n">contacts</span><span class="tok-o">.</span><span class="tok-na">size</span><span class="tok-o">());</span>
+ <span class="tok-o">}</span>
+
+ <span class="tok-nd">@Override</span>
+ <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">failure</span><span class="tok-o">(</span><span class="tok-n">RetrofitError</span> <span class="tok-n">error</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+  <span class="tok-n">Timber</span><span class="tok-o">.</span><span class="tok-na">e</span><span class="tok-o">(</span><span class="tok-s">&quot;Unable to get contacts : %s&quot;</span><span class="tok-o">,</span> <span class="tok-n">error</span><span class="tok-o">);</span>
+ <span class="tok-o">}</span>
+<span class="tok-o">});</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_retrofit_7">
 <h2>Retrofit</h2>
 <div class="ulist">
 <ul>

@@ -95,20 +95,18 @@ Configuration des loggers :
 [source, java]
 ----
 public class MyApplication extends Application {
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		if (BuildConfig.DEBUG) {
-			Timber.plant(
-				new Timber.DebugTree());
-		} else {
-			// custom implementations 
-			// can be made by 
-			// extending Timber.HollowTree
-		 	Timber.plant(
-				new CustomCrashReporter());
-		}
-	}
+ @Override
+ public void onCreate() {
+  super.onCreate();
+
+  if (BuildConfig.DEBUG) {
+   Timber.plant(new Timber.DebugTree());
+  } else {
+   // custom implementations can be made by 
+   // extending Timber.HollowTree
+   Timber.plant(new CustomCrashReporter());
+  }
+ }
 }
 ----
 Possibilité de "planter" plusieurs loggers
@@ -184,17 +182,17 @@ I/HomeActivity﹕ Hello Tours JUG!
 [source, java]
 @Module
 public class MyModule {
-	@Singleton
-	@Provides
-	DataSource provideDataSource() {
-		return new DataSource();
-	}
-	@Provides
-	ContactDao provideContactDao(DataSource ds) {
-		ContactDao dao = new ContactDao();
-		dao.setDataSource(ds);
-		return dao;
-	}
+ @Singleton
+ @Provides
+ DataSource provideDataSource() {
+  return new DataSource();
+ }
+ @Provides
+ ContactDao provideContactDao(DataSource ds) {
+  ContactDao dao = new ContactDao();
+  dao.setDataSource(ds);
+  return dao;
+ }
 }
 * Dagger se chargera à la compilation de l'analyse du graphe de dépendances (qui dépend de qui) via les annotations, les valeurs de retour et les paramètres
 
@@ -203,20 +201,22 @@ public class MyModule {
 [source, java]
 @Module
 public class AndroidModule {
-	@Provides
-	@Singleton
-	Context provideApplicationContext() {
-		return MyApplication.getInstance();
-	}
-	@Provides
-	@Singleton
-	LocationManager provideLocationManager(Context ctx) {
-		return (LocationManager) ctx.getSystemService(LOCATION_SERVICE);
-	}
-	@Provides
-	SharedPreferences provideDefaultSharedPreferences(Context ctx) {
-		return PreferenceManager.getDefaultSharedPreferences(ctx);
-	}
+ @Provides
+ @Singleton
+ Context provideApplicationContext() {
+  return MyApplication.getInstance();
+ }
+ @Provides
+ @Singleton
+ LocationManager provideLocMngr(Context ctx) {
+  return (LocationManager) 
+      ctx.getSystemService(LOCATION_SERVICE);
+ }
+ @Provides
+ SharedPreferences providePreferences(Context ctx) {
+  return PreferenceManager
+      .getDefaultSharedPreferences(ctx);
+ }
 }
 
 == Dagger 2
@@ -228,27 +228,29 @@ public class AndroidModule {
 [source, java]
 ----
 public class ContactDao {
-	private final DataSource dataSource;
-	@Inject
-	public ContactDao(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+ private final DataSource dataSource;
+ @Inject
+ public ContactDao(DataSource dataSource) {
+  this.dataSource = dataSource;
+ }
 }
 ----
 [source, java]
 @Module
 public class MyModule {
-	@Singleton
-	@Provides
-	DataSource provideDataSource() {
-		return new DataSource();
-	}
-	/* @Provides
-	ContactDao provideContactDao(DataSource ds) {
-		ContactDao dao = new ContactDao();
-		dao.setDataSource(ds);
-		return dao;
-	} */
+ @Singleton
+ @Provides
+ DataSource provideDataSource() {
+  return new DataSource();
+ }
+ /* 
+ @Provides
+ ContactDao provideContactDao(DataSource ds) {
+  ContactDao dao = new ContactDao();
+  dao.setDataSource(ds);
+  return dao;
+ }
+ */
 }
 
 ////
@@ -294,16 +296,16 @@ public class MyModule {
 [source, java]
 ----
 public class MyActivity extends Activity {
-	@Inject
-	ContactDao contactDao;
+ @Inject
+ ContactDao contactDao;
 
-	@Override
-	protected void onCreate(Bundle b) {
-		/* ... */
-		/* Déclenchement des injections... On va voir ça après ! */
-		TextView textView = /* ... */
-		textView.setText(contactDao.getRandomContact());
-	}
+ @Override
+ protected void onCreate(Bundle b) {
+  /* ... */
+  /* Déclenchement des injections... à suivre ! */
+  TextView textView = /* ... */
+  textView.setText(contactDao.getRandomContact());
+ }
 }
 ----
 
@@ -315,40 +317,43 @@ public class MyActivity extends Activity {
 [source, java]
 @Singleton
 @Component(
-	modules = {
-		AndroidModule.class,
-		MyModule.class
-	}
+ modules = {
+  AndroidModule.class,
+  MyModule.class
+ }
 )
 public interface Injector {
-	void inject(MyActivity activity);
-}
-
-== Dagger 2
-[source, java]
-public class MyApplication extends Application {
-	public static Injector injector;
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		injector = DaggerInjector.create();
-	}
+ void inject(MyActivity activity);
 }
 
 == Dagger 2
 [source, java]
 ----
-public class MyActivity extends Activity {
-	@Inject
-	ContactDao contactDao;
+public class MyApplication extends Application {
+ public static Injector injector;
 
-	@Override
-	protected void onCreate(Bundle b) {
-		/* ... */
-		MyApplication.injector.inject(this);
-		TextView textView = /* ... */
-		textView.setText(contactDao.getRandomContact());
-	}
+ @Override
+ public void onCreate() {
+  super.onCreate();
+  injector = DaggerInjector.create();
+ }
+}
+----
+
+== Dagger 2
+[source, java]
+----
+public class MyActivity extends Activity {
+ @Inject
+ ContactDao contactDao;
+
+ @Override
+ protected void onCreate(Bundle b) {
+  /* ... */
+  MyApplication.injector.inject(this);
+  TextView textView = /* ... */
+  textView.setText(contactDao.getRandomContact());
+ }
 }
 ----
 
@@ -386,28 +391,29 @@ Sans Butter Knife :
 ----
 <!-- ... -->
 <TextView
-	android:id="@+id/contact"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="" />
+ android:id="@+id/contact"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:text="" />
 <!-- ... -->
 ----
 [source, java]
 ----
 public class MyActivity extends Activity {
-	@Inject
-	ContactDao contactDao;
+ @Inject
+ ContactDao contactDao;
 
-	@Override
-	protected void onCreate(Bundle b) {
-		super.onCreate(b);
-        setContentView(R.layout.my_activity);
+ @Override
+ protected void onCreate(Bundle b) {
+  super.onCreate(b);
+  setContentView(R.layout.my_activity);
+  MyApplication.injector.inject(this);
 
-		MyApplication.injector.inject(this);
+  TextView textView = 
+    (TextView) findViewById(R.id.contact);
 
-		TextView textView = (TextView) findViewById(R.id.contact);
-		textView.setText(contactDao.getRandomContact());
-	}
+  textView.setText(contactDao.getRandomContact());
+ }
 }
 ----
 
@@ -418,31 +424,31 @@ Avec Butter Knife :
 ----
 <!-- ... -->
 <TextView
-	android:id="@+id/contact"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="" />
+ android:id="@+id/contact"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:text="" />
 <!-- ... -->
 ----
 [source, java]
 ----
 public class MyActivity extends Activity {
-	@Inject
-	ContactDao contactDao;
+ @Inject
+ ContactDao contactDao;
 
-	@InjectView(R.id.contact)
-	TextView textView;
+ @InjectView(R.id.contact)
+ TextView textView;
 
-	@Override
-	protected void onCreate(Bundle b) {
-		super.onCreate(b);
-        setContentView(R.layout.my_activity);
+ @Override
+ protected void onCreate(Bundle b) {
+  super.onCreate(b);
+  setContentView(R.layout.my_activity);
+  MyApplication.injector.inject(this);
 
-		MyApplication.injector.inject(this);
-		ButterKnife.inject(this);
+  ButterKnife.inject(this);
 
-		textView.setText(contactDao.getRandomContact());
-	}
+  textView.setText(contactDao.getRandomContact());
+ }
 }
 ----
 
@@ -450,7 +456,13 @@ public class MyActivity extends Activity {
 Possibilité d'injecter une liste de Views pour faire des traitements par lots
 [source, java]
 ----
-@InjectViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+@InjectViews(
+ { 
+  R.id.first_name, 
+  R.id.middle_name, 
+  R.id.last_name 
+ }
+)
 List<EditText> nameViews;
 
 // ...
@@ -477,16 +489,15 @@ public void onItemSelected(int position) {
 
 == Butter Knife
 .Conclusion :
-* D'autres options sont disponibles, se référer au projet : 
+* D'autres options sont disponibles, se référer à la documentation : 
 ** @OnLongClick, 
 ** @OnTouch, 
 ** @OnCheckedChanged, 
 ** @OnPageChange, 
 ** ...
 * Simple et efficace
-* Évite la recopie de code polluant
-* Aucune réflexion, tout le code est généré à la compilation => n'affecte pas les performances
 * Toute la "glue" est gérée par Butter Knife => gain en lisibilité, donc en maintenabilité
+* Aucune réflexion, tout le code est généré à la compilation => n'affecte pas les performances
 
 == Retrofit
 
@@ -496,26 +507,38 @@ public void onItemSelected(int position) {
 * Permet de mapper facilement une interface java à une API REST
 
 == Retrofit
+Gestion des appels synchrones
 [source, java]
 ----
 public interface ContactService {
-	// appel synchrone
-	@GET("/contacts/{contactId}")
-	Contact getContact(@Path("contactId") Long contactId);
+ 
+ @GET("/contacts/{contactId}")
+ Contact getContact(
+    @Path("contactId") Long contactId);
 
-	// appel asynchrone
-	@GET("/contacts")
-	void listContacts(Callback<List<Contact>> callback);
+ @DELETE("/contacts")
+ Response deleteContact(
+    @Query("firstName") String firstName, 
+    @Query("lastName") String lastName);
 
-	// appel asynchrone
-	@POST("/contacts/create")
-	void createContact(@Body Contact contact, Callback<Contact> callback);
+  // ...
+}
+----
 
-	// appel synchrone
-	@DELETE("/contacts")
-	Response deleteContact(
-		@Query("firstName") String firstName, 
-		@Query("lastName") String lastName);
+== Retrofit
+Gestion des appels asynchrones
+[source, java]
+----
+public interface ContactService {
+
+ @GET("/contacts")
+ void listContacts(
+    Callback<List<Contact>> callback);
+
+ @POST("/contacts/create")
+ void createContact(
+    @Body Contact contact, 
+    Callback<Contact> callback);
 
   // ...
 }
@@ -525,32 +548,40 @@ public interface ContactService {
 L'implémentation est alors fournie par la classe RestAdapter de l'API :
 [source, java]
 ----
-RestAdapter restAdapter = new RestAdapter.Builder()
+RestAdapter restAdapter = new RestAdapter
+    .Builder()
     .setEndpoint("http://code-troopers.com")
     .build();
 
-ContactService service = restAdapter.create(ContactService.class);
+ContactService service = 
+    restAdapter.create(ContactService.class);
 ----
 
 == Retrofit
 Chaque appel sur le service généré effectue une requête HTTP au web service
 [source, java]
 ----
-Contact c = service.getContact(10L);
-
-service.listContacts(new Callback<List<Contact>>() {
-	@Override
-	public void success(List<Contact> contacts, Response response) {
-		Timber.i("Nombre de contacts recus = %d", contacts.size());
-	}
-
-	@Override
-	public void failure(RetrofitError error) {
-		Timber.e("Unable to get contacts : %s", error);
-	}
-});
-
+@Inject
+ContactService service;
 // ...
+Contact c = service.getContact(10L);
+----
+
+[source, java]
+----
+service.listContacts(new Callback<List<Contact>>() {
+ @Override
+ public void success(List<Contact> contacts, 
+                     Response response) {
+  Timber.i("Nombre de contacts reçus = %d", 
+           contacts.size());
+ }
+
+ @Override
+ public void failure(RetrofitError error) {
+  Timber.e("Unable to get contacts : %s", error);
+ }
+});
 ----
 
 == Retrofit
