@@ -799,13 +799,20 @@ D&#8217;autres options sont disponibles, se référer à la documentation :<div 
 <div class="paragraph"><p>L&#8217;implémentation est alors fournie par la classe RestAdapter de l&#8217;API :</p></div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="java language-java"><span class="tok-n">RestAdapter</span> <span class="tok-n">restAdapter</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">RestAdapter</span>
-    <span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
-    <span class="tok-o">.</span><span class="tok-na">setEndpoint</span><span class="tok-o">(</span><span class="tok-s">&quot;http://code-troopers.com&quot;</span><span class="tok-o">)</span>
-    <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Module</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">RestModule</span> <span class="tok-o">{</span>
+ <span class="tok-nd">@Singleton</span>
+ <span class="tok-nd">@Provides</span>
+ <span class="tok-n">ContactService</span> <span class="tok-nf">provideContactService</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+  <span class="tok-n">RestAdapter</span> <span class="tok-n">restAdapter</span> <span class="tok-o">=</span>
+     <span class="tok-k">new</span> <span class="tok-n">RestAdapter</span>
+       <span class="tok-o">.</span><span class="tok-na">Builder</span><span class="tok-o">()</span>
+       <span class="tok-o">.</span><span class="tok-na">setEndpoint</span><span class="tok-o">(</span><span class="tok-s">&quot;http://code-troopers.com&quot;</span><span class="tok-o">)</span>
+       <span class="tok-o">.</span><span class="tok-na">build</span><span class="tok-o">();</span>
 
-<span class="tok-n">ContactService</span> <span class="tok-n">service</span> <span class="tok-o">=</span>
-    <span class="tok-n">restAdapter</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">ContactService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span></code></pre>
+  <span class="tok-k">return</span> <span class="tok-n">restAdapter</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">ContactService</span><span class="tok-o">.</span><span class="tok-na">class</span><span class="tok-o">);</span>
+ <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
 </div>
 </div>
 </section>

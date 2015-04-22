@@ -548,13 +548,20 @@ public interface ContactService {
 L'implémentation est alors fournie par la classe RestAdapter de l'API :
 [source, java]
 ----
-RestAdapter restAdapter = new RestAdapter
-    .Builder()
-    .setEndpoint("http://code-troopers.com")
-    .build();
+@Module
+public class RestModule {
+ @Singleton
+ @Provides
+ ContactService provideContactService() {
+  RestAdapter restAdapter = 
+     new RestAdapter
+       .Builder()
+       .setEndpoint("http://code-troopers.com")
+       .build();
 
-ContactService service = 
-    restAdapter.create(ContactService.class);
+  return restAdapter.create(ContactService.class);
+ }
+}
 ----
 
 == Retrofit
