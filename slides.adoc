@@ -615,5 +615,12 @@ service.listContacts(new Callback<List<Contact>>() {
 * Et bien d'autres!
 
 == Questions ?
+* https://github.com/code-troopers/material-android-bootstrap
+* https://github.com/JakeWharton/timber
+* http://google.github.io/dagger
+** https://www.parleys.com/tutorial/the-future-dependency-injection-dagger-2
+** https://www.youtube.com/watch?v=oK_XtfXPkqw
+* http://jakewharton.github.io/butterknife
+* http://square.github.io/retrofit
 
 == Merci
