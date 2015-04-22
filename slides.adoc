@@ -1,18 +1,18 @@
-= Développer sur Android : quelques librairies à connaître
+= Android : Librairies utiles
 :author: Joris Potier
-:keywords: @Joris_Potier
+:keywords: @Joris_Potier #Tours_Jug
 :email: j.potier@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
-:deckjs_transition: horizontal-slide
+// :deckjs_transition: horizontal-slide
 :goto:
 :menu:
 :status:
 :imagesdir: ./images
 :source-highlighter: pygments
 
-== Joris POTIER
+== Joris Potier
 [cols="3a,1a"]
 |===
 |
