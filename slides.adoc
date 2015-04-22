@@ -47,9 +47,8 @@ a!//
 
 
 == Sommaire
-* Timber
 * Dagger 2
-* Butterknife
+* Butter Knife
 * Retrofit
 * (Bonus ...)
 ////
