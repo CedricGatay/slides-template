@@ -142,35 +142,27 @@ I/HomeActivity﹕ Hello Tours JUG!
 == Dagger 2
 * http://google.github.io/dagger
 * Framework d'injection de dépendances (DI)
+* Pour Android et Java
 * S'appuie sur des annotations standards (JSR300)
 * Meilleure structuration du code : DAOs, service d'authentification, Factories, ...
 * Permet de se concentrer sur l'implémentation plutôt que sur la configuration des modules
-* Plus facile à tester, modules intercheangeables facilement
+* Plus facile à tester, modules interchangeables facilement
 
 == Dagger 2
 * De nombreux frameworks de DI 
 ** Spring
-** Guice
+** Guice (RoboGuice)
 ** Dagger 1
 ** CDI
 ** etc...
 
-* Mais contraintes de ressources sur Android
+* Mais contraintes de ressources sur Android donc performances limitées car traitements au Runtime
 * Obfuscation du code difficile
 
 == Dagger 2
-* Guice (RoboGuice) : performances limitées car analyse des dépendances au Runtime
-* Dagger 1
-** génération de code à la compilation
-** permet d'éviter au maximum la réflexion au Runtime... mais quand même
-** le code généré reste difficile à obfusquer
-** le code généré est difficile à lire/débugger
-
-== Dagger 2
 * Fork de Dagger 1
-* Toujours utilisable dans n'importe quel environnement Java
 * Release disponible depuis peu
-* *Tout* le code est généré à la compilation
+* *Tout* le code est généré à la compilation (contrairement à Dagger 1)
 ** Plus aucune analyse au Runtime => Performances++
 ** Plus aucun problème d'obfuscation
 * Code généré facilement lisible/débuggable
@@ -219,11 +211,12 @@ public class AndroidModule {
  }
 }
 
+////
 == Dagger 2
 .Utilisation : étape 2, demander une dépendance
 * @Inject sur un constructeur 
 ** un paramètre = une dépendance
-** permet donc d'éliminer des @Provides !
+** permet donc d'éliminer des @Provides
 
 [source, java]
 ----
@@ -252,6 +245,7 @@ public class MyModule {
  }
  */
 }
+////
 
 ////
 == Dagger 2
@@ -370,55 +364,21 @@ public class MyActivity extends Activity {
 == Dagger 2
 .Bonus :
 * Mocks injectables dans les tests par simple extension des modules, mais pas encore de pattern standardisé
-* Custom Scopes possible
-* Lazy injections
-* Provider injections
-* Qualifier
+* De nombreuses options, se référer à la documentation :
+** Custom Scopes possible
+** Lazy injections
+** Provider injections
+** Qualifier
 
 == Butter Knife
 
 == Butter Knife
 * http://jakewharton.github.io/butterknife
 * Framework d'injection de view Android
-* Permet de mapper simplement les composants d'une vue à partir de son ID
-* Typage des vues injectées
-
-
-== Butter Knife
-Sans Butter Knife :
-[source, xml]
-.my_activity.xml
-----
-<!-- ... -->
-<TextView
- android:id="@+id/contact"
- android:layout_width="wrap_content"
- android:layout_height="wrap_content"
- android:text="" />
-<!-- ... -->
-----
-[source, java]
-----
-public class MyActivity extends Activity {
- @Inject
- ContactDao contactDao;
-
- @Override
- protected void onCreate(Bundle b) {
-  super.onCreate(b);
-  setContentView(R.layout.my_activity);
-  MyApplication.injector.inject(this);
-
-  TextView textView = 
-    (TextView) findViewById(R.id.contact);
-
-  textView.setText(contactDao.getRandomContact());
- }
-}
-----
+// * Permet de mapper simplement les composants d'une vue à partir de son ID
+// * Typage des vues injectées
 
 == Butter Knife
-Avec Butter Knife :
 [source, xml]
 .my_activity.xml
 ----
@@ -445,13 +405,17 @@ public class MyActivity extends Activity {
   setContentView(R.layout.my_activity);
   MyApplication.injector.inject(this);
 
+  /*
+  TextView textView = 
+    (TextView) findViewById(R.id.contact);
+  */
   ButterKnife.inject(this);
-
   textView.setText(contactDao.getRandomContact());
  }
 }
 ----
 
+////
 == Butter Knife
 Possibilité d'injecter une liste de Views pour faire des traitements par lots
 [source, java]
@@ -471,6 +435,7 @@ ButterKnife.apply(nameViews, DISABLE);
 ButterKnife.apply(nameViews, ENABLED, false);
 ButterKnife.apply(nameViews, View.ALPHA, 0);
 ----
+////
 
 == Butter Knife
 Possibilité d'injecter des listeners : 
@@ -480,16 +445,12 @@ Possibilité d'injecter des listeners :
 public void onClickContact(TextView textView) {
   textView.setText("Hello!");
 }
-
-@OnItemSelected(R.id.list_contact)
-public void onItemSelected(int position) {
-  Timber.d("Selected position %s!", position);
-}
 ----
 
 == Butter Knife
 .Conclusion :
 * D'autres options sont disponibles, se référer à la documentation : 
+** @OnItemSelected
 ** @OnLongClick, 
 ** @OnTouch, 
 ** @OnCheckedChanged, 
@@ -592,8 +553,8 @@ service.listContacts(new Callback<List<Contact>>() {
 ----
 
 == Retrofit
-* Par défaut les objets sont sérialisés en JSON, mais possibilité de définir ses propres converters
 * De nombreuses options possibles, se référer à la documentation : 
+** Converters personnalisés (sérialisation JSON par défaut)
 ** Form-encoded, Multipart
 ** manipulation du header
 ** Utilisation de RxJava pour remplacer les Callbacks
