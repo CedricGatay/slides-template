@@ -103,7 +103,9 @@ docker run
            -v /home/jenkins:/var/jenkins_home 
            agileek/docker-jenkins
 ------
-screenshot welcome
+
+image:assets/jenkins_ss.png[]
+//screenshot welcome
 
 == Configuration Jenkins
 Plugin Docker
@@ -116,7 +118,7 @@ Configuration :
 
 == Configuration Jenkins
 
-image:images/docker_cfg.png[]
+image:assets/docker_cfg.png[]
 
 == Premier build
 //ca marchera... mais
