@@ -131,11 +131,13 @@ Timber.e(exception, "Oups");
 I/HomeActivity﹕ Hello Tours JUG!
 ----
 
+////
 == Timber
 .Conclusion :
 * Simple et efficace
 * Évite la recopie de code polluant
 * Évite la réimplémentation d'une surcouche à la classe Log pour chaque projet
+////
 
 == Dagger 2
 
@@ -448,7 +450,6 @@ public void onClickContact(TextView textView) {
 ----
 
 == Butter Knife
-.Conclusion :
 * D'autres options sont disponibles, se référer à la documentation : 
 ** @OnItemSelected
 ** @OnLongClick, 
