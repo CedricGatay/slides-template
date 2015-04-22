@@ -207,6 +207,9 @@ Images préparées :
  * images pour le build
  * images pour l'émulation (qemu x86) 
 
+== Aucard de Tours - Android
+image::assets/docker_android.png[]
+
 //l'emulation nécessite de lancer les container en priviledged)
 // on peut réutiliser vos images ? / Distribution sur DockerHub
 
