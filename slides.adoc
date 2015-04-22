@@ -39,7 +39,7 @@ Permet de piloter des noeuds
 // Pourquoi t'as eu envie de le faire ?
 Jenkins évolue vite (weekly, LTS tous les mois)
 
-Mise à jour un peu pénibles
+Mises à jour un peu pénibles
 
  * wget du war
  * cp / restart
