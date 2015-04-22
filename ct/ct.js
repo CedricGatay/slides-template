@@ -9,13 +9,14 @@ $(document).ready(function(){
  $footer.append("<span class='ctlogo'><img src='ct/logo.png'/></span>");
  $deckStatus.empty();
  $footer.appendTo($deckStatus);
+ var host = location.host.split(':')[0];
  $(document.head).append('<script src="http://'
- + location.host.split(':')[0]
+ + host
  + ':35729/livereload.js"></script>');
  $(document.head).append('<link rel="stylesheet" type="text/css" href="deck-remote/public/deckjs-remote.css" />' +
  '<script src="deck-remote/public/deckjs-remote.js"></script>');
    $.deck('remote', {
-            server: 'http://ks.bloggure.info',
+            server: 'http://' + host,
             port: 9010
         })
 });

@@ -5,10 +5,11 @@
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
-//:deckjs_transition: horizontal-slide
 :goto:
 :menu:
 :status:
+:source-highlighter: pygments
+
 
 // T'es qui ?
 // == Qui
@@ -20,7 +21,10 @@
 //
 // Packt publishing
 //
+
 == Jenkins
+image:assets/jenkins_docker.png[]
+
 Serveur d'intégration continue
 
 Permet de piloter des noeuds
@@ -30,6 +34,8 @@ Permet de piloter des noeuds
  * SSH
 
 == Pourquoi dans Docker?
+//[role="notes"]
+//NotesNotesNotes
 // Pourquoi t'as eu envie de le faire ?
 Jenkins évolue vite (weekly, LTS tous les mois)
 
@@ -90,11 +96,15 @@ Login `jenkins`/`jenkins`
 
 //motor pic
 == Gentlemen start your engines
-[source,shell]
+[source, Bash]
 ------
-docker run -d -p 8080:8080 -v /home/jenkins:/var/jenkins_home agileek/docker-jenkins
+docker run 
+           -d 
+           -p 8080:8080 
+           -v /home/jenkins:/var/jenkins_home 
+           agileek/docker-jenkins
 ------
-//screenshot welcome
+screenshot welcome
 
 == Configuration Jenkins
 Plugin Docker
@@ -110,8 +120,9 @@ Configuration :
 image:images/docker_cfg.png[]
 
 == Premier build
-
-Ca marchera ... mais:
+//ca marchera... mais
+[options="step"]
+image:assets/jenkins_sad.png[]
 
 [options="step"]
  * pas de VCS dans l'image
@@ -134,6 +145,12 @@ Ca marchera ... mais:
  * Détailler sa stack 
  * Chercher sur le registry
  * Construire son Dockerfile
+
+[canvas-image="assets/aucard.jpg"]
+== aucard poster
+
+[role="canvas-caption", position="center-up"]
+Aucard de Tours
 
 == Aucard de Tours - Web
 // Chez CT //// mettre le logo CT :) ////  on aime beaucoup restx, nos projets l'utilisant ont la stack suivante :@CT : Restx
@@ -204,8 +221,8 @@ Le plugin Docker Jenkins est pas complétement sec
 //et ca peut prendre trois plombes)
 
 //Un peu de gymnastique supplémentaire pour être capable de faire du DinD (Docker in Docker)
-[options="step"]
--> Définir ce qui peut être éphémère
+//[options="step"]
+//-> Définir ce qui peut être éphémère
 // cas du .m2/ .gradle si on veut des temps de build raisonnables
 // warmup via un build pour peupler le .m2 / ou monter le volume
 
@@ -226,7 +243,9 @@ Construction des Dockerfile
 == D.R.Y.ness
 //Beaucoup de copier / coller entre images
 
-Projet en cours pour apporter des mixins
+Ajout de mixins:
+
+// Projet en cours pour apporter des mixins
 
 [options="step"]
  * importer des fragments communs 
@@ -240,12 +259,15 @@ Projet en cours pour apporter des mixins
  * Très simple (mix'n merge)
  * Que pour des URLs (pour le moment)
 
+[canvas-image="assets/mememe.jpg"]
 == Ok, count me in
+//image:assets/mememe.jpg[]
+
 // Génial, comment je fais pareil ? 
-=== Slides
+== Slides
   * http://github.com/CedricGatay/slides-template/tree/docker-jenkins-slave
 
-=== Images
+== Images
 
 Accessibles sur 
 
@@ -253,6 +275,14 @@ Accessibles sur
  * https://registry.hub.docker.com/repos/codetroopers/
 
 == Tips
+== Debug slave en erreur
+
+[source,bash]
+------
+myhost $ docker ps
+myhost $ ssh jenkins@localhost -p$PORT
+jenkins@a233dfe $ # do what you want to
+------
 
 == nginx en frontal
 nginx en proxy : 
@@ -266,7 +296,10 @@ nginx en proxy :
 Image nginx pour gérer les vhosts:
 [options="step"]
  * jwilder/nginx-proxy
- * `docker run -d -e VIRTUAL_HOST=jenkins.code-troopers.com -e VIRTUAL_PORT=8080`
+ * `docker run -d 
+           -e VIRTUAL_HOST=jenkins.code-troopers.com 
+           -e VIRTUAL_PORT=8080
+           agileek/docker-jenkins` 
 
 == Bénéfices
 
@@ -275,7 +308,7 @@ Image nginx pour gérer les vhosts:
  * Builds reproductibles
  * Montée en compétence Docker
 
-On est hype !
-//hipster pic
-
-== Q&A
+[canvas-image="assets/trooper_dance.jpg"]
+== on est hype !
+[role="canvas-caption", position="left-bottom"]
+Merci !
