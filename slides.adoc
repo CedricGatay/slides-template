@@ -281,6 +281,9 @@ public class MyModule {
 
 == Dagger 2
 .Utilisation : étape 2, demander une dépendance
+* @Inject sur un constructeur 
+** un paramètre = une dépendance
+** permet d'éliminer des @Provides
 * @Inject sur une méthode
 ** un paramètre = une dépendance
 ** seul cas d'utilisation : on veut passer "this" à la dépendance (ex : bus.register(this);)
