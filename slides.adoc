@@ -10,7 +10,6 @@
 :status:
 :source-highlighter: pygments
 
-
 // T'es qui ?
 // == Qui
 // Freelance
@@ -274,7 +273,9 @@ Accessibles sur
  * http://github.com/code-troopers/docker-jenkins-slaves
  * https://registry.hub.docker.com/repos/codetroopers/
 
+[canvas-image="assets/tips.jpg"]
 == Tips
+
 == Debug slave en erreur
 
 [source,bash]
