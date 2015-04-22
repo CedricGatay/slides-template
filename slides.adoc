@@ -94,7 +94,7 @@ I/com.codetroopers.jug.ui.activity.HomeActivity﹕ Hello Tours JUG!
 Configuration des loggers :
 [source, java]
 ----
-public class MyApplication extendsA pplication {
+public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
