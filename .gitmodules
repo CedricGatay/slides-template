@@ -1,0 +1,3 @@
+[submodule "docker-jenkins-slave"]
+	path = docker-jenkins-slave
+	url = https://github.com/CedricGatay/slides-template
