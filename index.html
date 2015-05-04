@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="Asciidoctor 1.5.2" name="generator">
+<meta content="Cedric Gatay" name="author">
+<meta content="@Cedric_Gatay #Tours_Jug" name="keywords">
+<title>Docker Jenkins Slave</title>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+<link href="deck.js/core/deck.core.css" rel="stylesheet">
+<link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/style/web-2.0.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/transition/fade.css" media="screen" rel="stylesheet">
+<link href="ct/ct.css" rel="stylesheet">
+<link href="deck.js/core/print.css" media="print" rel="stylesheet">
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+<body class="article">
+<div class="deck-container">
+<section class="slide" id="title-slide">
+<h1>Docker Jenkins Slave</h1>
+<span id="author">Cedric Gatay</span>
+<br>
+<span id="email"><a href="mailto:c.gatay@code-troopers.com">c.gatay@code-troopers.com</a></span>
+<br>
+</section>
+<section class="slide" id="_jenkins">
+<h2>Jenkins</h2>
+<div class="paragraph"><p><span class="image"><img alt="jenkins_docker" src="assets/jenkins_docker.png"></span></p></div>
+<div class="paragraph"><p>Serveur d&#8217;intégration continue</p></div>
+<div class="paragraph"><p>Permet de piloter des noeuds</p></div>
+<div class="ulist">
+<ul>
+<li>WMI + DCOM</li>
+<li>JNLP</li>
+<li>SSH</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_pourquoi_dans_docker">
+<h2>Pourquoi dans Docker?</h2>
+<div class="paragraph"><p>Jenkins évolue vite (weekly, LTS tous les mois)</p></div>
+<div class="paragraph"><p>Mises à jour un peu pénibles</p></div>
+<div class="ulist">
+<ul>
+<li>wget du war</li>
+<li>cp / restart</li>
+</ul>
+</div>
+<div class="paragraph"><p>L&#8217;occasion de jouer avec Docker de façon "utile".</p></div>
+</section>
+<section class="slide" id="_réinstallation_nécessaire">
+<h2>Réinstallation nécessaire&#8230;&#8203;</h2>
+<div class="paragraph"><p>Notre ancien serveur était sur les genoux.</p></div>
+<div class="paragraph"><p>Projets internes avec des stacks différentes.</p></div>
+<div class="paragraph"><p>Pas envie de pourrir la config système comme sur l&#8217;ancien.</p></div>
+</section>
+<section class="slide" id="_quickstart">
+<h2>Quickstart</h2>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+Docker Hub
+</li>
+<li>
+<p>Images préconfigurées</p>
+<div class="ulist">
+<ul>
+<li>agileek/docker-jenkins</li>
+<li>evarga/jenkins-slave</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<section class="slide" id="_agileek_docker_jenkins">
+<h2>agileek/docker-jenkins</h2>
+<div class="paragraph"><p>Maintenue par mbitard</p></div>
+<div class="paragraph"><p>Fork de l&#8217;image officielle</p></div>
+<div class="paragraph"><p>Bleeding edge</p></div>
+</section>
+<section class="slide" id="_evarga_jenkins_slave">
+<h2>evarga/jenkins-slave</h2>
+<div class="paragraph"><p>Image avec OpenJDK7</p></div>
+<div class="paragraph"><p>Serveur SSH</p></div>
+<div class="paragraph"><p>Login <code>jenkins</code>/<code>jenkins</code></p></div>
+</section>
+<section class="slide" id="_gentlemen_start_your_engines">
+<h2>Gentlemen start your engines</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="Bash language-Bash">docker run
+           -d
+           -p 8080:8080
+           -v /home/jenkins:/var/jenkins_home
+           agileek/docker-jenkins</code></pre>
+</div>
+</div>
+<div class="paragraph"><p><span class="image"><img alt="jenkins_ss" src="assets/jenkins_ss.png"></span></p></div>
+</section>
+<section class="slide" id="_configuration_jenkins">
+<h2>Configuration Jenkins</h2>
+<div class="paragraph"><p>Plugin Docker</p></div>
+<div class="paragraph"><p>Configuration :</p></div>
+<div class="ulist">
+<ul>
+<li>nom d&#8217;image</li>
+<li>volumes montés</li>
+<li>label</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_configuration_jenkins_2">
+<h2>Configuration Jenkins</h2>
+<div class="paragraph"><p><span class="image"><img alt="docker_cfg" src="assets/docker_cfg.png"></span></p></div>
+</section>
+<section class="slide" id="_premier_build">
+<h2>Premier build</h2>
+<div class="paragraph slide"><p><span class="image"><img alt="jenkins_sad" src="assets/jenkins_sad.png"></span></p></div>
+<div class="ulist">
+<ul>
+<li class="slide">pas de VCS dans l&#8217;image</li>
+<li class="slide">pas d&#8217;outils préinstallés</li>
+</ul>
+</div>
+<div class="paragraph slide"><p>&#8594; que pour un shell script</p></div>
+</section>
+<section class="slide" id="_personnalisation">
+<h2>Personnalisation</h2>
+<div class="ulist">
+<ul>
+<li class="slide">Détailler sa stack</li>
+<li class="slide">Chercher sur le registry</li>
+<li class="slide">Construire son Dockerfile</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_aucard_poster" style="background-image: url(assets/aucard.jpg)">
+<div class="paragraph canvas-caption"><p class="center-up">Aucard de Tours</p></div>
+</section>
+<section class="slide" id="_aucard_de_tours_web">
+<h2>Aucard de Tours - Web</h2>
+<div class="paragraph"><p><span class="image"><img alt="logo" height="128" src="ct/logo.png"></span></p></div>
+<div class="ulist">
+<ul>
+<li class="slide">Git</li>
+<li class="slide">Java 8</li>
+<li class="slide">Maven</li>
+<li class="slide">Sass/compass</li>
+<li class="slide">npm</li>
+<li class="slide">Bower</li>
+<li class="slide">Grunt</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_décomposer">
+<h2>Décomposer</h2>
+<div class="paragraph"><p>Quelles étapes sont intéressantes ?</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">Git X</li>
+<li class="slide">Git + Java 8 Y</li>
+<li class="slide">Git + Java 8 + Maven Y</li>
+<li class="slide">Git + java 8 + Maven + sass N</li>
+<li class="slide">Git + &#8230;&#8203; + Grunt Y</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_factoriser">
+<h2>Factoriser</h2>
+<div class="paragraph"><p>Trois images résultats :</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">jdk8</li>
+<li class="slide">jdk8-mvn</li>
+<li class="slide">jdk8-mvn-restx</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_aucard_de_tours_android">
+<h2>Aucard de Tours - Android</h2>
+<div class="paragraph"><p>SDK lourd à installer:</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">API</li>
+<li class="slide">support repository</li>
+<li class="slide">compat repository</li>
+<li class="slide">images d&#8217;émulation</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_aucard_de_tours_android_2">
+<h2>Aucard de Tours - Android</h2>
+<div class="paragraph"><p>Images préparées :</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">images pour le build</li>
+<li class="slide">images pour l&#8217;émulation (qemu x86)</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_aucard_de_tours_android_3">
+<h2>Aucard de Tours - Android</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="docker android" src="assets/docker_android.png">
+</div>
+</div>
+</section>
+<section class="slide" id="_points_de_douleurs">
+<h2>Points de douleurs</h2>
+<div class="paragraph"><p>Le plugin Docker Jenkins est pas complétement sec</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">configuration lourdingue</li>
+<li class="slide">gestion des variables d&#8217;env difficile</li>
+<li class="slide">pas de feedback rapide lors du pull des images</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_points_de_douleurs_2">
+<h2>Points de douleurs</h2>
+<div class="paragraph"><p>Registry central :</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">builds en erreurs</li>
+<li class="slide">recherche nulle</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_points_de_douleurs_3">
+<h2>Points de douleurs</h2>
+<div class="paragraph"><p>Construction des Dockerfile</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">copier/coller</li>
+<li class="slide">trouver le bon "héritage"</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_d_r_y_ness">
+<h2>D.R.Y.ness</h2>
+<div class="paragraph"><p>Ajout de mixins:</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">importer des fragments communs</li>
+<li class="slide">génerer un Dockerfile "composite"</li>
+</ul>
+</div>
+<div class="paragraph slide"><p>&#8594; <a class="bare" href="http://github.com/CedricGatay/manifest-mixin">http://github.com/CedricGatay/manifest-mixin</a></p></div>
+<div class="ulist">
+<ul>
+<li class="slide">Cross platform (en Go comme Docker)</li>
+<li class="slide">Très simple (mix&#8217;n merge)</li>
+<li class="slide">Que pour des URLs (pour le moment)</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_ok_count_me_in" style="background-image: url(assets/mememe.jpg)">
+
+</section>
+<section class="slide" id="_slides">
+<h2>Slides</h2>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="http://github.com/CedricGatay/slides-template/tree/docker-jenkins-slave">http://github.com/CedricGatay/slides-template/tree/docker-jenkins-slave</a></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_images">
+<h2>Images</h2>
+<div class="paragraph"><p>Accessibles sur</p></div>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="http://github.com/code-troopers/docker-jenkins-slaves">http://github.com/code-troopers/docker-jenkins-slaves</a></li>
+<li><a class="bare" href="https://registry.hub.docker.com/repos/codetroopers/">https://registry.hub.docker.com/repos/codetroopers/</a></li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_tips" style="background-image: url(assets/tips.jpg)">
+
+</section>
+<section class="slide" id="_debug_slave_en_erreur">
+<h2>Debug slave en erreur</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="bash language-bash">myhost <span class="tok-nv">$ </span>docker ps
+myhost <span class="tok-nv">$ </span>ssh jenkins@localhost -p<span class="tok-nv">$PORT</span>
+jenkins@a233dfe <span class="tok-nv">$ </span><span class="tok-c"># do what you want to</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_nginx_en_frontal">
+<h2>nginx en frontal</h2>
+<div class="paragraph"><p>nginx en proxy :</p></div>
+<div class="ulist">
+<ul>
+<li>sur le port 80</li>
+<li>router les requêtes par hostname</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_avec_docker">
+<h2>Avec Docker ?</h2>
+<div class="paragraph"><p>Image nginx pour gérer les vhosts:</p></div>
+<div class="ulist">
+<ul>
+<li class="slide">jwilder/nginx-proxy</li>
+<li class="slide"><code>docker run -d
+-e VIRTUAL_HOST=jenkins.code-troopers.com
+-e VIRTUAL_PORT=8080
+agileek/docker-jenkins</code></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_bénéfices">
+<h2>Bénéfices</h2>
+<div class="ulist">
+<ul>
+<li>Serveur propre</li>
+<li>Builds reproductibles</li>
+<li>Montée en compétence Docker</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_on_est_hype" style="background-image: url(assets/trooper_dance.jpg)">
+<div class="paragraph canvas-caption"><p class="left-bottom">Merci !</p></div>
+</section>
+<p aria-role="status" class="deck-status">
+<span class="deck-status-current"></span>
+/
+<span class="deck-status-total"></span>
+</p>
+<form action="." class="goto-form" method="get">
+<label for="goto-slide">Go to Slide:</label>
+<input id="goto-slide" list="goto-datalist" name="slidenum" type="text">
+<datalist id="goto-data-list"></datalist>
+<input type="submit" value="Go">
+</form>
+</div>
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="ct/ct.js"></script>
+<script>
+  (function($, deck, undefined) {
+    $.deck.defaults.keys['previous'] = [8, 33, 37, 39];
+    $.deck.defaults.keys['next'] = [13, 32, 34, 39];
+  
+    $.extend(true, $[deck].defaults, {
+        countNested: false
+    });
+  
+    $.deck('.slide');
+  })(jQuery, 'deck');
+</script>
+<style>
+  .slide.canvas-image {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-align: start;
+  -webkit-box-align: start;
+  -ms-box-align: start;
+  box-align: start;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;}
+  
+  .bottom-left {
+    left: 1%;
+    bottom: 20%; }
+  
+  .top-left {
+    left: 1%;
+    top: 20%; }
+  
+  .bottom-right {
+    right: 1%;
+    bottom: 20%; }
+  
+  .top-right {
+    right: 1%;
+    top: 20%; }
+  
+  .center-up {
+    right: 50%;
+    top: 1%;
+  }
+  
+  .center-down {
+    right: 50%;
+    bottom: 1%;
+  }
+  .canvas-image .canvas-caption p {
+    text-align: center;
+    padding-top: 0;
+    padding: 0;
+    -moz-transform: none;
+    -webkit-transform: none;
+    -o-transform: none;
+    -ms-transform: none;
+    transform: none;
+    display: inline;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 58px;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    box-shadow: 2px 2px 2px #000;
+    padding: 1rem;
+    color: white; }
+  kbd.keyseq { color: #555555; }
+  kbd:not(.keyseq) {
+    display: inline-block;
+    color: #222222;
+    font-size: 0.7em;
+    line-height: 1.4;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    margin: -0.15em 0.15em 0 0.15em;
+    padding: 0.2em 0.6em;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  kbd kbd:first-child { margin-left: 0; }
+  kbd kbd:last-child { margin-right: 0; }
+</style>
+</body>
+</html>
