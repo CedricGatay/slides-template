@@ -1,0 +1,1 @@
+run='docker run --rm -ti -v $(pwd):/documents/ -p 9000:9000 -p 9001:9001 -p 35729:35729 codetroopers/ct-slides'
