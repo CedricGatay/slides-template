@@ -1,6 +1,6 @@
 = Docker Jenkins Slave
 :author: Cedric Gatay
-:keywords: @Cedric_Gatay #Tours_Jug
+:keywords: @Cedric_Gatay #BBL
 :email: c.gatay@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
@@ -277,6 +277,20 @@ Accessibles sur
 
  * http://github.com/code-troopers/docker-jenkins-slaves
  * https://registry.hub.docker.com/repos/codetroopers/
+
+== Démo
+
+* http://github.com/CedricGatay/slides-template/tree/bbl/20150731-jenkins-slave
+
+[source,shell]
+-------
+# build and start a jenkins (pre pulls an image)
+make
+# get jenkins logs
+make logs
+# destroy everything
+make clean
+-------
 
 [canvas-image="assets/tips.jpg"]
 == Tips
