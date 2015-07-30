@@ -1,0 +1,7 @@
+FROM busybox:latest
+
+ADD base /var/jenkins_home
+
+RUN chmod a+w -R /var/jenkins_home
+
+VOLUME /var/jenkins_home
