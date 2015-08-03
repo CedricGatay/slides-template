@@ -15,4 +15,4 @@ EXPOSE 9000
 EXPOSE 9010
 EXPOSE 35729
 
-CMD guard start -i & ruby -run -e httpd . -p 9000& NODE_ENV=production node /deck-remote/server.js 9010
+CMD ln -fs /deck-remote /documents/ && guard start -i & ruby -run -e httpd . -p 9000& NODE_ENV=production node /deck-remote/server.js 9010

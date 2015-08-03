@@ -284,10 +284,14 @@ Accessibles sur
 
 [source,shell]
 -------
-# build and start a jenkins (pre pulls an image)
+# build and start a jenkins
 make
 # get jenkins logs
 make logs
+# stop it
+make stop
+# start it
+make start
 # destroy everything
 make clean
 -------

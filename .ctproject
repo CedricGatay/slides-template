@@ -1,5 +1,6 @@
+run='docker run --rm -ti -v $(pwd):/documents/ -p 9000:9000 -p 9010:9010 -p 35729:35729 codetroopers/ct-slides'
 build='make'
 logs='make logs'
-run='make run'
+start='make run'
 stop='make stop'
 clean='make clean'

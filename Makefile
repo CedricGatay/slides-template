@@ -1,5 +1,5 @@
 .SILENT :
-.PHONY: master clean logs data run stop
+.PHONY: master clean logs data start stop
 
 NAME=bbl_jenkins
 
@@ -9,7 +9,7 @@ master : data
 	echo "You can add a Maven job building a sample project on label jdk8 with manual cloning through shell pre step :"
 	echo "git clone https://github.com/code-troopers/wicket-hot-reload.git ." 
 
-run :
+start :
 	docker start $(NAME)
 
 stop :
