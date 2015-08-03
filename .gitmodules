@@ -1,3 +1,6 @@
 [submodule "docker-jenkins-slave"]
 	path = docker-jenkins-slave
 	url = https://github.com/CedricGatay/slides-template
+[submodule "bbl/20150731-docker-jenkins"]
+	path = bbl/20150731-docker-jenkins
+	url = https://github.com/CedricGatay/slides-template.git
