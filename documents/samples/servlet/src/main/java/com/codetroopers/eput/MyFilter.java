@@ -16,41 +16,41 @@
 
 package com.codetroopers.eput;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Created by cgatay on 13/01/16.
  */
 //tag::class[]
-@WebServlet(urlPatterns = "/")
-public class MyServlet extends HttpServlet{
-
-    static int count[] = new int[]{0,0};
+@WebFilter(urlPatterns = "/**")
+public class MyFilter implements  Filter{
+    Logger logger;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // init your filter
+        logger = Logger.getLogger(getClass().getName());
+    }
 
     @Override
-    //tag::get[]
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        count[0]++;
-        writeResponse(resp);
+    //tag::filter[]
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        logger.info("Before filtering");
+        filterChain.doFilter(servletRequest, servletResponse);
+        logger.info("After filtering");
     }
-    //end::get[]
+    //end::filter[]
 
     @Override
-    //tag::post[]
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        count[1]++;
-        writeResponse(resp);
+    public void destroy() {
+        // destroy allocated things
     }
-    //end::post[]
 
-    private void writeResponse(HttpServletResponse response) throws IOException {
-        response.getWriter().println("Get count : " + count[0]);
-        response.getWriter().println("Post count : " + count[1]);
-    }
 }
 //end::class[]

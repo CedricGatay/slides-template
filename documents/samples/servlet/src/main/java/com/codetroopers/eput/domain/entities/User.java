@@ -23,15 +23,14 @@ import javax.validation.constraints.NotNull;
  * Created by cgatay on 19/01/16.
  */
 //tag::class[]
-@Entity
-@Table(name = "user")
+@Entity // <1>
+@Table(name = "user") // <2>
 public class User {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue // <3>
     public Long id;
-    @NotNull
+    @NotNull // <4>
     public String name;
-    @NotNull
+    @NotNull // <4>
     public String email;
 
     public User(String name, String email) {

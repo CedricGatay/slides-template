@@ -252,6 +252,8 @@ image::mvc-diagram.png[role=right_picture]
  * Utilisation intensive de XML (pre Java EE 6)
  * Configuration par annotations (Java EE 6)
 
+
+//TODO caca
 [source,xml]
 -----
 <servlet-mapping>
@@ -271,6 +273,8 @@ public class HelloEPUT{
  * à l'utilisation des _patterns_ sont apparus
  * simplification de l'utilisation en les adoptant par défaut
  * possibilité de redéfinition manuelle
+
+-> Rassurez-vous il reste du XML
 
 == Cycle de travail
 
@@ -330,17 +334,13 @@ rs.close();
 
 [source,java]
 -----
-@Entity("users")
-class User{
- String name;
- String email;
-}
-class UserService{
- List<User> all(){
-  return em.getResultList("SELECT u FROM User");
- }
-}
+include::samples/servlet/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
 -----
+<1> Définition en tant qu'entité
+<2> Contraintes sur la table (nom...)
+<3> Définition du champ clef primaire
+<4> Contraintes sur les champs
+
 
 == Dépendances entre composants
 
@@ -379,6 +379,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.ja
  
  * enchaînement des `new`
     ** création pas toujours triviale des dépendances
+    ** `boilerplate` de création d'objet à gérer
  * aucun recyclage des objets
 
 -> beaucoup de code inutile
@@ -503,34 +504,6 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/domain/VisitBean.ja
  * très utilisées
  * traite les requêtes HTTP
 
-/!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
-
-== JavaServer Pages
-
-TODOTODOTODOTODO SAMPLE
-
- * ensemble d'outils pour décrire une page HTML
- * écriture de XML
-
-== JavaServer Faces
-
- * écriture orientée composants
- ** réutilisabilité
- ** composition de comportement
- * support des technologies "modernes"
-
-== Webservices
-
- * déclaration des ressources
- * REST / SOAP
- * assemblage transparent avec les autres services
-
-// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
-
-== Premiers pas
-
-* destiné principalement au monde web
-* gère la réponse simple à une requête HTTP
 
 <<<
 
@@ -547,6 +520,74 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags
 -----
 
 <<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
+-----
+
+<<<
+
+// /!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
+
+== Filter
+
+ * bas niveau
+ * très utilisées
+//createur de framework
+ * décore les requêtes HTTP
+
+TODOTODOTODOTODO sample
+
+== JavaServer Pages
+
+TODOTODOTODOTODO SAMPLE
+
+ * ensemble d'outils pour décrire une page HTML
+ * écriture de XML
+ * la page `.jsp` peut contenir du code
+ * de moins en moins utilisé
+
+<<<
+
+[source,jsp]
+-----
+include::samples/servlet/src/main/webapp/helloWorld.jsp[tags=jsp]
+-----
+
+<<<
+
+*Problèmes*
+
+ * du code dans les vues
+ * MVC _mélangé_
+ * compilé par le serveur d'application
+
+//TODO picture : it works on my machine
+
+-> "Oups"
+
+== JavaServer Faces
+
+ * écriture orientée composants
+ ** réutilisabilité
+ ** composition de comportement
+ * support des technologies "modernes"
+ * fais partie de la spec, pas forcément aussi largement utilisé
+
+== Webservices
+
+ * déclaration des ressources
+ * REST / SOAP
+ * assemblage transparent avec les autres services
+
+// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
+
+== Premiers pas
+
+* destiné principalement au monde web
+* gère la réponse simple à une requête HTTP
+
 
 A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
 
