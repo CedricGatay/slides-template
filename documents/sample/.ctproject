@@ -1,0 +1,4 @@
+run='docker run -ti --rm -v $(pwd)/target/tpjavaee.war:/opt/jboss/wildfly/standalone/deployments/tpjavaee.war -p 9080:8080 -p 9990:9990 jboss/wildfly'
+build='mvn package'
+start='mvn clean wildfly:run'
+brun='ct build && ct run'

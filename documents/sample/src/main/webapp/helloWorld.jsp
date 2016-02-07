@@ -21,12 +21,14 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Basic JSP sample</h1>
 <% for (int i = 0; i < 10; i++){
 %>
-Item <%= i %>
+Item <%= i %> <br>
 <%
 }
 %>
+<em>Please delete me now, I am so ugly !</em>
 </body>
 </html>
 <!-- end::jsp[] -->

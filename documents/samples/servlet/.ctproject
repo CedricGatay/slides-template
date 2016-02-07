@@ -1,4 +1,0 @@
-run='docker run -ti --rm -v /Users/cgatay/Documents/work/github/slides-template/documents/samples/servlet/target/:/opt/jboss/wildfly/standalone/deployments/ -p 9080:8080 -p 9990:9990 jboss/wildfly'
-build='mvn package'
-start='mvn clean wildfly:run'
-brun='ct build && ct run'

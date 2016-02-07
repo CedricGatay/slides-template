@@ -334,7 +334,7 @@ rs.close();
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
 -----
 <1> Définition en tant qu'entité
 <2> Contraintes sur la table (nom...)
@@ -348,21 +348,21 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/domain/entities/Use
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=class]
 -----
 
 <<<
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=ctor]
+include::sample/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=ctor]
 -----
 
 <<<
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=class]
 -----
 
 
@@ -370,7 +370,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.ja
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=ctor]
+include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=ctor]
 -----
 
 <<<
@@ -403,7 +403,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.ja
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
 -----
 <1> Injection d'un UserDAO
 
@@ -414,7 +414,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserServic
 |
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 -----
 | <1> Injection du UserService
 |===
@@ -454,7 +454,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/services/UUIDService.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/services/UUIDService.java[tags=class]
 -----
 <1> Bean sans état
 <2> Génération d'un identifiant
@@ -471,7 +471,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/services/UUIDServic
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
 -----
 [.right_list]
 <1> Bean avec état
@@ -491,7 +491,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/services/CartServic
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
 -----
 [.right_list]
 <1> variable partagée
@@ -509,21 +509,21 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/domain/VisitBean.ja
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
 -----
 
 <<<
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
 -----
 
 <<<
 
 [source,java]
 -----
-include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
 -----
 
 <<<
@@ -552,12 +552,13 @@ TODOTODOTODOTODO SAMPLE
 
 [source,jsp]
 -----
-include::samples/servlet/src/main/webapp/helloWorld.jsp[tags=jsp]
+include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
 -----
 
 <<<
 
 *Problèmes*
+
 
  * du code dans les vues
  * MVC _mélangé_
@@ -589,7 +590,7 @@ include::samples/servlet/src/main/webapp/helloWorld.jsp[tags=jsp]
 * gère la réponse simple à une requête HTTP
 
 
-A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
+A voir simplement en action là : http://192.168.75.128:9080/tpjavaee/
 
 //TODO probably move this at the end of the theorical part
 
