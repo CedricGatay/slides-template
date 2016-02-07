@@ -16,7 +16,10 @@
 
 package com.codetroopers.eput.domain.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -32,6 +35,8 @@ public class User {
     public String name;
     @NotNull // <4>
     public String email;
+    @NotNull
+    public String password;
 
     public User(String name, String email) {
         this.name = name;

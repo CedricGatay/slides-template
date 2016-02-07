@@ -31,7 +31,7 @@ import java.io.IOException;
  */
 //tag::class[]
 @WebServlet(urlPatterns = "/users")
-public class UserServlet extends HttpServlet{
+public class UserServlet extends HttpServlet {
 
     @Inject
     UserService userService; // <1>
@@ -39,12 +39,14 @@ public class UserServlet extends HttpServlet{
     @Override
     //tag::get[]
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        userService.all().forEach(u ->{
+        userService.all().forEach(user -> {
             try {
                 resp.getWriter()
-                        .println(u.name
+                        .println(user.name
                                 + " - "
-                                + u.email
+                                + user.email
+                                + " - "
+                                + user.password
                         );
             } catch (IOException e) {
                 //don't ever do this
