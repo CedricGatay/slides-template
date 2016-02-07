@@ -30,7 +30,7 @@ import java.io.IOException;
  * Created by cgatay on 13/01/16.
  */
 //tag::class[]
-@WebServlet(urlPatterns = "/users")
+@WebServlet(urlPatterns = "/users_no_ioc")
 public class UserServletNoIoC extends HttpServlet{
 
     UserServiceNoIoC userService;
