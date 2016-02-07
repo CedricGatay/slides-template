@@ -1,4 +1,4 @@
-package com.codetroopers.eput.models;
+package com.codetroopers.eput.domain.entities;
 
 import javax.persistence.*;
 import java.util.Date;

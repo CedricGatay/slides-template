@@ -1,6 +1,6 @@
 package com.codetroopers.eput.controllers;
 
-import com.codetroopers.eput.models.GoldenBookEntry;
+import com.codetroopers.eput.domain.entities.GoldenBookEntry;
 import com.codetroopers.eput.models.UserInfo;
 import com.codetroopers.eput.services.GoldenBookEntryService;
 
