@@ -36,12 +36,17 @@ public class UserDAO {
     public List<User> all(){
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
+    //end::allMethod[]
 
     public User create() {
         User user = new User("NAME", "name@code-troopers.com");
         em.persist(user);
         return user;
     }
-    //end::allMethod[]
+
+    public User save(User user) {
+        em.persist(user);
+        return user;
+    }
 }
 //end::class[]

@@ -535,13 +535,36 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
  * bas niveau
  * très utilisées
 //createur de framework
- * décore les requêtes HTTP
+ * "décore" les requêtes HTTP
 
-TODOTODOTODOTODO sample
+<<<
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=class]
+-----
+<1> Motif d'URL à prendre en compte
+
+<<<
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=filter]
+-----
+<2> Délégation au filtre suivant
+
+<<<
+
+[source,shell]
+-----
+INFO  [com.codetroopers.eput.MyFilter] Before filtering
+INFO  [com.codetroopers.eput.MyFilter] After filtering
+-----
 
 == JavaServer Pages
 
-TODOTODOTODOTODO SAMPLE
+[.section_link]
+http://vm.docker:9080/tpjavaee/helloWorld.jsp
 
  * ensemble d'outils pour décrire une page HTML
  * écriture de XML
@@ -559,7 +582,6 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
 
 *Problèmes*
 
-
  * du code dans les vues
  * MVC _mélangé_
  * compilé par le serveur d'application
@@ -573,7 +595,39 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
  * écriture orientée composants
  ** réutilisabilité
  ** composition de comportement
+ * CDI au coeur du système
  * support des technologies "modernes"
+
+
+//FIXME too long samples / bad indentation
+
+<<<
+
+[source,xml]
+-----
+include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=full]
+-----
+
+<<<
+
+[source,xml]
+-----
+include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=sample]
+-----
+
+<<<
+
+Expression Language
+
+ * `${prop.in.a.bean}` : évaluation immédiate
+ * `#{prop.in.a.bean}` : évaluation différée
+ * accès à des variables ou méthodes
+
+<<<
+
+ *Problèmes*
+
+ * du code dans les vues (mais beaucoup moins)
  * fais partie de la spec, pas forcément aussi largement utilisé
 
 == Webservices
@@ -582,6 +636,43 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
  * REST / SOAP
  * assemblage transparent avec les autres services
 
+<<<
+
+**S**imple **O**bject **A**ccess **P**rotocol
+
+ * format d'échange XML
+ ** objets
+ ** méthodes
+ * verbeux
+ * en train de disparaître
+
+//TODO here comes a new challenger
+
+<<<
+
+[.section-link]
+
+GET/POST http://vm.docker:9080/tpjavaee/ws/users?name=aeaze&email=qsd@qsd.fr
+
+**RE**presentational **S**tate **T**ransfer
+
+  * façon de penser un webservice
+  * utilisation des verbes http
+  * pas d'état côté serveur
+
+<<<
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/ws/UserWebService.java[tags=class]
+-----
+<1> Base de l'application REST
+<2> Chemin de réponse
+<3> Type de données créé par le webservice
+<4> Verbe HTTP à considérer
+<5> Récupération de la valeur des paramètres
+
+<<<
 // SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
 
 == Premiers pas
@@ -590,26 +681,31 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
 * gère la réponse simple à une requête HTTP
 
 
-A voir simplement en action là : http://192.168.75.128:9080/tpjavaee/
+A voir simplement en action là : http://vm.docker:9080/tpjavaee/
 
 //TODO probably move this at the end of the theorical part
 
 
 == Process de normalisation
 
- * Ecriture d'une JSR
- * Fourniture du TCK
- * Ecriture d'une RI
+ * Ecriture d'une **J**ava **S**pecification **R**equest
+ * Fourniture du **T**oolkit **C**ompatibility **K**it
+ * Ecriture d'une *R***eference **I**mplementation
 
 == Pourquoi est-ce populaire ?
+
+Souvent en entreprise :
 
  * stations de dev Windows
  * serveurs Linux
 
 -> peu d'adhérences à l'os
 
+<<<
+
  * specs publiques, concurrence des serveurs
  * FOSS : culture open source importante
+ * marché lucratif
 
 
 == Ecosystème

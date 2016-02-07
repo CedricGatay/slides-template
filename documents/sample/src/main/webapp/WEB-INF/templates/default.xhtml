@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- tag::full[] -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -52,17 +53,20 @@
                             </h:outputLink>
                             </li>
                         </ul>
-                        <p class="navbar-text pull-right">
-                            <h:outputText value="Logged in as #{userInfo.name}"
-                                          rendered="#{userInfo.loggedIn}"/>
-                            <h:commandLink action="#{authenticationService.logout}"
-                                           value="Logout"
-                                           rendered="#{userInfo.loggedIn}"/>
-                            <h:outputLink value="/tpjavaee/login.jsf"
-                                          rendered="#{!userInfo.loggedIn}">
-                                Login
-                            </h:outputLink>
-                        </p>
+<!-- bad indent for asciidoc -->
+<!-- tag::sample[] -->
+<p class="navbar-text pull-right">
+    <h:outputText value="Logged in as #{userInfo.name}"
+                  rendered="#{userInfo.loggedIn}"/>
+    <h:commandLink action="#{authenticationService.logout}"
+                   value="Logout"
+                   rendered="#{userInfo.loggedIn}"/>
+    <h:outputLink value="/tpjavaee/login.jsf"
+                  rendered="#{!userInfo.loggedIn}">
+        Login
+    </h:outputLink>
+</p>
+<!-- end::sample[] -->
                     </div>
                     <!--/.nav-collapse -->
                 </div>
@@ -92,3 +96,4 @@
     <h:outputScript name="js/bootstrap.min.js"/>
 </h:body>
 </html>
+<!-- end:full[] -->

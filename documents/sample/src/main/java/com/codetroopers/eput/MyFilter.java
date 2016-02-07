@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * Created by cgatay on 13/01/16.
  */
 //tag::class[]
-@WebFilter(urlPatterns = "/**")
+@WebFilter(urlPatterns = "/*") // <1>
 public class MyFilter implements  Filter{
     Logger logger;
     @Override
@@ -40,9 +40,10 @@ public class MyFilter implements  Filter{
 
     @Override
     //tag::filter[]
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
         logger.info("Before filtering");
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(request, response); // <2>
         logger.info("After filtering");
     }
     //end::filter[]

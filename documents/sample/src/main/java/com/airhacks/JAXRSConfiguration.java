@@ -10,7 +10,6 @@ import javax.ws.rs.core.Application;
  * @author airhacks.com
  */
 //tag::class[]
-@ApplicationPath("resources")
 public class JAXRSConfiguration extends Application {
 }
 //end::class[]

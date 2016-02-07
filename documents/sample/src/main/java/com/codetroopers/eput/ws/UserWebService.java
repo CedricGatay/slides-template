@@ -14,34 +14,41 @@
  * limitations under the License.
  */
 
-package com.codetroopers.eput.services;
+package com.codetroopers.eput.ws;
 
-import com.codetroopers.eput.domain.UserDAO;
+
 import com.codetroopers.eput.domain.entities.User;
+import com.codetroopers.eput.services.UserService;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
- * Created by cgatay on 19/01/16.
+ * Sample REST WebService, it will be under "ws" app path
  */
 //tag::class[]
-@Stateless
-public class UserService {
+@ApplicationPath("ws") // <1>
+@Path("/users") // <2>
+@Produces(MediaType.APPLICATION_JSON) // <3>
+public class UserWebService extends Application{
+
     @Inject
-    public UserDAO userDAO; // <1>
+    UserService userService;
 
-    public List<User> all(){
-        return userDAO.all();
+    @GET // <4>
+    public List<User> users(){
+        return userService.all();
     }
 
-    public User create(){
-        return userDAO.create();
-    }
-
-    public User create(User user) {
-        return userDAO.save(user);
+    @POST // <4>
+    public User create(
+            @QueryParam("name") String name, // <5>
+            @QueryParam(value = "email") String email){
+        User user = new User(name, email);
+        return userService.create(user);
     }
 }
 //end::class[]
