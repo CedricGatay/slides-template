@@ -568,3 +568,43 @@ th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
 th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
 
 th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }
+
+.code_columns .colist{
+  width:500px;
+  position: absolute;
+  overflow: visible;
+}
+
+.section-link,.get, .post{
+  display:none;
+}
+
+.header-action{
+  font-size: 0.5em;
+  color: white;
+  float: right;
+  margin-left: 0.5em;
+}
+
+.header-action:hover{
+  cursor:pointer;
+}
+
+.modal{
+  position: fixed;
+  top: 20%;
+  bottom: 20%;
+  left: 10%;
+  right: 10%;
+  height: 60%;
+}
+
+pre.response{
+  height:100%;
+  color: darkgreen;
+  overflow:scroll;
+}
+
+.ct:hover{
+  cursor:pointer
+}

@@ -222,6 +222,7 @@ image::ee-roadmap.png[role=right_picture]
  * philosophie n-tiers
  * meta programmation par annotations
  * convention over configuration
+ * système de normalisation "ouvert"
 
 == Architecture n-tiers
 
@@ -246,27 +247,18 @@ image::mvc-diagram.png[role=right_picture]
  ** Model
  ** Controller
 
-== Annotations
+//TODO
+
+== Méta-programmation
 
  * Besoin d'ajouter des informations au code
  * Utilisation intensive de XML (pre Java EE 6)
  * Configuration par annotations (Java EE 6)
 
-
-//TODO caca
-[source,xml]
------
-<servlet-mapping>
-//TODO BLAAAA
-</servlet-mapping>
------
-
 [source,java]
-----
-@WebServlet
-public class HelloEPUT{
-}
-----
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
+-----
 
 == Convention over configuration
 
@@ -276,9 +268,18 @@ public class HelloEPUT{
 
 -> Rassurez-vous il reste du XML
 
+[%step]
+image::trollface.jpg[width=300px]
+
+== Process de normalisation
+
+ * Ecriture d'une **J**ava **S**pecification **R**equest
+ * Fourniture du **T**oolkit **C**ompatibility **K**it
+ * Ecriture d'une *R***eference **I**mplementation
+
 == Cycle de travail
 
- * Implementation
+ * Implémentation
  * Compilation
  * Packaging
  * Déploiement
@@ -292,6 +293,11 @@ public class HelloEPUT{
 
  * Exécution gérée par le serveur d'application
 
+
+[canvas-image="images/future_browser.png"]
+== Quelques specs importantes par l'exemple
+[.canvas-caption,center top]
+"Show me the code"
 
 == Stockage des données
 
@@ -332,15 +338,19 @@ rs.close();
 
 <<<
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
 -----
-<1> Définition en tant qu'entité
+|<1> Définition en tant qu'entité
 <2> Contraintes sur la table (nom...)
 <3> Définition du champ clef primaire
 <4> Contraintes sur les champs
-
+|===
 
 == Dépendances entre composants
 
@@ -401,15 +411,21 @@ include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=c
 
 == Context and Dependency Injection
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
 -----
-<1> Injection d'un UserDAO
+|<1> Injection d'un UserDAO
+|===
 
 <<<
 
-[cols="6a,^.^1a"]
+[.code_columns]
+[cols="6a,<.<1a"]
 |===
 |
 [source,java]
@@ -469,15 +485,18 @@ include::sample/src/main/java/com/codetroopers/eput/services/UUIDService.java[ta
 
 <<<
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
 -----
-[.right_list]
-<1> Bean avec état
+|<1> Bean avec état
 <2> attaché à la session utilisateur
 <3> contenu du panier par utilisateur
-
+|===
 
 == Singleton
 
@@ -489,14 +508,19 @@ include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[ta
 
 <<<
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
 -----
-[.right_list]
-<1> variable partagée
+|<1> variable partagée
 <2> traces sur la création / destruction
 <3> verrous en lecture / écriture
+|===
+
 
 == Servlet
 
@@ -514,12 +538,18 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
 
 <<<
 
+[.get]
+http://vm.docker:9080/tpjavaee/
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
 -----
 
 <<<
+
+[.post]
+http://vm.docker:9080/tpjavaee/
 
 [source,java]
 -----
@@ -539,11 +569,16 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
 
 <<<
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=class]
 -----
-<1> Motif d'URL à prendre en compte
+|<1> Motif d'URL à prendre en compte
+|===
 
 <<<
 
@@ -563,15 +598,15 @@ INFO  [com.codetroopers.eput.MyFilter] After filtering
 
 == JavaServer Pages
 
-[.section_link]
-http://vm.docker:9080/tpjavaee/helloWorld.jsp
-
  * ensemble d'outils pour décrire une page HTML
  * écriture de XML
  * la page `.jsp` peut contenir du code
  * de moins en moins utilisé
 
 <<<
+
+[.get.blank]
+http://vm.docker:9080/tpjavaee/helloWorld.jsp
 
 [source,jsp]
 -----
@@ -610,6 +645,9 @@ include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=full]
 
 <<<
 
+[.get.blank]
+http://vm.docker:9080/tpjavaee/login.xhtml
+
 [source,xml]
 -----
 include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=sample]
@@ -625,7 +663,7 @@ Expression Language
 
 <<<
 
- *Problèmes*
+*Problèmes*
 
  * du code dans les vues (mais beaucoup moins)
  * fais partie de la spec, pas forcément aussi largement utilisé
@@ -650,9 +688,10 @@ Expression Language
 
 <<<
 
-[.section-link]
-
-GET/POST http://vm.docker:9080/tpjavaee/ws/users?name=aeaze&email=qsd@qsd.fr
+[.get]
+http://vm.docker:9080/tpjavaee/ws/users
+[.post]
+http://vm.docker:9080/tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr
 
 **RE**presentational **S**tate **T**ransfer
 
@@ -662,35 +701,20 @@ GET/POST http://vm.docker:9080/tpjavaee/ws/users?name=aeaze&email=qsd@qsd.fr
 
 <<<
 
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/ws/UserWebService.java[tags=class]
 -----
-<1> Base de l'application REST
+|<1> Base de l'application REST
 <2> Chemin de réponse
-<3> Type de données créé par le webservice
+<3> Type de données créées par le webservice
 <4> Verbe HTTP à considérer
 <5> Récupération de la valeur des paramètres
-
-<<<
-// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
-
-== Premiers pas
-
-* destiné principalement au monde web
-* gère la réponse simple à une requête HTTP
-
-
-A voir simplement en action là : http://vm.docker:9080/tpjavaee/
-
-//TODO probably move this at the end of the theorical part
-
-
-== Process de normalisation
-
- * Ecriture d'une **J**ava **S**pecification **R**equest
- * Fourniture du **T**oolkit **C**ompatibility **K**it
- * Ecriture d'une *R***eference **I**mplementation
+|===
 
 == Pourquoi est-ce populaire ?
 
@@ -714,11 +738,11 @@ Souvent en entreprise :
 
  //list goes here
 
- * Wildfly
- * TomEE
- * Jboss AS
- * Websphere
- * Weblogic
+ * Wildfly image:wildfly.png[width=300px]
+ * Glassfish image:glassfish.png[width=300px]
+ * Jboss AS image:jbossas.png[width=300px]
+ * Websphere image:websphere.jpg[width=300px]
+ * Weblogic image:weblogic.png[width=300px]
 
 == FOSS
 
@@ -732,6 +756,7 @@ Souvent en entreprise :
 == Projets notables
 
  * Maven
+ * Jenkins
  * Hibernate
  * AspectJ
  * Jetty
@@ -747,6 +772,11 @@ Souvent en entreprise :
  * Ruby On Rails
  * Symfony
 
+[canvas-image="images/yourturn.png"]
+== A vous de jouer
+
+[.canvas-caption, position=center-up]
+A votre tour !
 
 == TP + CC
 

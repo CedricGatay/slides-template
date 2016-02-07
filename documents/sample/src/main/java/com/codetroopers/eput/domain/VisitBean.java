@@ -32,17 +32,17 @@ import java.util.logging.Logger;
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class VisitBean {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    Logger logger = Logger.getLogger(getClass().getName());
     private int visits = 0; // <1>
 
     @PostConstruct
     public void initialized(){
-        logger.info("Visit bean initialized..."); // <2>
+        logger.info("VisitBean initialized..."); // <2>
     }
 
     @PreDestroy
     public void willBeDestroyed(){
-        logger.info("Visit bean will be terminated..."); // <2>
+        logger.info("VisitBean will be terminated..."); // <2>
     }
 
     @Lock(LockType.WRITE) // <3>

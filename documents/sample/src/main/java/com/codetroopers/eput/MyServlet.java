@@ -27,7 +27,9 @@ import java.io.IOException;
  * Created by cgatay on 13/01/16.
  */
 //tag::class[]
+//tag::annot[]
 @WebServlet(urlPatterns = "/")
+//end::annot[]
 public class MyServlet extends HttpServlet{
 
     static int count[] = new int[]{0,0};
