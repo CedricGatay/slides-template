@@ -11,6 +11,10 @@ $(document).ready(function(){
  $footer.appendTo($deckStatus);
  prepareAsyncDemos();
 
+ function buildDemoURL(url){
+     return window.location.protocol + "//" + window.location.hostname + ":8080/" + url
+ }
+
  function prepareAsyncDemos() {
   var setResponseContentInModal = function(e){
    return function (d) {
@@ -25,7 +29,7 @@ $(document).ready(function(){
    var $h2 = $e.siblings("h2");
    var $icon = $("<i class='header-action icon-globe'></i>");
    $h2.append($icon);
-   var url = $(e).find("a").attr("href");
+   var url = buildDemoURL($(e).find("a").attr("href"));
    if ($e.hasClass("blank")){
     $icon.click(function() {
      window.open(url, '_blank');
@@ -42,7 +46,7 @@ $(document).ready(function(){
    var i = $("<i class='header-action icon-envelope'></i>");
    $h2.append(i);
    i.click(function () {
-    var url = $(e).find("a").attr("href");
+    var url = buildDemoURL($(e).find("a").attr("href"));
     $.ajax({url: url, method: 'POST'}).then(setResponseContentInModal(e));
    });
   });

@@ -539,7 +539,7 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
 <<<
 
 [.get]
-http://vm.docker:9080/tpjavaee/
+link:tpjavaee/[]
 
 [source,java]
 -----
@@ -549,7 +549,7 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
 <<<
 
 [.post]
-http://vm.docker:9080/tpjavaee/
+link:tpjavaee/[]
 
 [source,java]
 -----
@@ -606,7 +606,7 @@ INFO  [com.codetroopers.eput.MyFilter] After filtering
 <<<
 
 [.get.blank]
-http://vm.docker:9080/tpjavaee/helloWorld.jsp
+link:tpjavaee/helloWorld.jsp[]
 
 [source,jsp]
 -----
@@ -646,7 +646,7 @@ include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=full]
 <<<
 
 [.get.blank]
-http://vm.docker:9080/tpjavaee/login.xhtml
+link:tpjavaee/login.xhtml[]
 
 [source,xml]
 -----
@@ -689,9 +689,9 @@ Expression Language
 <<<
 
 [.get]
-http://vm.docker:9080/tpjavaee/ws/users
+link:tpjavaee/ws/users[]
 [.post]
-http://vm.docker:9080/tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr
+link:tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr[]
 
 **RE**presentational **S**tate **T**ransfer
 
