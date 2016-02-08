@@ -17,14 +17,14 @@
 
 == Agenda
  * Java vs Java EE
- * Vue d'ensemble
- * Services
+ * Concepts
+ * Spécifications
       ** Java Persistence API
-      ** Stateless
-      ** Stateful
+      ** Enterprise Java Bean
       ** CDI
+      ** Servlet / Filter
+      ** Java Server Pages / Java Server Faces
       ** Webservices
- * Exemple pratique
 
 [canvas-image="images/me_you.gif"]
 == Forewords
@@ -41,13 +41,12 @@
 |image::profile.jpeg[]
 
 |
-[width="75%", cols="3*"]
+[cols="4*"]
 !===
-!image:navigtours-logo.png[] 
-!image:aucard.jpg[] 
-!image:srmvision-logo.png[]
-!image:books.png[]
-!image:eput.png[]
+!image:navigtours-logo.png[width="90%"]
+!image:aucard.jpg[width="90%"]
+!image:srmvision-logo.png[width="90%",role=white]
+!image:eput.png[width="90%",role=white]
 a!//
 !===
 |image::logo_text.png[]
@@ -58,6 +57,8 @@ a!//
 
  * JavaEE est très vaste
  * JavaEE7 @ PacktPub : 496 pages
+
+-> 2H de CM / 6H de TP
 
 
 [[JavaEE7Packt]]
@@ -75,7 +76,6 @@ Java
  * ≠ Javascript
 
 
-//TODO flashback the game canvas image
 [canvas-image=images/flashback.png]
 == Flashback
 [.canvas-caption, position=center-up]
@@ -153,7 +153,7 @@ Promesse du Write Once Run Anywhere
 <<<
 
  * Java SE 7 : 2011
-    ** Invokedynamics
+    ** Invokedynamic
     ** try with resources
     ** NIO 2
     ** Concurrency utilities
@@ -195,18 +195,20 @@ image::ee-roadmap.png[role=right_picture]
 
 == Version entreprise
 
- * applications visant à être
-  ** complexes
-  ** fiables
-  ** interconnectées
-  ** sécurisées
+Applications visant à être
+
+[%step]
+* complexes
+* fiables
+* interconnectées
+* sécurisées
 
 <<<
 
  * conçu pour répondre à la montée d'internet
  * rationaliser les développements
-  ** **D**on't **R**epeat **Y**ourself
   ** maîtrise des coûts
+  ** **D**on't **R**epeat **Y**ourself
 
 == Concepts
 
@@ -220,6 +222,7 @@ image::ee-roadmap.png[role=right_picture]
  * applications d'envergures
  * équipes multiples
  * responsabilités partagées
+ * modèle de conception
 
 <<<
 
@@ -238,25 +241,29 @@ image::mvc-diagram.png[role=right_picture]
  ** Model
  ** Controller
 
-//TODO
+[[mvc-mobile]]
+image::mvc-mobile.png[role=right_picture]
 
 == Méta-programmation
 
+[%step]
  * Besoin d'ajouter des informations au code
  * Utilisation intensive de XML (pre Java EE 6)
  * Configuration par annotations (Java EE 6)
 
-[source,java]
+[%step,source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
 -----
 
 == Convention over configuration
 
+[%step]
  * à l'utilisation des _patterns_ sont apparus
  * simplification de l'utilisation en les adoptant par défaut
  * possibilité de redéfinition manuelle
 
+[%step]
 -> Rassurez-vous il reste du XML
 
 [%step]
@@ -264,12 +271,14 @@ image::trollface.jpg[width=300px]
 
 == Process de normalisation
 
+[%step]
  * Ecriture d'une **J**ava **S**pecification **R**equest
  * Fourniture du **T**oolkit **C**ompatibility **K**it
  * Ecriture d'une **R**eference **I**mplementation
 
 == Cycle de travail
 
+[%step]
  * Implémentation
  * Compilation
  * Packaging
@@ -306,6 +315,7 @@ Outils spécialisés
 
 == Serveurs d'application
 
+[%step]
  * exécute le code métier
  * fournit des services
  ** gestion des transactions
@@ -315,7 +325,7 @@ Outils spécialisés
  ** gestion des logs
  ** gestion des utilisateurs
 
-[canvas-image="images/future_browser.png"]
+[canvas-image="images/showcode.gif"]
 == Show me the code
 [.canvas-caption,center top]
 "Show me the code"
@@ -372,6 +382,16 @@ include::sample/src/main/java/com/codetroopers/eput/domain/entities/User.java[ta
 <3> Définition du champ clef primaire
 <4> Contraintes sur les champs
 |===
+
+<<<
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/domain/UserDAO.java[tags=allMethod]
+-----
+
+[canvas-image="images/blackbook.gif"]
+== CDI
 
 == Dépendances entre composants
 
@@ -432,7 +452,7 @@ include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=c
 
 == Context and Dependency Injection
 
-[.code_columns]
+[.code_column]
 [cols="6a,<.<1a"]
 |===
 |
@@ -465,10 +485,13 @@ include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 
 *Notion de `scope`*
  
- * Cycles de vies différents selon l'utilisation
+ * Cycles de vies différent selon l'utilisation
  ** `@ApplicationScoped` vit toute l'application
  ** `@SessionScoped` vit toute la session utilisateur
  ** `@RequestScoped` vit la durée de la requête utilisateur
+
+[canvas-image="images/blackbook.gif"]
+== EJB
 
 == Enterprise Java Bean
 
@@ -542,6 +565,8 @@ include::sample/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=c
 <3> verrous en lecture / écriture
 |===
 
+[canvas-image="images/blackbook.gif"]
+== Servlet
 
 == Servlet
 
@@ -579,6 +604,9 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
 
 // /!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
 
+[canvas-image="images/blackbook.gif"]
+== Filter
+
 == Filter
 
  * bas niveau
@@ -597,15 +625,8 @@ include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
 include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=class]
 -----
 |<1> Motif d'URL à prendre en compte
-|===
-
-<<<
-
-[source,java]
------
-include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=filter]
------
 <2> Délégation au filtre suivant
+|===
 
 <<<
 
@@ -614,6 +635,9 @@ include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=filter]
 INFO  [com.codetroopers.eput.MyFilter] Before filtering
 INFO  [com.codetroopers.eput.MyFilter] After filtering
 -----
+
+[canvas-image="images/blackbook.gif"]
+== JSP
 
 == JavaServer Pages
 
@@ -642,7 +666,10 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
 
 //TODO picture : it works on my machine
 
--> "Oups"
+//-> "Oups"
+
+[canvas-image="images/blackbook.gif"]
+== JSF
 
 == JavaServer Faces
 
@@ -657,7 +684,7 @@ include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
 
 <<<
 
-[source,xml]
+[source,xml,role=noscale]
 -----
 include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=full]
 -----
@@ -687,9 +714,12 @@ Expression Language
  * du code dans les vues (mais beaucoup moins)
  * fais partie de la spec, pas forcément aussi largement utilisé
 
+[canvas-image="images/blackbook.gif"]
+== WebServices
+
 == Webservices
 
- * déclaration des ressources
+ * moyen de communication inter-app principal
  * REST / SOAP
  * assemblage transparent avec les autres services
 
@@ -735,6 +765,9 @@ include::sample/src/main/java/com/codetroopers/eput/ws/UserWebService.java[tags=
 <5> Récupération de la valeur des paramètres
 |===
 
+[canvas-image="images/end_examples.gif"]
+== Retour à la discussion
+
 == Pourquoi est-ce populaire ?
 
 Souvent en entreprise :
@@ -750,15 +783,17 @@ Souvent en entreprise :
  * FOSS : culture open source importante
  * marché lucratif
 
-
+[canvas-image="images/ecosystem.jpg"]
 == Ecosystème
+[.canvas-caption, position=center-up]
+Ecosystème
 
 == Serveurs d'application
 
 [cols="^.^a,^.^a"]
 |===
-| Wildfly image:wildfly.png[width=150px]
-| Glassfish image:glassfish.png[width=150px]
+| Wildfly image:wildfly.png[role=white,width=150px]
+| Glassfish image:glassfish.png[role=white,width=150px]
 | Jboss AS image:jbossas.png[width=150px]
 | Websphere image:websphere.jpg[width=150px]
 | Weblogic image:weblogic.png[width=150px]
@@ -769,10 +804,10 @@ Souvent en entreprise :
 
 [cols="^.^a,^.^a"]
 |===
-| Github image:github.png[width=150px]
-| Apache image:apache.png[width=150px]
-| Eclipse image:eclipse.png[width=150px]
-| Codehaus image:codehaus.png[width=150px]
+| Github image:github.png[role=white,width=150px]
+| Apache image:apache.png[role=white,width=150px]
+| Eclipse image:eclipse.png[role=white,width=150px]
+| Codehaus image:codehaus.png[role=white,width=150px]
 |===
 
 == Projets notables
@@ -781,8 +816,8 @@ Souvent en entreprise :
 |===
 | Maven image:maven.png[width=150px]
 | Jenkins image:jenkins.png[width=150px]
-| Hibernate image:hibernate.png[width=150px]
-| AspectJ image:aspectj.png[width=150px]
+| Hibernate image:hibernate.png[role=white,width=150px]
+| AspectJ image:aspectj.png[role=white,width=150px]
 | Jetty image:jetty.png[width=150px]
 | Tomcat image:tomcat.png[width=150px]
 |===
@@ -799,7 +834,7 @@ Souvent en entreprise :
 |
 |===
 
-[canvas-image="images/yourturn.png"]
+[canvas-image="images/yourturn.gif"]
 == A vous de jouer
 
 [.canvas-caption, position=center-up]
@@ -820,3 +855,4 @@ A votre tour !
 
 - [[ee-roadmap]] http://blog.eisele.net/2013/06/javaee7-is-final.html
 - [[mvc-chart]] https://netbeans.org/kb/docs/javaee/ecommerce/design.html
+- [[mvc-mobile]] https://dzone.com/articles/load-data-from-database-using-web-api

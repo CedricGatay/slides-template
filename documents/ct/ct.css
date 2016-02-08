@@ -608,3 +608,19 @@ pre.response{
 .ct:hover{
   cursor:pointer
 }
+
+.image.white img{
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.noscale{
+  position:relative;
+}
+
+.noscale > .content{
+  position:absolute;
+  height: 600px;
+  overflow: scroll;
+}
