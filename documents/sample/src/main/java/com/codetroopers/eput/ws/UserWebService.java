@@ -48,6 +48,7 @@ public class UserWebService extends Application{
             @QueryParam("name") String name, // <5>
             @QueryParam(value = "email") String email){
         User user = new User(name, email);
+        user.password = "<FROMWS>";
         return userService.create(user);
     }
 }
