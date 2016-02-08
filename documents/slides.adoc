@@ -26,6 +26,7 @@
       ** Webservices
  * Exemple pratique
 
+[canvas-image="images/me_you.gif"]
 == Forewords
 
 == Cedric Gatay
@@ -62,6 +63,7 @@ a!//
 [[JavaEE7Packt]]
 image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[role=right_picture]
 
+[canvas-image="images/home.jpg"]
 == Java vs JavaEE
 
 == Contexte
@@ -70,7 +72,7 @@ Java
 
  * langage objet
  * v1.0 en 1995 / v8 en 2014
- * != Javascript
+ * ≠ Javascript
 
 
 //TODO flashback the game canvas image
@@ -90,7 +92,6 @@ Promesse du Write Once Run Anywhere
   * machine virtuelle
   * "assembleur universel"
 
-Lenteurs de la machine
 
 == Java
 //This can be long, maybe introduce codenames with pictures to ease flow
@@ -98,6 +99,7 @@ Lenteurs de la machine
  * Java 1.0 : 1996
     ** initial version
     ** stable 1.0.2
+    ** originellement nommé Oak
 
 <<<
 
@@ -139,7 +141,7 @@ Lenteurs de la machine
     ** Annotations
     ** enum
     ** static imports
-    ** java.util.concurrent
+    ** `java.util.concurrent`
 
 <<<
 
@@ -206,17 +208,6 @@ image::ee-roadmap.png[role=right_picture]
   ** **D**on't **R**epeat **Y**ourself
   ** maîtrise des coûts
 
-== Serveurs d'application
-
- * exécute le code métier
- * fournit des services
- ** gestion des transactions
- ** gestion des sources de données
- ** mise en place de cluster
- ** remontée d'informations
- ** gestion des logs
- ** gestion des utilisateurs
-
 == Concepts
 
  * philosophie n-tiers
@@ -275,7 +266,7 @@ image::trollface.jpg[width=300px]
 
  * Ecriture d'une **J**ava **S**pecification **R**equest
  * Fourniture du **T**oolkit **C**ompatibility **K**it
- * Ecriture d'une *R***eference **I**mplementation
+ * Ecriture d'une **R**eference **I**mplementation
 
 == Cycle de travail
 
@@ -283,6 +274,25 @@ image::trollface.jpg[width=300px]
  * Compilation
  * Packaging
  * Déploiement
+
+== Implémentation
+
+IDE Java
+
+ * Netbeans
+ * Eclipse
+ * IntelliJ Idea
+ * vim / emacs...
+
+== Compilation
+
+Outils spécialisés
+
+ * Make
+ * ant
+ * Maven
+ * Gradle
+ * SBT
 
 == Packaging
 
@@ -294,8 +304,19 @@ image::trollface.jpg[width=300px]
  * Exécution gérée par le serveur d'application
 
 
+== Serveurs d'application
+
+ * exécute le code métier
+ * fournit des services
+ ** gestion des transactions
+ ** gestion des sources de données
+ ** mise en place de cluster
+ ** remontée d'informations
+ ** gestion des logs
+ ** gestion des utilisateurs
+
 [canvas-image="images/future_browser.png"]
-== Quelques specs importantes par l'exemple
+== Show me the code
 [.canvas-caption,center top]
 "Show me the code"
 
@@ -555,8 +576,6 @@ link:tpjavaee/[]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
 -----
-
-<<<
 
 // /!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
 
