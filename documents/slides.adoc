@@ -755,41 +755,49 @@ Souvent en entreprise :
 
 == Serveurs d'application
 
- //list goes here
-
- * Wildfly image:wildfly.png[width=300px]
- * Glassfish image:glassfish.png[width=300px]
- * Jboss AS image:jbossas.png[width=300px]
- * Websphere image:websphere.jpg[width=300px]
- * Weblogic image:weblogic.png[width=300px]
+[cols="^.^a,^.^a"]
+|===
+| Wildfly image:wildfly.png[width=150px]
+| Glassfish image:glassfish.png[width=150px]
+| Jboss AS image:jbossas.png[width=150px]
+| Websphere image:websphere.jpg[width=150px]
+| Weblogic image:weblogic.png[width=150px]
+|
+|===
 
 == FOSS
 
- //list goes here
-
- * Eclipse
- * Apache
- * Codehaus
- * Github
+[cols="^.^a,^.^a"]
+|===
+| Github image:github.png[width=150px]
+| Apache image:apache.png[width=150px]
+| Eclipse image:eclipse.png[width=150px]
+| Codehaus image:codehaus.png[width=150px]
+|===
 
 == Projets notables
 
- * Maven
- * Jenkins
- * Hibernate
- * AspectJ
- * Jetty
- * Tomcat
+[cols="^.^a,^.^a,^.^a"]
+|===
+| Maven image:maven.png[width=150px]
+| Jenkins image:jenkins.png[width=150px]
+| Hibernate image:hibernate.png[width=150px]
+| AspectJ image:aspectj.png[width=150px]
+| Jetty image:jetty.png[width=150px]
+| Tomcat image:tomcat.png[width=150px]
+|===
 
 == "Concurrents"
 
- // list goes here
-
- * Spring
- * Play! Framework
- * Grails
- * Ruby On Rails
- * Symfony
+[cols="^.^a,^.^a"]
+|===
+| Spring image:spring.png[width=150px]
+| Play! Framework image:play.png[width=150px]
+| Grails image:grails.png[width=150px]
+| Ruby On Rails image:rails.png[width=150px]
+| Symfony image:symfony.png[width=150px]
+|
+|===
 
 [canvas-image="images/yourturn.png"]
 == A vous de jouer
