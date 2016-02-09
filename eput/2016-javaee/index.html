@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="Asciidoctor 1.5.4" name="generator">
+<meta content="Cedric Gatay" name="author">
+<meta content="@Cedric_Gatay" name="keywords">
+<title>Tour d&#8217;horizon de JavaEE</title>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+<style>
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 1.2em; height: 1.2em; font-size: 0.9em; font-weight: bold; line-height: 1.2; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -0.1em; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.colist table td:first-of-type { padding-right: 0.25em; }
+</style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+<link href="deck.js/core/deck.core.css" rel="stylesheet">
+<link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/style/web-2.0.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/transition/horizontal-slide.css" media="screen" rel="stylesheet">
+<link href="ct/ct.css" rel="stylesheet">
+<link href="deck.js/core/print.css" media="print" rel="stylesheet">
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+<body class="article">
+<div class="deck-container">
+<section class="slide" id="title-slide">
+<h1>Tour d&#8217;horizon de JavaEE</h1>
+<span id="author">Cedric Gatay</span>
+<br>
+<span id="email"><a href="mailto:contact@code-troopers.com">contact@code-troopers.com</a></span>
+<br>
+</section>
+<section class="slide" id="_agenda">
+<h2>Agenda</h2>
+<div class="ulist">
+<ul>
+<li>Java vs Java EE</li>
+<li>Vue d&#8217;ensemble</li>
+<li><p>
+Services<div class="ulist">
+<ul>
+<li>Java Persistence API</li>
+<li>Stateless</li>
+<li>Stateful</li>
+<li>CDI</li>
+<li>Webservices</li>
+</ul>
+</div></p></li>
+<li>Exemple pratique</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_forewords" style="background-image: url(images/me_you.gif)">
+
+</section>
+<section class="slide" id="_cedric_gatay">
+<h2>Cedric Gatay</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:75%">
+<col style="width:25%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="ulist">
+<ul>
+<li>http://code-troopers.com</li>
+<li>c.gatay@code-troopers.com</li>
+<li>@Cedric_Gatay</li>
+<li>https://github.com/CedricGatay</li>
+<li>https://github.com/code-troopers</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img alt="profile" src="./images/profile.jpeg">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all" style="width:75%">
+<colgroup>
+<col style="width:33.3333%">
+<col style="width:33.3333%">
+<col style="width:33.3334%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="navigtours logo" src="./images/navigtours-logo.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="aucard" src="./images/aucard.jpg"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="srmvision logo" src="./images/srmvision-logo.png"></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="books" src="./images/books.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img alt="eput" src="./images/eput.png"></span></p></td>
+<td class="tableblock halign-left valign-top"><div></div></td>
+</tr>
+</tbody>
+</table></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="imageblock">
+<div class="content">
+<img alt="logo text" src="./images/logo_text.png">
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_disclaimer">
+<h2>Disclaimer</h2>
+<div class="ulist">
+<ul>
+<li>JavaEE est très vaste</li>
+<li>JavaEE7 @ PacktPub : 496 pages</li>
+</ul>
+</div>
+<div class="imageblock right_picture" id="JavaEE7Packt">
+<div class="content">
+<img alt="1496 6640EN Java%20EE%207%20Web%20Application%20Development" src="./images/1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg">
+</div>
+</div>
+</section>
+<section class="slide canvas-image" id="_java_vs_javaee" style="background-image: url(images/home.jpg)">
+
+</section>
+<section class="slide" id="_contexte">
+<h2>Contexte</h2>
+<div class="paragraph"><p>Java</p></div>
+<div class="ulist">
+<ul>
+<li>langage objet</li>
+<li>v1.0 en 1995 / v8 en 2014</li>
+<li>≠ Javascript</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_flashback" style="background-image: url(images/flashback.png)">
+<div class="paragraph canvas-caption"><p class="center-up">Flashback</p></div>
+</section>
+<section class="slide" id="_flashback_2">
+<h2>Flashback</h2>
+<div class="paragraph"><p>1996, internet balbutiant, cible applications lourdes</p></div>
+<div class="paragraph"><p>Concurrence des MFC / C++</p></div>
+<div class="paragraph"><p>Promesse du Write Once Run Anywhere</p></div>
+<div class="ulist">
+<ul>
+<li>machine virtuelle</li>
+<li>"assembleur universel"</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_java">
+<h2>Java</h2>
+<div class="ulist">
+<ul>
+<li><p>
+Java 1.0 : 1996<div class="ulist">
+<ul>
+<li>initial version</li>
+<li>stable 1.0.2</li>
+<li>originellement nommé Oak</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Java 1.1 : 1997<div class="ulist">
+<ul>
+<li>JavaBeans</li>
+<li>JDBC</li>
+<li>Reflection (Read-only)</li>
+<li>Inner classes</li>
+<li>JIT (on Windows)</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+J2SE 1.2 : 1998<div class="ulist">
+<ul>
+<li>1520 classes (taille triplée)</li>
+<li>Swing</li>
+<li>Collections</li>
+<li>JIT everywhere</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+J2SE 1.3 : 2000<div class="ulist">
+<ul>
+<li>JNDI</li>
+<li>JPDA</li>
+<li>JavaSound</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+J2SE 1.4 : 2002<div class="ulist">
+<ul>
+<li>Regex</li>
+<li>Exception chaining</li>
+<li>NIO</li>
+<li>JAXP</li>
+<li>Java WebStart</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+J2SE 5.0 : 2004<div class="ulist">
+<ul>
+<li>Generics</li>
+<li>Annotations</li>
+<li>enum</li>
+<li>static imports</li>
+<li><code>java.util.concurrent</code></li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Java SE 6 : 2006<div class="ulist">
+<ul>
+<li>Performances</li>
+<li>Scripting</li>
+<li>JAX-WS</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Java SE 7 : 2011<div class="ulist">
+<ul>
+<li>Invokedynamics</li>
+<li>try with resources</li>
+<li>NIO 2</li>
+<li>Concurrency utilities</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Java SE 8 : 2014<div class="ulist">
+<ul>
+<li>Lambda</li>
+<li>Date and time API</li>
+<li>Overhauled annotations</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Java SE 9 : 2017?<div class="ulist">
+<ul>
+<li>Java Modules</li>
+<li>Currency API</li>
+<li>Java REPL</li>
+</ul>
+</div></p></li>
+<li><p>
+Java SE 10 : 2018 ?<div class="ulist">
+<ul>
+<li>Value types</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_javaee">
+<h2>JavaEE</h2>
+<div class="ulist">
+<ul>
+<li>Java SE + des APIS "entreprise"</li>
+<li>cycle de release indépendant</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_versions">
+<h2>Versions</h2>
+<div class="ulist">
+<ul>
+<li>1999 : J2EE 1.2 (10 specs)</li>
+<li>2001 : J2EE 1.3 (13 specs)</li>
+<li>2003 : J2EE 1.4 (20 specs)</li>
+<li>2006 : JavaEE 5 (23 specs)</li>
+<li>2009 : JavaEE 6 (28 specs)</li>
+<li>2013 : JavaEE 7 (31 specs)</li>
+<li>2016?: JavaEE 8</li>
+</ul>
+</div>
+<div class="imageblock right_picture" id="ee-roadmap">
+<div class="content">
+<img alt="ee roadmap" src="./images/ee-roadmap.png">
+</div>
+</div>
+</section>
+<section class="slide" id="_version_entreprise">
+<h2>Version entreprise</h2>
+<div class="ulist">
+<ul>
+<li><p>
+applications visant à être<div class="ulist">
+<ul>
+<li>complexes</li>
+<li>fiables</li>
+<li>interconnectées</li>
+<li>sécurisées</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li>conçu pour répondre à la montée d&#8217;internet</li>
+<li><p>
+rationaliser les développements<div class="ulist">
+<ul>
+<li><strong>D</strong>on&#8217;t <strong>R</strong>epeat <strong>Y</strong>ourself</li>
+<li>maîtrise des coûts</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_concepts">
+<h2>Concepts</h2>
+<div class="ulist">
+<ul>
+<li>philosophie n-tiers</li>
+<li>meta programmation par annotations</li>
+<li>convention over configuration</li>
+<li>système de normalisation "ouvert"</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_architecture_n_tiers">
+<h2>Architecture n-tiers</h2>
+<div class="ulist">
+<ul>
+<li>applications d&#8217;envergures</li>
+<li>équipes multiples</li>
+<li>responsabilités partagées</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+MVC<div class="ulist">
+<ul>
+<li>Model</li>
+<li>View</li>
+<li>Controller</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<div class="imageblock right_picture" id="mvc-chart">
+<div class="content">
+<img alt="mvc diagram" src="./images/mvc-diagram.png">
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><p>
+Mobile/Rich client<div class="ulist">
+<ul>
+<li>REST endpoints</li>
+<li>Model</li>
+<li>Controller</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_méta_programmation">
+<h2>Méta-programmation</h2>
+<div class="ulist">
+<ul>
+<li>Besoin d&#8217;ajouter des informations au code</li>
+<li>Utilisation intensive de XML (pre Java EE 6)</li>
+<li>Configuration par annotations (Java EE 6)</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@WebServlet</span><span class="tok-o">(</span><span class="tok-n">urlPatterns</span> <span class="tok-o">=</span> <span class="tok-s">&quot;/&quot;</span><span class="tok-o">)</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_convention_over_configuration">
+<h2>Convention over configuration</h2>
+<div class="ulist">
+<ul>
+<li>à l&#8217;utilisation des <em>patterns</em> sont apparus</li>
+<li>simplification de l&#8217;utilisation en les adoptant par défaut</li>
+<li>possibilité de redéfinition manuelle</li>
+</ul>
+</div>
+<div class="paragraph"><p>&#8594; Rassurez-vous il reste du XML</p></div>
+<div class="imageblock slide">
+<div class="content">
+<img alt="trollface" src="./images/trollface.jpg" width="300px">
+</div>
+</div>
+</section>
+<section class="slide" id="_process_de_normalisation">
+<h2>Process de normalisation</h2>
+<div class="ulist">
+<ul>
+<li>Ecriture d&#8217;une <strong>J</strong>ava <strong>S</strong>pecification <strong>R</strong>equest</li>
+<li>Fourniture du <strong>T</strong>oolkit <strong>C</strong>ompatibility <strong>K</strong>it</li>
+<li>Ecriture d&#8217;une <strong>R</strong>eference <strong>I</strong>mplementation</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_cycle_de_travail">
+<h2>Cycle de travail</h2>
+<div class="ulist">
+<ul>
+<li>Implémentation</li>
+<li>Compilation</li>
+<li>Packaging</li>
+<li>Déploiement</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_implémentation">
+<h2>Implémentation</h2>
+<div class="paragraph"><p>IDE Java</p></div>
+<div class="ulist">
+<ul>
+<li>Netbeans</li>
+<li>Eclipse</li>
+<li>IntelliJ Idea</li>
+<li>vim / emacs&#8230;&#8203;</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_compilation">
+<h2>Compilation</h2>
+<div class="paragraph"><p>Outils spécialisés</p></div>
+<div class="ulist">
+<ul>
+<li>Make</li>
+<li>ant</li>
+<li>Maven</li>
+<li>Gradle</li>
+<li>SBT</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_packaging">
+<h2>Packaging</h2>
+<div class="ulist">
+<ul>
+<li><p>
+format d&#8217;archives en *AR<div class="ulist">
+<ul>
+<li>WAR : <strong>W</strong>eb <strong>AR</strong>chive</li>
+<li>JAR : <strong>J</strong>ava <strong>AR</strong>chive</li>
+<li>EAR : <strong>E</strong>nterprise <strong>AR</strong>chive</li>
+</ul>
+</div></p></li>
+<li>Exécution gérée par le serveur d&#8217;application</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_serveurs_d_application">
+<h2>Serveurs d&#8217;application</h2>
+<div class="ulist">
+<ul>
+<li>exécute le code métier</li>
+<li><p>
+fournit des services<div class="ulist">
+<ul>
+<li>gestion des transactions</li>
+<li>gestion des sources de données</li>
+<li>mise en place de cluster</li>
+<li>remontée d&#8217;informations</li>
+<li>gestion des logs</li>
+<li>gestion des utilisateurs</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_show_me_the_code" style="background-image: url(images/future_browser.png)">
+<div class="paragraph canvas-caption"><p>"Show me the code"</p></div>
+</section>
+<section class="slide" id="_stockage_des_données">
+<h2>Stockage des données</h2>
+<div class="paragraph"><p><strong>Comment passer du monde relationnel au monde objet ?</strong></p></div>
+<div class="ulist">
+<ul>
+<li><strong>O</strong>bject <strong>R</strong>elational <strong>M</strong>apper</li>
+<li>Association entre objets et tables</li>
+</ul>
+</div>
+<div class="paragraph"><p>&#8594; facilité d&#8217;utilisation et portabilité</p></div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Java Persistence API</strong></p></div>
+<div class="ulist">
+<ul>
+<li><em>ORM</em></li>
+<li>Gestion des transactions (<strong>J</strong>ava <strong>T</strong>ransaction <strong>A</strong>PI)</li>
+<li>Langage de requêtage spécifique (<strong>J</strong>ava <strong>P</strong>ersistence <strong>Q</strong>uery <strong>L</strong>anguage)</li>
+<li>Agnostique du SGBD</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-c1">//acquire a connection to your DB in connection var</span>
+<span class="tok-n">Statement</span> <span class="tok-n">stmt</span> <span class="tok-o">=</span> <span class="tok-n">connection</span><span class="tok-o">.</span><span class="tok-na">createStatement</span><span class="tok-o">();</span>
+<span class="tok-n">ResultSet</span> <span class="tok-n">rs</span> <span class="tok-o">=</span> <span class="tok-n">stmt</span><span class="tok-o">.</span><span class="tok-na">executeQuery</span><span class="tok-o">(</span><span class="tok-s">&quot;SELECT name,email FROM users;&quot;</span><span class="tok-o">);</span>
+<span class="tok-k">while</span><span class="tok-o">(</span><span class="tok-n">rs</span><span class="tok-o">.</span><span class="tok-na">next</span><span class="tok-o">()){</span>
+	 <span class="tok-n">user</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">User</span><span class="tok-o">(</span>
+		<span class="tok-n">rs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-s">&quot;name&quot;</span><span class="tok-o">),</span>
+		<span class="tok-n">rs</span><span class="tok-o">.</span><span class="tok-na">getString</span><span class="tok-o">(</span><span class="tok-s">&quot;email&quot;</span><span class="tok-o">)</span>
+	 <span class="tok-o">);</span>
+	<span class="tok-c1">// do what you want with your user object</span>
+<span class="tok-o">}</span>
+<span class="tok-n">rs</span><span class="tok-o">.</span><span class="tok-na">close</span><span class="tok-o">();</span>
+<span class="tok-c1">//need to nest into try/catch/finally and close connection too</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Entity</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nd">@Table</span><span class="tok-o">(</span><span class="tok-n">name</span> <span class="tok-o">=</span> <span class="tok-s">&quot;user&quot;</span><span class="tok-o">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">User</span> <span class="tok-o">{</span>
+    <span class="tok-nd">@Id</span> <span class="tok-nd">@GeneratedValue</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="tok-kd">public</span> <span class="tok-n">Long</span> <span class="tok-n">id</span><span class="tok-o">;</span>
+    <span class="tok-nd">@NotNull</span> <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-n">name</span><span class="tok-o">;</span>
+    <span class="tok-nd">@NotNull</span> <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-n">email</span><span class="tok-o">;</span>
+    <span class="tok-nd">@NotNull</span>
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-n">password</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">User</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">name</span><span class="tok-o">,</span> <span class="tok-n">String</span> <span class="tok-n">email</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">name</span> <span class="tok-o">=</span> <span class="tok-n">name</span><span class="tok-o">;</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">email</span> <span class="tok-o">=</span> <span class="tok-n">email</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">User</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Définition en tant qu&#8217;entité</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Contraintes sur la table (nom&#8230;&#8203;)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Définition du champ clef primaire</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Contraintes sur les champs</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_dépendances_entre_composants">
+<h2>Dépendances entre composants</h2>
+<div class="ulist">
+<ul>
+<li>le découpage en tiers introduit des dépendances</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UserServiceNoIoC</span> <span class="tok-o">{</span>
+    <span class="tok-kd">private</span> <span class="tok-n">UserDAO</span> <span class="tok-n">userDAO</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">UserServiceNoIoC</span><span class="tok-o">(</span><span class="tok-n">UserDAO</span> <span class="tok-n">userDAO</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">userDAO</span> <span class="tok-o">=</span> <span class="tok-n">userDAO</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">User</span><span class="tok-o">&gt;</span> <span class="tok-nf">all</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">userDAO</span><span class="tok-o">.</span><span class="tok-na">all</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-nf">UserServiceNoIoC</span><span class="tok-o">(</span><span class="tok-n">UserDAO</span> <span class="tok-n">userDAO</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">userDAO</span> <span class="tok-o">=</span> <span class="tok-n">userDAO</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@WebServlet</span><span class="tok-o">(</span><span class="tok-n">urlPatterns</span> <span class="tok-o">=</span> <span class="tok-s">&quot;/users_no_ioc&quot;</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UserServletNoIoC</span> <span class="tok-kd">extends</span> <span class="tok-n">HttpServlet</span><span class="tok-o">{</span>
+
+    <span class="tok-n">UserServiceNoIoC</span> <span class="tok-n">userService</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">UserServletNoIoC</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">userService</span> <span class="tok-o">=</span> <span class="tok-k">new</span>  <span class="tok-nf">UserServiceNoIoC</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">UserDAO</span><span class="tok-o">());</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doGet</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">userService</span><span class="tok-o">.</span><span class="tok-na">all</span><span class="tok-o">().</span><span class="tok-na">forEach</span><span class="tok-o">(</span><span class="tok-n">u</span> <span class="tok-o">-&gt;{</span>
+            <span class="tok-k">try</span> <span class="tok-o">{</span>
+                <span class="tok-n">resp</span><span class="tok-o">.</span><span class="tok-na">getWriter</span><span class="tok-o">().</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-n">u</span><span class="tok-o">.</span><span class="tok-na">name</span> <span class="tok-o">+</span> <span class="tok-s">&quot; - &quot;</span> <span class="tok-o">+</span> <span class="tok-n">u</span><span class="tok-o">.</span><span class="tok-na">email</span><span class="tok-o">);</span>
+            <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                <span class="tok-c1">//don&#39;t ever do this</span>
+            <span class="tok-o">}</span>
+        <span class="tok-o">});</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-nf">UserServletNoIoC</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">userService</span> <span class="tok-o">=</span> <span class="tok-k">new</span>  <span class="tok-nf">UserServiceNoIoC</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">UserDAO</span><span class="tok-o">());</span>
+    <span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Problèmes</strong></p></div>
+<div class="ulist">
+<ul>
+<li><p>
+enchaînement des <code>new</code><div class="ulist">
+<ul>
+<li>création pas toujours triviale des dépendances</li>
+<li><code>boilerplate</code> de création d&#8217;objet à gérer</li>
+</ul>
+</div></p></li>
+<li>aucun recyclage des objets</li>
+</ul>
+</div>
+<div class="paragraph"><p>&#8594; beaucoup de code inutile</p></div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Inversion Of Control</strong></p></div>
+<div class="ulist">
+<ul>
+<li><strong>C</strong>ontext and <strong>D</strong>ependency <strong>I</strong>njection</li>
+<li>mécanisme d&#8217;IoC, central à JavaEE</li>
+<li>définition d&#8217;un `scopeˋ, de l&#8217;association à des services</li>
+<li>déclaration des dépendances</li>
+<li>le serveur d&#8217;application fait le reste</li>
+</ul>
+</div>
+</section>
+<section class="slide canvas-image" id="_hollywood_principle" style="background-image: url(images/hollywood.jpg)">
+<div class="paragraph canvas-caption"><p>"Don&#8217;t call us, we&#8217;ll call you !"</p></div>
+</section>
+<section class="slide" id="_context_and_dependency_injection">
+<h2>Context and Dependency Injection</h2>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Stateless</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UserService</span> <span class="tok-o">{</span>
+    <span class="tok-nd">@Inject</span>
+    <span class="tok-kd">public</span> <span class="tok-n">UserDAO</span> <span class="tok-n">userDAO</span><span class="tok-o">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="tok-kd">public</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">User</span><span class="tok-o">&gt;</span> <span class="tok-nf">all</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-n">userDAO</span><span class="tok-o">.</span><span class="tok-na">all</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">User</span> <span class="tok-nf">create</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-n">userDAO</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">User</span> <span class="tok-nf">create</span><span class="tok-o">(</span><span class="tok-n">User</span> <span class="tok-n">user</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">userDAO</span><span class="tok-o">.</span><span class="tok-na">save</span><span class="tok-o">(</span><span class="tok-n">user</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Injection d&#8217;un UserDAO</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@WebServlet</span><span class="tok-o">(</span><span class="tok-n">urlPatterns</span> <span class="tok-o">=</span> <span class="tok-s">&quot;/users&quot;</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UserServlet</span> <span class="tok-kd">extends</span> <span class="tok-n">HttpServlet</span> <span class="tok-o">{</span>
+
+    <span class="tok-nd">@Inject</span>
+    <span class="tok-n">UserService</span> <span class="tok-n">userService</span><span class="tok-o">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doGet</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">userService</span><span class="tok-o">.</span><span class="tok-na">all</span><span class="tok-o">().</span><span class="tok-na">forEach</span><span class="tok-o">(</span><span class="tok-n">user</span> <span class="tok-o">-&gt;</span> <span class="tok-o">{</span>
+            <span class="tok-k">try</span> <span class="tok-o">{</span>
+                <span class="tok-n">resp</span><span class="tok-o">.</span><span class="tok-na">getWriter</span><span class="tok-o">()</span>
+                        <span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-n">user</span><span class="tok-o">.</span><span class="tok-na">name</span>
+                                <span class="tok-o">+</span> <span class="tok-s">&quot; - &quot;</span>
+                                <span class="tok-o">+</span> <span class="tok-n">user</span><span class="tok-o">.</span><span class="tok-na">email</span>
+                                <span class="tok-o">+</span> <span class="tok-s">&quot; - &quot;</span>
+                                <span class="tok-o">+</span> <span class="tok-n">user</span><span class="tok-o">.</span><span class="tok-na">password</span>
+                        <span class="tok-o">);</span>
+            <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                <span class="tok-c1">//don&#39;t ever do this</span>
+            <span class="tok-o">}</span>
+        <span class="tok-o">});</span>
+    <span class="tok-o">}</span>
+
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doPost</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">userService</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">();</span>
+        <span class="tok-n">resp</span><span class="tok-o">.</span><span class="tok-na">setStatus</span><span class="tok-o">(</span><span class="tok-n">HttpServletResponse</span><span class="tok-o">.</span><span class="tok-na">SC_CREATED</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Injection du UserService</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li><code>@Inject</code> demande l&#8217;injection</li>
+<li><code>@Produces</code> permet de mettre un objet dans le cycle d&#8217;injection</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Notion de <code>scope</code></strong></p></div>
+<div class="ulist">
+<ul>
+<li><p>
+Cycles de vies différents selon l&#8217;utilisation<div class="ulist">
+<ul>
+<li><code>@ApplicationScoped</code> vit toute l&#8217;application</li>
+<li><code>@SessionScoped</code> vit toute la session utilisateur</li>
+<li><code>@RequestScoped</code> vit la durée de la requête utilisateur</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_enterprise_java_bean">
+<h2>Enterprise Java Bean</h2>
+<div class="ulist">
+<ul>
+<li>encapsule la logique métier</li>
+<li>cycle de vie automatique</li>
+<li><p>
+trois types principaux<div class="ulist">
+<ul>
+<li>sans état</li>
+<li>avec état</li>
+<li>singletons</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_sans_état">
+<h2>Sans état</h2>
+<div class="ulist">
+<ul>
+<li>annotation <code>@Stateless</code></li>
+<li>objets pouvant être réutilisés &#8594; Thread Safe</li>
+<li>peut être partagé par plusieurs utilisateurs</li>
+</ul>
+</div>
+<div class="paragraph"><p><strong>Exemple</strong> : récupération des promotions du jour</p></div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Stateless</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UUIDService</span> <span class="tok-o">{</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-nf">makeUUID</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-n">UUID</span><span class="tok-o">.</span><span class="tok-na">randomUUID</span><span class="tok-o">().</span><span class="tok-na">toString</span><span class="tok-o">();</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Bean sans état</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Génération d&#8217;un identifiant</td>
+</tr>
+</table>
+</div>
+</section>
+<section class="slide" id="_avec_état">
+<h2>Avec état</h2>
+<div class="ulist">
+<ul>
+<li>annotation <code>@Stateful</code></li>
+<li>le container gère l&#8217;état et l&#8217;associe à un client</li>
+<li>contient des données propres à l&#8217;utilisateur</li>
+</ul>
+</div>
+<div class="paragraph"><p><strong>Exemple</strong> : panier d&#8217;achat e-commerce</p></div>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Stateful</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nd">@SessionScoped</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">CartService</span> <span class="tok-kd">implements</span> <span class="tok-n">Serializable</span> <span class="tok-o">{</span>
+
+    <span class="tok-nd">@Inject</span>
+    <span class="tok-n">ItemPriceService</span> <span class="tok-n">itemPriceService</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">private</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;</span> <span class="tok-n">cartContent</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">CartService</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">cartContent</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;&gt;();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">&gt;</span> <span class="tok-nf">addItemToCart</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">item</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">itemPriceService</span><span class="tok-o">.</span><span class="tok-na">checkPrice</span><span class="tok-o">(</span><span class="tok-n">item</span><span class="tok-o">);</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">cartContent</span><span class="tok-o">.</span><span class="tok-na">add</span><span class="tok-o">(</span><span class="tok-n">item</span><span class="tok-o">);</span>
+        <span class="tok-k">return</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">cartContent</span><span class="tok-o">;</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Bean avec état</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>attaché à la session utilisateur</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>contenu du panier par utilisateur</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_singleton">
+<h2>Singleton</h2>
+<div class="ulist">
+<ul>
+<li>annotation <code>@Singleton</code></li>
+<li>une seule instance partagée</li>
+<li>doit être le même pour tous les utilisateurs</li>
+</ul>
+</div>
+<div class="paragraph"><p><strong>Exemple</strong> : compteur de visiteurs</p></div>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@Singleton</span>
+<span class="tok-nd">@ConcurrencyManagement</span><span class="tok-o">(</span><span class="tok-n">ConcurrencyManagementType</span><span class="tok-o">.</span><span class="tok-na">CONTAINER</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">VisitBean</span> <span class="tok-o">{</span>
+    <span class="tok-n">Logger</span> <span class="tok-n">logger</span> <span class="tok-o">=</span> <span class="tok-n">Logger</span><span class="tok-o">.</span><span class="tok-na">getLogger</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">());</span>
+    <span class="tok-kd">private</span> <span class="tok-kt">int</span> <span class="tok-n">visits</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-o">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="tok-nd">@PostConstruct</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">initialized</span><span class="tok-o">(){</span>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;VisitBean initialized...&quot;</span><span class="tok-o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@PreDestroy</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">willBeDestroyed</span><span class="tok-o">(){</span>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;VisitBean will be terminated...&quot;</span><span class="tok-o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Lock</span><span class="tok-o">(</span><span class="tok-n">LockType</span><span class="tok-o">.</span><span class="tok-na">WRITE</span><span class="tok-o">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="tok-kd">public</span> <span class="tok-kt">int</span> <span class="tok-nf">increment</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">visits</span><span class="tok-o">++;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Lock</span><span class="tok-o">(</span><span class="tok-n">LockType</span><span class="tok-o">.</span><span class="tok-na">READ</span><span class="tok-o">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="tok-kd">public</span> <span class="tok-kt">int</span> <span class="tok-nf">count</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">visits</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>variable partagée</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>traces sur la création / destruction</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>verrous en lecture / écriture</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_servlet">
+<h2>Servlet</h2>
+<div class="ulist">
+<ul>
+<li>bas niveau</li>
+<li>très utilisées</li>
+<li>traite les requêtes HTTP</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@WebServlet</span><span class="tok-o">(</span><span class="tok-n">urlPatterns</span> <span class="tok-o">=</span> <span class="tok-s">&quot;/&quot;</span><span class="tok-o">)</span>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyServlet</span> <span class="tok-kd">extends</span> <span class="tok-n">HttpServlet</span><span class="tok-o">{</span>
+
+    <span class="tok-kd">static</span> <span class="tok-kt">int</span> <span class="tok-n">count</span><span class="tok-o">[]</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-kt">int</span><span class="tok-o">[]{</span><span class="tok-mi">0</span><span class="tok-o">,</span><span class="tok-mi">0</span><span class="tok-o">};</span>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doGet</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">]++;</span>
+        <span class="tok-n">writeResponse</span><span class="tok-o">(</span><span class="tok-n">resp</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doPost</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]++;</span>
+        <span class="tok-n">writeResponse</span><span class="tok-o">(</span><span class="tok-n">resp</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">writeResponse</span><span class="tok-o">(</span><span class="tok-n">HttpServletResponse</span> <span class="tok-n">response</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-na">getWriter</span><span class="tok-o">().</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">&quot;Get count : &quot;</span> <span class="tok-o">+</span> <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">]);</span>
+        <span class="tok-n">response</span><span class="tok-o">.</span><span class="tok-na">getWriter</span><span class="tok-o">().</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">&quot;Post count : &quot;</span> <span class="tok-o">+</span> <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph get"><p><a class="bare" href="tpjavaee/">tpjavaee/</a></p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doGet</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">]++;</span>
+        <span class="tok-n">writeResponse</span><span class="tok-o">(</span><span class="tok-n">resp</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph post"><p><a class="bare" href="tpjavaee/">tpjavaee/</a></p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">protected</span> <span class="tok-kt">void</span> <span class="tok-nf">doPost</span><span class="tok-o">(</span><span class="tok-n">HttpServletRequest</span> <span class="tok-n">req</span><span class="tok-o">,</span> <span class="tok-n">HttpServletResponse</span> <span class="tok-n">resp</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span><span class="tok-o">,</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">count</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]++;</span>
+        <span class="tok-n">writeResponse</span><span class="tok-o">(</span><span class="tok-n">resp</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_filter">
+<h2>Filter</h2>
+<div class="ulist">
+<ul>
+<li>bas niveau</li>
+<li>très utilisées</li>
+<li>"décore" les requêtes HTTP</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@WebFilter</span><span class="tok-o">(</span><span class="tok-n">urlPatterns</span> <span class="tok-o">=</span> <span class="tok-s">&quot;/*&quot;</span><span class="tok-o">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">MyFilter</span> <span class="tok-kd">implements</span>  <span class="tok-n">Filter</span><span class="tok-o">{</span>
+    <span class="tok-n">Logger</span> <span class="tok-n">logger</span><span class="tok-o">;</span>
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">init</span><span class="tok-o">(</span><span class="tok-n">FilterConfig</span> <span class="tok-n">filterConfig</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">ServletException</span> <span class="tok-o">{</span>
+        <span class="tok-c1">// init your filter</span>
+        <span class="tok-n">logger</span> <span class="tok-o">=</span> <span class="tok-n">Logger</span><span class="tok-o">.</span><span class="tok-na">getLogger</span><span class="tok-o">(</span><span class="tok-n">getClass</span><span class="tok-o">().</span><span class="tok-na">getName</span><span class="tok-o">());</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">doFilter</span><span class="tok-o">(</span><span class="tok-n">ServletRequest</span> <span class="tok-n">request</span><span class="tok-o">,</span> <span class="tok-n">ServletResponse</span> <span class="tok-n">response</span><span class="tok-o">,</span> <span class="tok-n">FilterChain</span> <span class="tok-n">filterChain</span><span class="tok-o">)</span>
+            <span class="tok-kd">throws</span> <span class="tok-n">IOException</span><span class="tok-o">,</span> <span class="tok-n">ServletException</span> <span class="tok-o">{</span>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;Before filtering&quot;</span><span class="tok-o">);</span>
+        <span class="tok-n">filterChain</span><span class="tok-o">.</span><span class="tok-na">doFilter</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">,</span> <span class="tok-n">response</span><span class="tok-o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;After filtering&quot;</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">destroy</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-c1">// destroy allocated things</span>
+    <span class="tok-o">}</span>
+
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Motif d&#8217;URL à prendre en compte</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">doFilter</span><span class="tok-o">(</span><span class="tok-n">ServletRequest</span> <span class="tok-n">request</span><span class="tok-o">,</span> <span class="tok-n">ServletResponse</span> <span class="tok-n">response</span><span class="tok-o">,</span> <span class="tok-n">FilterChain</span> <span class="tok-n">filterChain</span><span class="tok-o">)</span>
+            <span class="tok-kd">throws</span> <span class="tok-n">IOException</span><span class="tok-o">,</span> <span class="tok-n">ServletException</span> <span class="tok-o">{</span>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;Before filtering&quot;</span><span class="tok-o">);</span>
+        <span class="tok-n">filterChain</span><span class="tok-o">.</span><span class="tok-na">doFilter</span><span class="tok-o">(</span><span class="tok-n">request</span><span class="tok-o">,</span> <span class="tok-n">response</span><span class="tok-o">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="tok-n">logger</span><span class="tok-o">.</span><span class="tok-na">info</span><span class="tok-o">(</span><span class="tok-s">&quot;After filtering&quot;</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Délégation au filtre suivant</td>
+</tr>
+</table>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="shell language-shell">INFO  [com.codetroopers.eput.MyFilter] Before filtering
+INFO  [com.codetroopers.eput.MyFilter] After filtering</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_javaserver_pages">
+<h2>JavaServer Pages</h2>
+<div class="ulist">
+<ul>
+<li>ensemble d&#8217;outils pour décrire une page HTML</li>
+<li>écriture de XML</li>
+<li>la page <code>.jsp</code> peut contenir du code</li>
+<li>de moins en moins utilisé</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph get blank"><p><a class="bare" href="tpjavaee/helloWorld.jsp">tpjavaee/helloWorld.jsp</a></p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="jsp language-jsp"><span class="tok-k">&lt;%@</span> <span class="tok-n">page</span> <span class="tok-n">contentType</span><span class="tok-o">=</span><span class="tok-s">&quot;text/html;charset=UTF-8&quot;</span> <span class="tok-n">language</span><span class="tok-o">=</span><span class="tok-s">&quot;java&quot;</span> <span class="tok-k">%&gt;</span>
+<span class="tok-nt">&lt;html&gt;</span>
+<span class="tok-nt">&lt;head&gt;</span>
+    <span class="tok-nt">&lt;title&gt;</span>Title<span class="tok-nt">&lt;/title&gt;</span>
+<span class="tok-nt">&lt;/head&gt;</span>
+<span class="tok-nt">&lt;body&gt;</span>
+<span class="tok-nt">&lt;h1&gt;</span>Basic JSP sample<span class="tok-nt">&lt;/h1&gt;</span>
+<span class="tok-k">&lt;%</span> <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-o">;</span> <span class="tok-n">i</span> <span class="tok-o">&lt;</span> <span class="tok-mi">10</span><span class="tok-o">;</span> <span class="tok-n">i</span><span class="tok-o">++){</span>
+<span class="tok-k">%&gt;</span>
+Item <span class="tok-k">&lt;%=</span> <span class="tok-n">i</span> <span class="tok-k">%&gt;</span> <span class="tok-nt">&lt;br&gt;</span>
+<span class="tok-k">&lt;%</span>
+<span class="tok-o">}</span>
+<span class="tok-k">%&gt;</span>
+<span class="tok-nt">&lt;em&gt;</span>Please delete me now, I am so ugly !<span class="tok-nt">&lt;/em&gt;</span>
+<span class="tok-nt">&lt;/body&gt;</span>
+<span class="tok-nt">&lt;/html&gt;</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Problèmes</strong></p></div>
+<div class="ulist">
+<ul>
+<li>du code dans les vues</li>
+<li>MVC <em>mélangé</em></li>
+<li>compilé par le serveur d&#8217;application</li>
+</ul>
+</div>
+<div class="paragraph"><p>&#8594; "Oups"</p></div>
+</section>
+<section class="slide" id="_javaserver_faces">
+<h2>JavaServer Faces</h2>
+<div class="ulist">
+<ul>
+<li><p>
+écriture orientée composants<div class="ulist">
+<ul>
+<li>réutilisabilité</li>
+<li>composition de comportement</li>
+</ul>
+</div></p></li>
+<li>CDI au coeur du système</li>
+<li>support des technologies "modernes"</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="xml language-xml"><span class="tok-nt">&lt;html</span> <span class="tok-na">xmlns=</span><span class="tok-s">&quot;http://www.w3.org/1999/xhtml&quot;</span>
+      <span class="tok-na">xmlns:h=</span><span class="tok-s">&quot;http://java.sun.com/jsf/html&quot;</span>
+      <span class="tok-na">xmlns:ui=</span><span class="tok-s">&quot;http://java.sun.com/jsf/facelets&quot;</span><span class="tok-nt">&gt;</span>
+<span class="tok-nt">&lt;h:head&gt;</span>
+    <span class="tok-nt">&lt;meta</span> <span class="tok-na">http-equiv=</span><span class="tok-s">&quot;Content-Type&quot;</span> <span class="tok-na">content=</span><span class="tok-s">&quot;text/html; charset=utf-8&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;title&gt;</span>Golden Book<span class="tok-nt">&lt;/title&gt;</span>
+    <span class="tok-nt">&lt;meta</span> <span class="tok-na">name=</span><span class="tok-s">&quot;viewport&quot;</span> <span class="tok-na">content=</span><span class="tok-s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;meta</span> <span class="tok-na">name=</span><span class="tok-s">&quot;description&quot;</span> <span class="tok-na">content=</span><span class="tok-s">&quot;&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;meta</span> <span class="tok-na">name=</span><span class="tok-s">&quot;author&quot;</span> <span class="tok-na">content=</span><span class="tok-s">&quot;&quot;</span><span class="tok-nt">/&gt;</span>
+
+    <span class="tok-c">&lt;!-- Le styles --&gt;</span>
+    <span class="tok-nt">&lt;h:outputStylesheet</span> <span class="tok-na">name=</span><span class="tok-s">&quot;css/bootstrap.min.css&quot;</span><span class="tok-nt">/&gt;</span>
+
+    <span class="tok-nt">&lt;style</span> <span class="tok-na">type=</span><span class="tok-s">&quot;text/css&quot;</span><span class="tok-nt">&gt;</span>
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    <span class="tok-nt">&lt;/style&gt;</span>
+
+    <span class="tok-c">&lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;</span>
+    <span class="tok-c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="tok-c">      &lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</span>
+<span class="tok-c">    &lt;![endif]--&gt;</span>
+
+    <span class="tok-c">&lt;!-- Le fav and touch icons</span>
+<span class="tok-c">    &lt;link rel=&quot;shortcut icon&quot; href=&quot;../assets/ico/favicon.ico&quot;&gt;</span>
+<span class="tok-c">    &lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;114x114&quot; href=&quot;../assets/ico/apple-touch-icon-114-precomposed.png&quot;&gt;</span>
+<span class="tok-c">    &lt;link rel=&quot;apple-touch-icon-precomposed&quot; sizes=&quot;72x72&quot; href=&quot;../assets/ico/apple-touch-icon-72-precomposed.png&quot;&gt;</span>
+<span class="tok-c">    &lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;../assets/ico/apple-touch-icon-57-precomposed.png&quot;&gt;</span>
+<span class="tok-c">    --&gt;</span>
+
+<span class="tok-nt">&lt;/h:head&gt;</span>
+<span class="tok-nt">&lt;h:body&gt;</span>
+    <span class="tok-nt">&lt;h:form&gt;</span>
+
+        <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">&quot;navbar navbar-fixed-top&quot;</span><span class="tok-nt">&gt;</span>
+            <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">&quot;navbar-inner&quot;</span><span class="tok-nt">&gt;</span>
+                <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">&quot;container&quot;</span><span class="tok-nt">&gt;</span>
+                    <span class="tok-nt">&lt;a</span> <span class="tok-na">class=</span><span class="tok-s">&quot;brand&quot;</span> <span class="tok-na">href=</span><span class="tok-s">&quot;/tpjavaee/entries.jsf&quot;</span><span class="tok-nt">&gt;</span>Golden Book<span class="tok-nt">&lt;/a&gt;</span>
+
+                    <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">&quot;nav-collapse&quot;</span><span class="tok-nt">&gt;</span>
+                        <span class="tok-nt">&lt;ul</span> <span class="tok-na">class=</span><span class="tok-s">&quot;nav&quot;</span><span class="tok-nt">&gt;</span>
+                            <span class="tok-nt">&lt;li&gt;&lt;h:outputLink</span> <span class="tok-na">value=</span><span class="tok-s">&quot;/tpjavaee/newEntry.jsf&quot;</span> <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{userInfo.loggedIn}&quot;</span><span class="tok-nt">&gt;</span>
+                                Create Entry
+                            <span class="tok-nt">&lt;/h:outputLink&gt;</span>
+                            <span class="tok-nt">&lt;/li&gt;</span>
+                        <span class="tok-nt">&lt;/ul&gt;</span>
+<span class="tok-c">&lt;!-- bad indent for asciidoc --&gt;</span>
+<span class="tok-nt">&lt;p</span> <span class="tok-na">class=</span><span class="tok-s">&quot;navbar-text pull-right&quot;</span><span class="tok-nt">&gt;</span>
+    <span class="tok-nt">&lt;h:outputText</span> <span class="tok-na">value=</span><span class="tok-s">&quot;Logged in as #{userInfo.name}&quot;</span>
+                  <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{userInfo.loggedIn}&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;h:commandLink</span> <span class="tok-na">action=</span><span class="tok-s">&quot;#{authenticationService.logout}&quot;</span>
+                   <span class="tok-na">value=</span><span class="tok-s">&quot;Logout&quot;</span>
+                   <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{userInfo.loggedIn}&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;h:outputLink</span> <span class="tok-na">value=</span><span class="tok-s">&quot;/tpjavaee/login.jsf&quot;</span>
+                  <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{!userInfo.loggedIn}&quot;</span><span class="tok-nt">&gt;</span>
+        Login
+    <span class="tok-nt">&lt;/h:outputLink&gt;</span>
+<span class="tok-nt">&lt;/p&gt;</span>
+                    <span class="tok-nt">&lt;/div&gt;</span>
+                    <span class="tok-c">&lt;!--/.nav-collapse --&gt;</span>
+                <span class="tok-nt">&lt;/div&gt;</span>
+            <span class="tok-nt">&lt;/div&gt;</span>
+        <span class="tok-nt">&lt;/div&gt;</span>
+    <span class="tok-nt">&lt;/h:form&gt;</span>
+
+
+    <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">&quot;container&quot;</span><span class="tok-nt">&gt;</span>
+
+        <span class="tok-nt">&lt;ui:insert</span> <span class="tok-na">name=</span><span class="tok-s">&quot;content&quot;</span><span class="tok-nt">&gt;</span>
+            [Template content will be inserted here]
+        <span class="tok-nt">&lt;/ui:insert&gt;</span>
+        <span class="tok-nt">&lt;hr/&gt;</span>
+
+        <span class="tok-nt">&lt;footer&gt;</span>
+            <span class="tok-nt">&lt;p&gt;</span><span class="tok-ni">&amp;copy;</span> EPUT 2012-Current<span class="tok-nt">&lt;/p&gt;</span>
+        <span class="tok-nt">&lt;/footer&gt;</span>
+
+    <span class="tok-nt">&lt;/div&gt;</span>
+    <span class="tok-c">&lt;!--/.fluid-container--&gt;</span>
+
+    <span class="tok-c">&lt;!-- Le javascript</span>
+<span class="tok-c">    ================================================== --&gt;</span>
+    <span class="tok-c">&lt;!-- Placed at the end of the document so the pages load faster --&gt;</span>
+    <span class="tok-nt">&lt;h:outputScript</span> <span class="tok-na">name=</span><span class="tok-s">&quot;js/jquery-1.8.3.min.js&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;h:outputScript</span> <span class="tok-na">name=</span><span class="tok-s">&quot;js/bootstrap.min.js&quot;</span><span class="tok-nt">/&gt;</span>
+<span class="tok-nt">&lt;/h:body&gt;</span>
+<span class="tok-nt">&lt;/html&gt;</span>
+<span class="tok-c">&lt;!-- end:full[] --&gt;</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph get blank"><p><a class="bare" href="tpjavaee/login.xhtml">tpjavaee/login.xhtml</a></p></div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="xml language-xml"><span class="tok-nt">&lt;p</span> <span class="tok-na">class=</span><span class="tok-s">&quot;navbar-text pull-right&quot;</span><span class="tok-nt">&gt;</span>
+    <span class="tok-nt">&lt;h:outputText</span> <span class="tok-na">value=</span><span class="tok-s">&quot;Logged in as #{userInfo.name}&quot;</span>
+                  <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{userInfo.loggedIn}&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;h:commandLink</span> <span class="tok-na">action=</span><span class="tok-s">&quot;#{authenticationService.logout}&quot;</span>
+                   <span class="tok-na">value=</span><span class="tok-s">&quot;Logout&quot;</span>
+                   <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{userInfo.loggedIn}&quot;</span><span class="tok-nt">/&gt;</span>
+    <span class="tok-nt">&lt;h:outputLink</span> <span class="tok-na">value=</span><span class="tok-s">&quot;/tpjavaee/login.jsf&quot;</span>
+                  <span class="tok-na">rendered=</span><span class="tok-s">&quot;#{!userInfo.loggedIn}&quot;</span><span class="tok-nt">&gt;</span>
+        Login
+    <span class="tok-nt">&lt;/h:outputLink&gt;</span>
+<span class="tok-nt">&lt;/p&gt;</span></code></pre>
+</div>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p>Expression Language</p></div>
+<div class="ulist">
+<ul>
+<li><code>${prop.in.a.bean}</code> : évaluation immédiate</li>
+<li><code>#{prop.in.a.bean}</code> : évaluation différée</li>
+<li>accès à des variables ou méthodes</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>Problèmes</strong></p></div>
+<div class="ulist">
+<ul>
+<li>du code dans les vues (mais beaucoup moins)</li>
+<li>fais partie de la spec, pas forcément aussi largement utilisé</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_webservices">
+<h2>Webservices</h2>
+<div class="ulist">
+<ul>
+<li>déclaration des ressources</li>
+<li>REST / SOAP</li>
+<li>assemblage transparent avec les autres services</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph"><p><strong>S</strong>imple <strong>O</strong>bject <strong>A</strong>ccess <strong>P</strong>rotocol</p></div>
+<div class="ulist">
+<ul>
+<li><p>
+format d&#8217;échange XML<div class="ulist">
+<ul>
+<li>objets</li>
+<li>méthodes</li>
+</ul>
+</div></p></li>
+<li>verbeux</li>
+<li>en train de disparaître</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<div class="paragraph get"><p><a class="bare" href="tpjavaee/ws/users">tpjavaee/ws/users</a></p></div>
+<div class="paragraph post"><p><a class="bare" href="tpjavaee/ws/users?name=aeaze&amp;email=qsd@qsd.fr">tpjavaee/ws/users?name=aeaze&amp;email=qsd@qsd.fr</a></p></div>
+<div class="paragraph"><p><strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer</p></div>
+<div class="ulist">
+<ul>
+<li>façon de penser un webservice</li>
+<li>utilisation des verbes http</li>
+<li>pas d&#8217;état côté serveur</li>
+</ul>
+</div>
+<div style="page-break-after: always"></div>
+<table class="tableblock frame-all grid-all code_columns" style="width:100%">
+<colgroup>
+<col style="width:85.7142%">
+<col style="width:14.2858%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="java language-java"><span class="tok-nd">@ApplicationPath</span><span class="tok-o">(</span><span class="tok-s">&quot;ws&quot;</span><span class="tok-o">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nd">@Path</span><span class="tok-o">(</span><span class="tok-s">&quot;/users&quot;</span><span class="tok-o">)</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-nd">@Produces</span><span class="tok-o">(</span><span class="tok-n">MediaType</span><span class="tok-o">.</span><span class="tok-na">APPLICATION_JSON</span><span class="tok-o">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">UserWebService</span> <span class="tok-kd">extends</span> <span class="tok-n">Application</span><span class="tok-o">{</span>
+
+    <span class="tok-nd">@Inject</span>
+    <span class="tok-n">UserService</span> <span class="tok-n">userService</span><span class="tok-o">;</span>
+
+    <span class="tok-nd">@GET</span> <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="tok-kd">public</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">User</span><span class="tok-o">&gt;</span> <span class="tok-nf">users</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-n">userService</span><span class="tok-o">.</span><span class="tok-na">all</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@POST</span> <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="tok-kd">public</span> <span class="tok-n">User</span> <span class="tok-nf">create</span><span class="tok-o">(</span>
+            <span class="tok-nd">@QueryParam</span><span class="tok-o">(</span><span class="tok-s">&quot;name&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">name</span><span class="tok-o">,</span> <i class="conum" data-value="5"></i><b>(5)</b>
+            <span class="tok-nd">@QueryParam</span><span class="tok-o">(</span><span class="tok-n">value</span> <span class="tok-o">=</span> <span class="tok-s">&quot;email&quot;</span><span class="tok-o">)</span> <span class="tok-n">String</span> <span class="tok-n">email</span><span class="tok-o">){</span>
+        <span class="tok-n">User</span> <span class="tok-n">user</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">User</span><span class="tok-o">(</span><span class="tok-n">name</span><span class="tok-o">,</span> <span class="tok-n">email</span><span class="tok-o">);</span>
+        <span class="tok-n">user</span><span class="tok-o">.</span><span class="tok-na">password</span> <span class="tok-o">=</span> <span class="tok-s">&quot;&lt;FROMWS&gt;&quot;</span><span class="tok-o">;</span>
+        <span class="tok-k">return</span> <span class="tok-n">userService</span><span class="tok-o">.</span><span class="tok-na">create</span><span class="tok-o">(</span><span class="tok-n">user</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Base de l&#8217;application REST</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Chemin de réponse</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Type de données créées par le webservice</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Verbe HTTP à considérer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Récupération de la valeur des paramètres</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_pourquoi_est_ce_populaire">
+<h2>Pourquoi est-ce populaire ?</h2>
+<div class="paragraph"><p>Souvent en entreprise :</p></div>
+<div class="ulist">
+<ul>
+<li>stations de dev Windows</li>
+<li>serveurs Linux</li>
+</ul>
+</div>
+<div class="paragraph"><p>&#8594; peu d&#8217;adhérences à l&#8217;os</p></div>
+<div style="page-break-after: always"></div>
+<div class="ulist">
+<ul>
+<li>specs publiques, concurrence des serveurs</li>
+<li>FOSS : culture open source importante</li>
+<li>marché lucratif</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_ecosystème">
+<h2>Ecosystème</h2>
+
+</section>
+<section class="slide" id="_serveurs_d_application_2">
+<h2>Serveurs d&#8217;application</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:50%">
+<col style="width:50%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Wildfly <span class="image"><img alt="wildfly" src="./images/wildfly.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Glassfish <span class="image"><img alt="glassfish" src="./images/glassfish.png" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Jboss AS <span class="image"><img alt="jbossas" src="./images/jbossas.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Websphere <span class="image"><img alt="websphere" src="./images/websphere.jpg" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Weblogic <span class="image"><img alt="weblogic" src="./images/weblogic.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_foss">
+<h2>FOSS</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:50%">
+<col style="width:50%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Github <span class="image"><img alt="github" src="./images/github.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Apache <span class="image"><img alt="apache" src="./images/apache.png" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Eclipse <span class="image"><img alt="eclipse" src="./images/eclipse.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Codehaus <span class="image"><img alt="codehaus" src="./images/codehaus.png" width="150px"></span></p></div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="_projets_notables">
+<h2>Projets notables</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:33.3333%">
+<col style="width:33.3333%">
+<col style="width:33.3334%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Maven <span class="image"><img alt="maven" src="./images/maven.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Jenkins <span class="image"><img alt="jenkins" src="./images/jenkins.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Hibernate <span class="image"><img alt="hibernate" src="./images/hibernate.png" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>AspectJ <span class="image"><img alt="aspectj" src="./images/aspectj.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Jetty <span class="image"><img alt="jetty" src="./images/jetty.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Tomcat <span class="image"><img alt="tomcat" src="./images/tomcat.png" width="150px"></span></p></div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide" id="__concurrents">
+<h2>"Concurrents"</h2>
+<table class="tableblock frame-all grid-all" style="width:100%">
+<colgroup>
+<col style="width:50%">
+<col style="width:50%">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Spring <span class="image"><img alt="spring" src="./images/spring.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Play! Framework <span class="image"><img alt="play" src="./images/play.png" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Grails <span class="image"><img alt="grails" src="./images/grails.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Ruby On Rails <span class="image"><img alt="rails" src="./images/rails.png" width="150px"></span></p></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p>Symfony <span class="image"><img alt="symfony" src="./images/symfony.png" width="150px"></span></p></div></div></td>
+<td class="tableblock halign-center valign-middle"><div></div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide canvas-image" id="_a_vous_de_jouer" style="background-image: url(images/yourturn.png)">
+<div class="paragraph canvas-caption"><p class="center-up">A votre tour !</p></div>
+</section>
+<section class="slide" id="_tp_cc">
+<h2>TP + CC</h2>
+<div class="ulist">
+<ul>
+<li>mini projet à 2</li>
+<li><p>
+base de travail commune à tous<div class="ulist">
+<ul>
+<li>squelette fonctionnel</li>
+<li>sujet identique</li>
+<li>1 TP &#8594; 1 ajout fonctionnel</li>
+<li>max 1h de travail entre les TPs</li>
+</ul>
+</div></p></li>
+<li>notation à l&#8217;issue de la dernière séance</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_références">
+<h2>Références</h2>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li><a id="ee-roadmap"></a> <a class="bare" href="http://blog.eisele.net/2013/06/javaee7-is-final.html">http://blog.eisele.net/2013/06/javaee7-is-final.html</a></li>
+<li><a id="mvc-chart"></a> <a class="bare" href="https://netbeans.org/kb/docs/javaee/ecommerce/design.html">https://netbeans.org/kb/docs/javaee/ecommerce/design.html</a></li>
+</ul>
+</div>
+</section>
+<p aria-role="status" class="deck-status">
+<span class="deck-status-current"></span>
+/
+<span class="deck-status-total"></span>
+</p>
+<form action="." class="goto-form" method="get">
+<label for="goto-slide">Go to Slide:</label>
+<input id="goto-slide" list="goto-datalist" name="slidenum" type="text">
+<datalist id="goto-data-list"></datalist>
+<input type="submit" value="Go">
+</form>
+</div>
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/split/deck.split.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="ct/ct.js"></script>
+<script>
+  (function($, deck, undefined) {
+    $.deck.defaults.keys['previous'] = [8, 33, 37, 39];
+    $.deck.defaults.keys['next'] = [13, 32, 34, 39];
+  
+    $.extend(true, $[deck].defaults, {
+        countNested: false
+    });
+  
+    $.deck('.slide');
+  })(jQuery, 'deck');
+</script>
+<style>
+  .slide.canvas-image {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-align: start;
+  -webkit-box-align: start;
+  -ms-box-align: start;
+  box-align: start;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;}
+  
+  .bottom-left {
+    left: 1%;
+    bottom: 20%; }
+  
+  .top-left {
+    left: 1%;
+    top: 20%; }
+  
+  .bottom-right {
+    right: 1%;
+    bottom: 20%; }
+  
+  .top-right {
+    right: 1%;
+    top: 20%; }
+  
+  .center-up {
+    right: 50%;
+    top: 1%;
+  }
+  
+  .center-down {
+    right: 50%;
+    bottom: 1%;
+  }
+  .canvas-image .canvas-caption p {
+    text-align: center;
+    padding-top: 0;
+    padding: 0;
+    -moz-transform: none;
+    -webkit-transform: none;
+    -o-transform: none;
+    -ms-transform: none;
+    transform: none;
+    display: inline;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 58px;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    box-shadow: 2px 2px 2px #000;
+    padding: 1rem;
+    color: white; }
+  kbd.keyseq { color: #555555; }
+  kbd:not(.keyseq) {
+    display: inline-block;
+    color: #222222;
+    font-size: 0.7em;
+    line-height: 1.4;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    margin: -0.15em 0.15em 0 0.15em;
+    padding: 0.2em 0.6em;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  kbd kbd:first-child { margin-left: 0; }
+  kbd kbd:last-child { margin-right: 0; }
+</style>
+</body>
+</html>
