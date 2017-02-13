@@ -188,7 +188,7 @@ Promesse du Write Once Run Anywhere
  * 2006 : JavaEE 5 (23 specs)
  * 2009 : JavaEE 6 (28 specs)
  * 2013 : JavaEE 7 (31 specs)
- * 2016?: JavaEE 8
+ * 2017?: JavaEE 8
 
 [[ee-roadmap]]
 image::ee-roadmap.png[role=right_picture]
