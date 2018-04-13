@@ -1,7 +1,7 @@
 FROM asciidoctor/docker-asciidoctor
 MAINTAINER Cedric Gatay <c.gatay@code-troopers.com>
 
-RUN yum install -y gcc-c++ nodejs npm unzip vim
+RUN apk update &&  apk add g++ nodejs nodejs-npm unzip vim ruby-dev
 RUN gem install --no-ri --no-rdoc haml guard guard-shell guard-livereload guard-process yajl-ruby pygments.rb
 
 RUN curl "https://codeload.github.com/chrisjaure/deckjs-remote/zip/master" -o master.zip\
