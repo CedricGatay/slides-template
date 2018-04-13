@@ -1,0 +1,133 @@
+section.title
+  h1
+    display: none
+
+.bespoke-active:not(.image)
+  background-image: url('/images/breizhcamp.png');
+  background-position-x: 5px;
+  background-position-y: calc(100% - 5px);
+  background-size: 15%;
+  background-repeat: no-repeat
+  &.no-banner
+    background-image: none;
+  &::after
+    content: '@CEDRIC_GATAY';
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 0.3em;
+    font-family: 'bttf';
+
+.bespoke-slide.no-padding
+  padding: 0
+section 
+  .two-columns
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-items: center;
+    text-align:left;
+    width: 100%;
+    > pre.source, > ol, > ul, > p, > figure
+      &:first-of-type
+        flex: 1
+        max-width: 50%;
+    .left-content
+      flex: 1
+      box-shadow: 1px 0px 20px 0px $gray;
+    ul.right-content
+      list-style-type none;
+      li
+        line-height: 2;
+    img
+      max-width 100%
+      max-height 100%
+      object-fit: cover
+    div.colist
+      margin-top:300px;
+      margin-left:-300px;
+      flex : 1
+    &.center
+      text-align: center;
+  
+  > pre.source
+      width: calc(100% - 1em);
+
+.bigIcon
+  position: absolute;
+  font-size: 5em;
+  top: 0.2em;
+  left: 3.5em;
+
+span.icon
+  width:40px;
+  display: inline-block;
+  text-align: center;
+
+.line-through
+  text-decoration: line-through
+
+.underline
+  text-decoration: underline
+
+.quote
+  blockquote:before
+    content: "\201c";
+    float: left;
+    font-size: 2.75em;
+    font-weight: bold;
+    line-height: .6em;
+    margin-left: -.6em;
+    color: $color-accent;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .1)
+  figcaption
+    margin-top: .5em;
+    margin-right: .5ex;
+    text-align: right
+    font-size: .9375em;
+    line-height: 1.45;
+    font-style: italic
+    cite
+      display: block;
+      letter-spacing: -.025em;
+      color: rgba(0, 0, 0, .6)
+
+a
+ &,&:active,&:hover,&:visited
+   color: $color-accent;
+
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 32px; height: 32px; font-size: 20px; font-weight: bold; line-height: 32px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; margin-right:6px}
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #005498; color: #003f72; }
+.styledTable
+  /* Tables */
+  table { background: white; margin-bottom: 1.25em; border: solid 1px #dddddd; }
+  table thead, table tfoot { background: whitesmoke; font-weight: bold; }
+  table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: #222222; text-align: left; }
+  table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #222222; }
+  table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f9f9f9; }
+  table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.6; }
+  table thead th, table tfoot th { font-weight: bold; }
+
+  table.tableblock.grid-all { border-collapse: separate; border-spacing: 1px; -webkit-border-radius: 4px; border-radius: 4px; border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; }
+
+  table.tableblock.frame-topbot, table.tableblock.frame-none { border-left: 0; border-right: 0; }
+
+  table.tableblock.frame-sides, table.tableblock.frame-none { border-top: 0; border-bottom: 0; }
+
+  table.tableblock td .paragraph:last-child p, table.tableblock td > p:last-child { margin-bottom: 0; }
+
+  th.tableblock.halign-left, td.tableblock.halign-left { text-align: left; }
+
+  th.tableblock.halign-right, td.tableblock.halign-right { text-align: right; }
+
+  th.tableblock.halign-center, td.tableblock.halign-center { text-align: center; }
+
+  th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
+
+  th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
+
+  th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }

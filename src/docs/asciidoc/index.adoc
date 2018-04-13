@@ -1,0 +1,895 @@
+= Tour d'horizon de JavaEE
+:encoding: UTF-8
+:author: Cedric Gatay
+:keywords: @Cedric_Gatay
+:email: contact@code-troopers.com
+:backend: deckjs
+:customcss: ct/ct.css
+:customjs: ct/ct.js
+:deckjs_transition: horizontal-slide
+:menu:
+:goto:
+:status:
+:source-highlighter: pygments
+:split:
+:imagesdir: ./images
+:icons: font
+
+== Agenda
+ * Java vs Java EE
+ * Concepts
+ * Spécifications
+      ** Java Persistence API
+      ** Enterprise Java Bean
+      ** CDI
+      ** Servlet / Filter
+      ** Java Server Pages / Java Server Faces
+      ** Webservices
+
+== Forewords
+[.canvas]
+image::me_you.gif[]
+
+
+== Cedric Gatay
+[cols="3a,1a"]
+|===
+|
+* \http://code-troopers.com
+* \c.gatay@code-troopers.com
+* @Cedric_Gatay
+* \https://github.com/CedricGatay 
+* \https://github.com/code-troopers
+|image::profile.jpeg[]
+
+|
+[cols="4*"]
+!===
+!image:navigtours-logo.png[width="90%"]
+!image:aucard.jpg[width="90%"]
+!image:srmvision-logo.png[width="90%",role=white]
+!image:eput.png[width="90%",role=white]
+a!//
+!===
+|image::logo_text.png[]
+|===
+
+
+== Disclaimer
+
+ * JavaEE est très vaste
+ * JavaEE7 @ PacktPub : 496 pages
+
+-> 2H de CM / 6H de TP
+
+
+[[JavaEE7Packt]]
+image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[role=right_picture]
+
+[canvas-image="images/home.jpg"]
+== Java vs JavaEE
+[.canvas]
+image::home.jpg[]
+
+
+== Contexte
+
+Java
+
+ * langage objet
+ * v1.0 en 1995 / v8 en 2014
+ * ≠ Javascript
+
+
+== Flashback
+[.canvas]
+image::flashback.png[]
+
+[.canvas-caption, position=center-up]
+Flashback
+
+== Flashback
+
+1996, internet balbutiant, cible applications lourdes
+
+Concurrence des MFC / C++
+
+Promesse du Write Once Run Anywhere
+
+  * machine virtuelle
+  * "assembleur universel"
+
+
+== Java
+//This can be long, maybe introduce codenames with pictures to ease flow
+
+ * Java 1.0 : 1996
+    ** initial version
+    ** stable 1.0.2
+    ** originellement nommé Oak
+
+== !
+
+ * Java 1.1 : 1997
+    ** JavaBeans
+    ** JDBC
+    ** Reflection (Read-only)
+    ** Inner classes
+    ** JIT (on Windows)
+
+== !
+
+ * J2SE 1.2 : 1998
+    ** 1520 classes (taille triplée)
+    ** Swing
+    ** Collections
+    ** JIT everywhere
+
+== !
+
+ * J2SE 1.3 : 2000
+    ** JNDI
+    ** JPDA
+    ** JavaSound
+
+== !
+
+ * J2SE 1.4 : 2002
+    ** Regex
+    ** Exception chaining
+    ** NIO
+    ** JAXP
+    ** Java WebStart
+
+== !
+
+ * J2SE 5.0 : 2004
+    ** Generics
+    ** Annotations
+    ** enum
+    ** static imports
+    ** `java.util.concurrent`
+
+== !
+
+ * Java SE 6 : 2006
+    ** Performances
+    ** Scripting
+    ** JAX-WS
+
+== !
+
+ * Java SE 7 : 2011
+    ** Invokedynamic
+    ** try with resources
+    ** NIO 2
+    ** Concurrency utilities
+
+== !
+
+ * Java SE 8 : 2014
+    ** Lambda
+    ** Date and time API
+    ** Overhauled annotations
+
+== !
+
+ * Java SE 9 : 2017?
+    ** Java Modules
+    ** Currency API
+    ** Java REPL
+
+ * Java SE 10 : 2018 ?
+    ** Value types
+
+== JavaEE
+
+ * Java SE + des APIS "entreprise"
+ * cycle de release indépendant
+
+== Versions
+
+ * 1999 : J2EE 1.2 (10 specs)
+ * 2001 : J2EE 1.3 (13 specs)
+ * 2003 : J2EE 1.4 (20 specs)
+ * 2006 : JavaEE 5 (23 specs)
+ * 2009 : JavaEE 6 (28 specs)
+ * 2013 : JavaEE 7 (31 specs)
+ * 2017?: JavaEE 8
+
+[[ee-roadmap]]
+image::ee-roadmap.png[role=right_picture]
+
+== Version entreprise
+
+Applications visant à être
+
+[%step]
+* complexes
+* fiables
+* interconnectées
+* sécurisées
+
+== !
+
+ * conçu pour répondre à la montée d'internet
+ * rationaliser les développements
+  ** maîtrise des coûts
+  ** **D**on't **R**epeat **Y**ourself
+
+== Concepts
+
+ * philosophie n-tiers
+ * meta programmation par annotations
+ * convention over configuration
+ * système de normalisation "ouvert"
+
+== Architecture n-tiers
+
+ * applications d'envergures
+ * équipes multiples
+ * responsabilités partagées
+ * modèle de conception
+
+== !
+
+ * MVC
+ ** Model
+ ** View
+ ** Controller
+
+[[mvc-chart]]
+image::mvc-diagram.png[role=right_picture]
+
+== !
+
+ * Mobile/Rich client
+ ** REST endpoints
+ ** Model
+ ** Controller
+
+[[mvc-mobile]]
+image::mvc-mobile.png[role=right_picture]
+
+== Méta-programmation
+
+[%step]
+ * Besoin d'ajouter des informations au code
+ * Utilisation intensive de XML (pre Java EE 6)
+ * Configuration par annotations (Java EE 6)
+
+[%step,source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
+-----
+
+== Convention over configuration
+
+[%step]
+ * à l'utilisation des _patterns_ sont apparus
+ * simplification de l'utilisation en les adoptant par défaut
+ * possibilité de redéfinition manuelle
+
+[%step]
+-> Rassurez-vous il reste du XML
+
+[%step]
+image::trollface.jpg[width=300px]
+
+== Process de normalisation
+
+[%step]
+ * Ecriture d'une **J**ava **S**pecification **R**equest
+ * Fourniture du **T**oolkit **C**ompatibility **K**it
+ * Ecriture d'une **R**eference **I**mplementation
+
+== Cycle de travail
+
+[%step]
+ * Implémentation
+ * Compilation
+ * Packaging
+ * Déploiement
+
+== Implémentation
+
+IDE Java
+
+ * Netbeans
+ * Eclipse
+ * IntelliJ Idea
+ * vim / emacs...
+
+== Compilation
+
+Outils spécialisés
+
+ * Make
+ * ant
+ * Maven
+ * Gradle
+ * SBT
+
+== Packaging
+
+ * format d'archives en *AR
+   ** WAR : **W**eb **AR**chive
+   ** JAR : **J**ava **AR**chive
+   ** EAR : **E**nterprise **AR**chive
+
+ * Exécution gérée par le serveur d'application
+
+
+== Serveurs d'application
+
+[%step]
+ * exécute le code métier
+ * fournit des services
+ ** gestion des transactions
+ ** gestion des sources de données
+ ** mise en place de cluster
+ ** remontée d'informations
+ ** gestion des logs
+ ** gestion des utilisateurs
+
+== Show me the code
+[.canvas]
+image::showcode.gif[]
+
+[.canvas-caption,center top]
+"Show me the code"
+
+== Stockage des données
+
+*Comment passer du monde relationnel au monde objet ?*
+
+ * **O**bject **R**elational **M**apper
+ * Association entre objets et tables
+
+-> facilité d'utilisation et portabilité
+
+== !
+
+*Java Persistence API*
+
+ * __ORM__
+ * Gestion des transactions (**J**ava **T**ransaction **A**PI)
+ * Langage de requêtage spécifique (**J**ava **P**ersistence **Q**uery **L**anguage)
+ * Agnostique du SGBD
+
+== !
+
+// etoffer avec un exemple ´a l'ancienne'
+[source,java]
+-----
+//acquire a connection to your DB in connection var
+Statement stmt = connection.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT name,email FROM users;");
+while(rs.next()){
+	 user = new User(
+		rs.getString("name"), 
+		rs.getString("email")
+	 );
+	// do what you want with your user object
+}
+rs.close();
+//need to nest into try/catch/finally and close connection too
+-----
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
+-----
+|<1> Définition en tant qu'entité
+<2> Contraintes sur la table (nom...)
+<3> Définition du champ clef primaire
+<4> Contraintes sur les champs
+|===
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/domain/UserDAO.java[tags=allMethod]
+-----
+
+[.book-canvas]
+== CDI
+[.canvas]
+image::blackbook.gif[]
+
+== Dépendances entre composants
+
+ * le découpage en tiers introduit des dépendances
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=class]
+-----
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=ctor]
+-----
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=class]
+-----
+
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=ctor]
+-----
+
+== !
+ 
+*Problèmes*
+ 
+ * enchaînement des `new`
+    ** création pas toujours triviale des dépendances
+    ** `boilerplate` de création d'objet à gérer
+ * aucun recyclage des objets
+
+-> beaucoup de code inutile
+
+== !
+
+*Inversion Of Control*
+
+ * **C**ontext and **D**ependency **I**njection
+ * mécanisme d'IoC, central à JavaEE
+ * définition d'un `scopeˋ, de l'association à des services
+ * déclaration des dépendances
+ * le serveur d'application fait le reste
+
+== Hollywood principle ==
+[.canvas]
+image::hollywood.jpg[]
+[.canvas-caption,center top]
+"Don't call us, we'll call you !"
+
+== Context and Dependency Injection
+
+[.code_column]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
+-----
+|<1> Injection d'un UserDAO
+|===
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
+-----
+| <1> Injection du UserService
+|===
+
+== !
+
+ * `@Inject` demande l'injection
+ * `@Produces` permet de mettre un objet dans le cycle d'injection
+
+== ! 
+
+*Notion de `scope`*
+ 
+ * Cycles de vies différent selon l'utilisation
+ ** `@ApplicationScoped` vit toute l'application
+ ** `@SessionScoped` vit toute la session utilisateur
+ ** `@RequestScoped` vit la durée de la requête utilisateur
+
+[.book-canvas]
+== EJB
+[.canvas]
+image::blackbook.gif[]
+
+== Enterprise Java Bean
+
+ * encapsule la logique métier
+ * cycle de vie automatique
+ * trois types principaux
+  ** sans état
+  ** avec état
+  ** singletons
+
+== Sans état
+
+ * annotation `@Stateless`
+ * objets pouvant être réutilisés -> Thread Safe
+ * peut être partagé par plusieurs utilisateurs
+
+*Exemple* : récupération des promotions du jour
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/services/UUIDService.java[tags=class]
+-----
+<1> Bean sans état
+<2> Génération d'un identifiant
+
+== Avec état
+
+ * annotation `@Stateful`
+ * le container gère l'état et l'associe à un client
+ * contient des données propres à l'utilisateur
+
+*Exemple* : panier d'achat e-commerce
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
+-----
+|<1> Bean avec état
+<2> attaché à la session utilisateur
+<3> contenu du panier par utilisateur
+|===
+
+== Singleton
+
+ * annotation `@Singleton`
+ * une seule instance partagée
+ * doit être le même pour tous les utilisateurs
+
+*Exemple* : compteur de visiteurs
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
+-----
+|<1> variable partagée
+<2> traces sur la création / destruction
+<3> verrous en lecture / écriture
+|===
+
+[.book-canvas]
+== Servlet
+[.canvas]
+image::blackbook.gif[]
+
+
+== Servlet
+
+ * bas niveau
+ * très utilisées
+ * traite les requêtes HTTP
+
+
+== !
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
+-----
+
+== !
+
+[.get]
+link:tpjavaee/[]
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
+-----
+
+== !
+
+[.post]
+link:tpjavaee/[]
+
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=post]
+-----
+
+// /!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
+
+[.book-canvas]
+== Filter
+[.canvas]
+image::blackbook.gif[]
+
+
+== Filter
+
+ * bas niveau
+ * très utilisées
+//createur de framework
+ * "décore" les requêtes HTTP
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=class]
+-----
+|<1> Motif d'URL à prendre en compte
+<2> Délégation au filtre suivant
+|===
+
+== !
+
+[source,shell]
+-----
+INFO  [com.codetroopers.eput.MyFilter] Before filtering
+INFO  [com.codetroopers.eput.MyFilter] After filtering
+-----
+
+[.book-canvas]
+== JSP
+[.canvas]
+image::blackbook.gif[]
+
+
+== JavaServer Pages
+
+ * ensemble d'outils pour décrire une page HTML
+ * écriture de XML
+ * la page `.jsp` peut contenir du code
+ * de moins en moins utilisé
+
+== !
+
+[.get.blank]
+link:tpjavaee/helloWorld.jsp[]
+
+[source,jsp]
+-----
+include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
+-----
+
+== !
+
+*Problèmes*
+
+ * du code dans les vues
+ * MVC _mélangé_
+ * compilé par le serveur d'application
+
+//TODO picture : it works on my machine
+
+//-> "Oups"
+
+[.book-canvas]
+== JSF
+[.canvas]
+image::blackbook.gif[]
+
+
+== JavaServer Faces
+
+ * écriture orientée composants
+ ** réutilisabilité
+ ** composition de comportement
+ * CDI au coeur du système
+ * support des technologies "modernes"
+
+
+//FIXME too long samples / bad indentation
+
+== !
+
+[source,xml,role=noscale]
+-----
+include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=full]
+-----
+
+== !
+
+[.get.blank]
+link:tpjavaee/login.xhtml[]
+
+[source,xml]
+-----
+include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=sample]
+-----
+
+== !
+
+Expression Language
+
+ * `${prop.in.a.bean}` : évaluation immédiate
+ * `#{prop.in.a.bean}` : évaluation différée
+ * accès à des variables ou méthodes
+
+== !
+
+*Problèmes*
+
+ * du code dans les vues (mais beaucoup moins)
+ * fais partie de la spec, pas forcément aussi largement utilisé
+
+[.book-canvas]
+== WebServices
+[.canvas]
+image::blackbook.gif[]
+
+
+== Webservices
+
+ * moyen de communication inter-app principal
+ * REST / SOAP
+ * assemblage transparent avec les autres services
+
+== !
+
+**S**imple **O**bject **A**ccess **P**rotocol
+
+ * format d'échange XML
+ ** objets
+ ** méthodes
+ * verbeux
+ * en train de disparaître
+
+//TODO here comes a new challenger
+
+== !
+
+[.get]
+link:tpjavaee/ws/users[]
+[.post]
+link:tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr[]
+
+**RE**presentational **S**tate **T**ransfer
+
+  * façon de penser un webservice
+  * utilisation des verbes http
+  * pas d'état côté serveur
+
+== !
+
+[.code_columns]
+[cols="6a,<.<1a"]
+|===
+|
+[source,java]
+-----
+include::sample/src/main/java/com/codetroopers/eput/ws/UserWebService.java[tags=class]
+-----
+|<1> Base de l'application REST
+<2> Chemin de réponse
+<3> Type de données créées par le webservice
+<4> Verbe HTTP à considérer
+<5> Récupération de la valeur des paramètres
+|===
+
+
+== Retour à la discussion
+[.canvas]
+image::end_examples.gif[]
+
+
+== Pourquoi est-ce populaire ?
+
+Souvent en entreprise :
+
+ * stations de dev Windows
+ * serveurs Linux
+
+-> peu d'adhérences à l'os
+
+== !
+
+ * specs publiques, concurrence des serveurs
+ * FOSS : culture open source importante
+ * marché lucratif
+
+
+== Ecosystème
+[.canvas]
+image::ecosystem.jpg[]
+
+[.canvas-caption, position=center-up]
+Ecosystème
+
+== Serveurs d'application
+
+[cols="^.^a,^.^a"]
+|===
+| Wildfly image:wildfly.png[role=white,width=150px]
+| Glassfish image:glassfish.png[role=white,width=150px]
+| Jboss AS image:jbossas.png[width=150px]
+| Websphere image:websphere.jpg[width=150px]
+| Weblogic image:weblogic.png[width=150px]
+|
+|===
+
+== FOSS
+
+[cols="^.^a,^.^a"]
+|===
+| Github image:github.png[role=white,width=150px]
+| Apache image:apache.png[role=white,width=150px]
+| Eclipse image:eclipse.png[role=white,width=150px]
+| Codehaus image:codehaus.png[role=white,width=150px]
+|===
+
+== Projets notables
+
+[cols="^.^a,^.^a,^.^a"]
+|===
+| Maven image:maven.png[width=150px]
+| Jenkins image:jenkins.png[width=150px]
+| Hibernate image:hibernate.png[role=white,width=150px]
+| AspectJ image:aspectj.png[role=white,width=150px]
+| Jetty image:jetty.png[width=150px]
+| Tomcat image:tomcat.png[width=150px]
+|===
+
+== "Concurrents"
+
+[cols="^.^a,^.^a"]
+|===
+| Spring image:spring.png[width=150px]
+| Play! Framework image:play.png[width=150px]
+| Grails image:grails.png[width=150px]
+| Ruby On Rails image:rails.png[width=150px]
+| Symfony image:symfony.png[width=150px]
+|
+|===
+
+== A vous de jouer
+[.canvas]
+image::yourturn.gif[]
+
+
+[.canvas-caption, position=center-up]
+A votre tour !
+
+== TP + CC
+
+ * mini projet à 2
+ * base de travail commune à tous
+ ** squelette fonctionnel
+ ** sujet identique
+ ** 1 TP -> 1 ajout fonctionnel
+ ** max 1h de travail entre les TPs
+ * notation à l'issue de la dernière séance
+
+== Références
+[bibliography]
+
+- [[ee-roadmap]] http://blog.eisele.net/2013/06/javaee7-is-final.html
+- [[mvc-chart]] https://netbeans.org/kb/docs/javaee/ecommerce/design.html
+- [[mvc-mobile]] https://dzone.com/articles/load-data-from-database-using-web-api

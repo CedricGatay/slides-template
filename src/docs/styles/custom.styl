@@ -1,0 +1,91 @@
+.image.small
+    img
+        max-width: 1em
+        max-height: 1em
+        vertical-align: inherit
+    &.ct
+        img
+            vertical-align: sub
+
+.bttf
+    font-size: 4em;
+    -webkit-text-stroke: 0.009em #1EB8E7;
+    background: -webkit-linear-gradient(#E62A00 24%,#F15A00 37% ,#FF9A00 53%,#FFDC00 77%);
+    padding: 0.1em 1em;
+    line-height: 1em;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    .small-shadow
+        -webkit-text-stroke: 0.009em #1eb8e7;
+        float: right;
+        margin-top: -2.5rem;
+        margin-right: -4rem;
+    &.reversed
+        margin-top: -0.4em;
+        background: -webkit-linear-gradient( #FFDC00 24%, #FF9A00 37%, #F15A00 53%, #E62A00 77%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+.image_slide
+    position: absolute;
+    height:  33%;
+    max-width: 33%;
+    figcaption
+        text-align  center
+        font-size: 0.7em
+    img
+        max-width 100%
+        max-height 100%
+    &.lower
+        bottom: 5%;
+        &.bespoke-bullet-inactive
+            bottom: -100%
+    &.right
+        right: 5%;
+        &.bespoke-bullet-inactive
+            right: -100%
+    &.upper
+        top: 5%;
+        &.bespoke-bullet-inactive
+            top: -100%
+    &.left
+        left: 5%;
+        &.bespoke-bullet-inactive
+            left: -100%
+    &.captioned
+        padding: 10px 10px 40px;
+        background: white;
+        box-shadow: 0px 3px 5px 0px $gray
+    &.bigger
+        height: 60%
+        max-width: 60%
+        
+.credit
+    position: absolute
+    bottom: 0
+    right: 5px
+    font-size: 0.5em
+
+.canvas.full-width
+    img
+        max-width:100%;
+
+ul
+    list-style-type none;
+
+.bespoke-bullet
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+
+.beta-marker
+    font-size: 3em
+    color: $darkBlue
+
+.book-canvas
+    h2
+        position: absolute
+        left: calc(50% + 2rem)
+        top: calc(50% - 12rem)
+        width: 20%
+        text-align: center
