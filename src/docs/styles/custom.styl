@@ -111,3 +111,44 @@ code
 figure.center img 
     display inherit
     margin 0 auto
+
+.section-link,.get, .post
+  display:none;
+
+
+.header-action
+  font-size: 0.5em;
+  color $color-accent
+  float: right;
+  margin-left: 0.5em;
+
+.header-action:hover
+  cursor:pointer;
+
+
+.modal
+  transition height 1s ease-in-out
+  height: 0;
+  position: fixed;
+  //top: 20%;
+  bottom: 20%;
+  left: 10%;
+  right: 10%;
+  max-height: 60%;
+  background-color: white;
+  border-radius: 0.5em;
+  overflow: hidden
+  .fa-close
+      float right
+      margin 0.2em
+  pre.response
+    margin: 0.2em
+    height:100%;
+    color: darkgreen;
+    overflow:scroll;
+
+pre.source ~ .colist
+    font-size 24px
+
+span code
+    color: $color-accent

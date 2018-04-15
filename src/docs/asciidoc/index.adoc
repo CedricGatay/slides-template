@@ -6,6 +6,7 @@
 :source-highlighter: prettify
 :imagesdir: ./images
 :icons: font
+:iconfont-cdn: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css
 
 == Agenda
  * Java vs Java EE
@@ -385,19 +386,16 @@ rs.close();
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/domain/entities/User.java[tags=class]
 -----
-|<1> Définition en tant qu'entité
+<1> Définition en tant qu'entité
 <2> Contraintes sur la table (nom...)
 <3> Définition du champ clef primaire
 <4> Contraintes sur les champs
-|===
+
 
 == !
 
@@ -414,6 +412,8 @@ image::blackbook.gif[]
 == Dépendances entre composants
 
  * le découpage en tiers introduit des dépendances
+
+== !
 
 [source,java]
 -----
@@ -459,7 +459,7 @@ include::sample/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=c
 
  * **C**ontext and **D**ependency **I**njection
  * mécanisme d'IoC, central à JavaEE
- * définition d'un `scopeˋ, de l'association à des services
+ * définition d'un `scope`, de l'association à des services
  * déclaration des dépendances
  * le serveur d'application fait le reste
 
@@ -469,31 +469,25 @@ image::hollywood.jpg[]
 // [.canvas-caption,center top]
 // "Don't call us, we'll call you !"
 
-== Context and Dependency Injection
+== ! Context and Dependency Injection
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
 -----
-|<1> Injection d'un UserDAO
-|===
+<1> Injection d'un UserDAO
+
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 -----
-| <1> Injection du UserService
-|===
+<1> Injection du UserService
+
 
 == !
 
@@ -504,7 +498,7 @@ include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 
 *Notion de `scope`*
  
- * Cycles de vies différent selon l'utilisation
+ * Cycles de vies différents selon l'utilisation
  ** `@ApplicationScoped` vit toute l'application
  ** `@SessionScoped` vit toute la session utilisateur
  ** `@RequestScoped` vit la durée de la requête utilisateur
@@ -550,18 +544,15 @@ include::sample/src/main/java/com/codetroopers/eput/services/UUIDService.java[ta
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
 -----
-|<1> Bean avec état
+<1> Bean avec état
 <2> attaché à la session utilisateur
 <3> contenu du panier par utilisateur
-|===
+
 
 == Singleton
 
@@ -573,18 +564,14 @@ include::sample/src/main/java/com/codetroopers/eput/services/CartService.java[ta
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
 -----
-|<1> variable partagée
+<1> variable partagée
 <2> traces sur la création / destruction
 <3> verrous en lecture / écriture
-|===
+
 
 [.book-canvas]
 == Servlet
@@ -643,17 +630,14 @@ image::blackbook.gif[]
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
+
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyFilter.java[tags=class]
 -----
-|<1> Motif d'URL à prendre en compte
+<1> Motif d'URL à prendre en compte
 <2> Délégation au filtre suivant
-|===
+
 
 == !
 
@@ -683,7 +667,7 @@ link:tpjavaee/helloWorld.jsp[]
 
 [source,jsp]
 -----
-include::sample/src/main/webapp/helloWorld.jsp[tags=jsp]
+include::sample/src/main/webapp/helloWorld.jsp[tags=jsp] 
 -----
 
 == !
@@ -748,7 +732,7 @@ Expression Language
  * fais partie de la spec, pas forcément aussi largement utilisé
 
 [.book-canvas]
-== WebServices
+== JAX-RS
 [.canvas]
 image::blackbook.gif[]
 
@@ -786,20 +770,16 @@ link:tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr[]
 
 == !
 
-[.code_columns]
-[cols="6a,<.<1a"]
-|===
-|
 [source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/ws/UserWebService.java[tags=class]
 -----
-|<1> Base de l'application REST
+<1> Base de l'application REST
 <2> Chemin de réponse
 <3> Type de données créées par le webservice
 <4> Verbe HTTP à considérer
 <5> Récupération de la valeur des paramètres
-|===
+
 
 
 == ! Retour à la discussion

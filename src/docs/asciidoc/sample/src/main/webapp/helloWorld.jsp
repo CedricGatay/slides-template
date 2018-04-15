@@ -14,7 +14,7 @@
   ~ limitations under the License.
   --%>
 
-<!-- tag::jsp[] -->
+<%-- tag::jsp[] --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,4 +31,4 @@ Item <%= i %> <br>
 <em>Please delete me now, I am so ugly !</em>
 </body>
 </html>
-<!-- end::jsp[] -->
+<%-- end::jsp[] --%>
