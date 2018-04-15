@@ -42,12 +42,27 @@ Je fais partie des co-fondateurs de Code-Troopers, des leads du Google Developer
 ****
 
 
+== ! icon:code-fork[]
+
+ * icon:bus[] http://navigtours.com[Navig'Tours] icon:apple[] icon:android[]
+ * icon:music[] http://chapi.to[Chapi.to] icon:apple[] icon:android[]
+ * icon:github[] FOSS:
+ ** icon:calendar[] Android Betterpickers icon:android[]
+ ** icon:github-alt[] sbt plugins icon:globe[]
+ ** icon:github-alt[] wicket-hot-reload icon:globe[]
+ ** icon:gitlab[] Gitlab icon:globe[]
+
+[.cue]
+****
+Je fais aussi des apps web, mobiles, et de l'open source sur quelques projets
+****
+
 
 == ! Disclaimer
 
 [.two-columns]
 --
-[.left-content]
+[.left-content centered white]
 [[JavaEE7Packt]]
 image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[]
 
@@ -55,7 +70,6 @@ image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[]
 
  * JavaEE est très vaste
  * JavaEE7 @ PacktPub : 496 pages
-
 -> 2H de CM / 6H de TP
 
 --
@@ -812,49 +826,85 @@ image::ecosystem.jpg[]
 
 == Serveurs d'application
 
-[cols="^.^a,^.^a"]
-|===
-| Wildfly image:wildfly.png[role=white,width=150px]
-| Glassfish image:glassfish.png[role=white,width=150px]
-| Jboss AS image:jbossas.png[width=150px]
-| Websphere image:websphere.jpg[width=150px]
-| Weblogic image:weblogic.png[width=150px]
-|
-|===
+[.image_grid]
+--
+image::wildfly.png[role="image_slide captioned", title="Wildfly"]
+image::glassfish.png[role="image_slide captioned", title="Glassfish"]
+image::jbossas.png[role="image_slide captioned", title="JBoss AS"]
+image::websphere.jpg[role="image_slide captioned", title="Websphere"]
+image::weblogic.png[role="image_slide captioned", title="Weblogic"]
+--
+// [cols="^.^a,^.^a"]
+// |===
+// | Wildfly image:wildfly.png[role=white,width=150px]
+// | Glassfish image:glassfish.png[role=white,width=150px]
+// | Jboss AS image:jbossas.png[width=150px]
+// | Websphere image::websphere.jpg[role="image_slide captioned", title="Websphere"]
+// | Weblogic image::weblogic.png[role="image_slide captioned", title="Weblogic"]
+// |
+// |===
 
 == FOSS
 
-[cols="^.^a,^.^a"]
-|===
-| Github image:github.png[role=white,width=150px]
-| Apache image:apache.png[role=white,width=150px]
-| Eclipse image:eclipse.png[role=white,width=150px]
-| Codehaus image:codehaus.png[role=white,width=150px]
-|===
+[.image_grid.two_per_row]
+--
+image::github.png[role="image_slide captioned", title="Github"]
+image::apache.png[role="image_slide captioned", title="Apache"]
+image::eclipse.png[role="image_slide captioned", title="Eclipse"]
+//TODO replace by JFROG
+image::codehaus.png[role="image_slide captioned", title="Codehaus"]
+--
+
 
 == Projets notables
 
-[cols="^.^a,^.^a,^.^a"]
-|===
-| Maven image:maven.png[width=150px]
-| Jenkins image:jenkins.png[width=150px]
-| Hibernate image:hibernate.png[role=white,width=150px]
-| AspectJ image:aspectj.png[role=white,width=150px]
-| Jetty image:jetty.png[width=150px]
-| Tomcat image:tomcat.png[width=150px]
-|===
+[.image_grid]
+--
+image::maven.png[role="image_slide captioned", title="Maven"]
+image::jenkins.png[role="image_slide captioned", title="Jenkins"]
+image::hibernate.png[role="image_slide captioned", title="Hibernate"]
+image::aspectj.png[role="image_slide captioned", title="AspectJ"]
+image::jetty.png[role="image_slide captioned", title="Jetty"]
+image::tomcat.png[role="image_slide captioned", title="Tomcat"]
+--
 
 == "Concurrents"
 
-[cols="^.^a,^.^a"]
-|===
-| Spring image:spring.png[width=150px]
-| Play! Framework image:play.png[width=150px]
-| Grails image:grails.png[width=150px]
-| Ruby On Rails image:rails.png[width=150px]
-| Symfony image:symfony.png[width=150px]
-|
-|===
+[.image_grid]
+--
+image::spring.png[role="image_slide captioned", title="Spring"]
+image::play.png[role="image_slide captioned", title="Play! Framework"]
+image::grails.png[role="image_slide captioned", title="Grails"]
+image::rails.png[role="image_slide captioned", title="Ruby On Rails"]
+image::symfony.png[role="image_slide captioned", title="Symfony"]
+--
+
+== Java EE est mort
+
+[.cue]
+****
+Dans les événements récents autour de l'écosystème JavaEE il y a quelque chose que vous devez quand même savoir.
+C'est que Java EE est mort, il n'existe plus, je vous parle de tout plein de choses qui ne sont plus.
+Enfin, qui sont utilisées dans des milliers d'applicatifs sur la planète, comme...
+****
+
+== Java EE Apps
+
+[.cue]
+****
+
+Bon, j'ai peut être aggravé la situation, Java EE est mort, mais il a surtout été transféré d'Oracle à la fondation Eclipse.
+Et il a changé de nom...
+****
+
+== Welcome Jakarta EE
+
+[.cue]
+****
+Il s'appelle désormais Jakarta EE, on peut l'abréger JEE sans problème.
+****
+
+
 
 == ! A vous de jouer
 [.canvas]
