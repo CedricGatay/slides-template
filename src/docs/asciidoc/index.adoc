@@ -277,14 +277,19 @@ image::mvc-mobile.png[role=left-content white centered]
 == Méta-programmation
 
 [%build]
+--
+
+[%build]
  * Besoin d'ajouter des informations au code
  * Utilisation intensive de XML (pre Java EE 6)
  * Configuration par annotations (Java EE 6)
 
-[%build,source,java]
+[source,java]
 -----
 include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
 -----
+
+--
 
 == Convention over configuration
 
@@ -350,6 +355,7 @@ Outils spécialisés
 [%build]
  * exécute le code métier
  * fournit des services
+[%build]
  ** gestion des transactions
  ** gestion des sources de données
  ** mise en place de cluster
@@ -834,15 +840,6 @@ image::jbossas.png[role="image_slide captioned", title="JBoss AS"]
 image::websphere.jpg[role="image_slide captioned", title="Websphere"]
 image::weblogic.png[role="image_slide captioned", title="Weblogic"]
 --
-// [cols="^.^a,^.^a"]
-// |===
-// | Wildfly image:wildfly.png[role=white,width=150px]
-// | Glassfish image:glassfish.png[role=white,width=150px]
-// | Jboss AS image:jbossas.png[width=150px]
-// | Websphere image::websphere.jpg[role="image_slide captioned", title="Websphere"]
-// | Weblogic image::weblogic.png[role="image_slide captioned", title="Weblogic"]
-// |
-// |===
 
 == FOSS
 
@@ -879,8 +876,44 @@ image::rails.png[role="image_slide captioned", title="Ruby On Rails"]
 image::symfony.png[role="image_slide captioned", title="Symfony"]
 --
 
-== Java EE est mort
+== ! Packaging
+[.canvas]
+image::michal-parzuchowski-224092-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/geNNFqfvw48
 
+== Packaging
+
+Outils principaux
+ 
+ * Maven
+ * Gradle
+
+== !
+
+[source,shell]
+----
+├── pom.xml <1>
+└── src
+    └── main <2>
+        ├── java <3>
+        ├── resources <4>
+        └── webapp <5>
+    └── test <6>
+        └── java <3>
+----
+<1> Descripteur du projet 
+<2> Source de production
+<3> Sources Java
+<4> Fichiers de ressources
+<5> Fichiers web
+<6> Sources de tests
+
+== ! Java EE est mort
+[.canvas]
+image::luiz-hanfilaque-342635-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/7RtM37cLJ3c[]
 [.cue]
 ****
 Dans les événements récents autour de l'écosystème JavaEE il y a quelque chose que vous devez quand même savoir.
@@ -897,8 +930,10 @@ Bon, j'ai peut être aggravé la situation, Java EE est mort, mais il a surtout 
 Et il a changé de nom...
 ****
 
-== Welcome Jakarta EE
-
+[.white.center]
+== ! Welcome Jakarta EE
+[.canvas.contain]
+image::Jakarta_Drop-smaller.jpg[]
 [.cue]
 ****
 Il s'appelle désormais Jakarta EE, on peut l'abréger JEE sans problème.
