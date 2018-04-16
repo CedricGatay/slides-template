@@ -117,12 +117,12 @@ Promesse du Write Once Run Anywhere
   * "assembleur universel"
 
 
-== Java
+== ! Java
 //This can be long, maybe introduce codenames with pictures to ease flow
 [.timeline]
 image::javase_timeline.png[]
 
- * Java 1.0 : 1996
+//  * Java 1.0 : 1996
     ** initial version
     ** stable 1.0.2
     ** originellement nommé Oak
@@ -131,7 +131,7 @@ image::javase_timeline.png[]
 [.timeline]
 image::javase_timeline_2.png[]
 
- * Java 1.1 : 1997
+//  * Java 1.1 : 1997
     ** JavaBeans
     ** JDBC
     ** Reflection (Read-only)
@@ -142,7 +142,7 @@ image::javase_timeline_2.png[]
 [.timeline]
 image::javase_timeline_3.png[]
 
- * J2SE 1.2 : 1998
+//  * J2SE 1.2 : 1998
     ** 1520 classes (taille triplée)
     ** Swing
     ** Collections
@@ -152,7 +152,7 @@ image::javase_timeline_3.png[]
 [.timeline]
 image::javase_timeline_4.png[]
 
- * J2SE 1.3 : 2000
+//  * J2SE 1.3 : 2000
     ** JNDI
     ** JPDA
     ** JavaSound
@@ -161,7 +161,7 @@ image::javase_timeline_4.png[]
 [.timeline]
 image::javase_timeline_5.png[]
 
- * J2SE 1.4 : 2002
+//  * J2SE 1.4 : 2002
     ** Regex
     ** Exception chaining
     ** NIO
@@ -172,7 +172,7 @@ image::javase_timeline_5.png[]
 [.timeline]
 image::javase_timeline_6.png[]
 
- * J2SE 5.0 : 2004
+//  * J2SE 5.0 : 2004
     ** Generics
     ** Annotations
     ** enum
@@ -183,7 +183,7 @@ image::javase_timeline_6.png[]
 [.timeline]
 image::javase_timeline_7.png[]
 
- * Java SE 6 : 2006
+//  * Java SE 6 : 2006
     ** Performances
     ** Scripting
     ** JAX-WS
@@ -192,7 +192,7 @@ image::javase_timeline_7.png[]
 [.timeline]
 image::javase_timeline_8.png[]
 
- * Java SE 7 : 2011
+//  * Java SE 7 : 2011
     ** Invokedynamic
     ** try with resources
     ** NIO 2
@@ -202,7 +202,7 @@ image::javase_timeline_8.png[]
 [.timeline]
 image::javase_timeline_9.png[]
 
- * Java SE 8 : 2014
+//  * Java SE 8 : 2014
     ** Lambda
     ** Date and time API
     ** Overhauled annotations
@@ -211,15 +211,15 @@ image::javase_timeline_9.png[]
 [.timeline]
 image::javase_timeline_10.png[]
 
- * Java SE 9 : 2017
+//  * Java SE 9 : 2017
     ** Java Modules
     ** Java REPL
 
 == !
 [.timeline]
-image:javase_timeline_11.png[]
+image::javase_timeline_11.png[]
 
- * Java SE 10 : 2018 
+//  * Java SE 10 : 2018 
     ** Local-variable type inference
     ** Time-based releases
     ** Parallel Full GC
@@ -229,7 +229,7 @@ image:javase_timeline_11.png[]
  * Java SE + des APIS "entreprise"
  * cycle de release indépendant
 
-== Versions
+== ! Versions
 [.two-columns]
 --
 [.left-content]
