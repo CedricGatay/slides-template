@@ -27,12 +27,17 @@
         -webkit-text-fill-color: transparent;
 
 .image_slide
+    display: flex
+    flex-direction: column
+    align-content: center
     position: absolute;
     height:  33%;
     max-width: 33%;
     figcaption
         text-align  center
-        font-size: 0.7em
+        font-size: 0.3em
+        margin-top: auto
+        margin-bottom: auto
     img
         max-width 100%
         max-height 100%
@@ -56,6 +61,9 @@
         padding: 10px 10px 40px;
         background: white;
         box-shadow: 0px 3px 5px 0px $gray
+        text-align center
+        &.small-padding
+            padding: 2px 2px 2px 2px;
     &.bigger
         height: 60%
         max-width: 60%
@@ -178,9 +186,12 @@ span code
             max-height: 250px
         figcaption
             margin-top: auto
-.white.center.image
+.center.image
     background-position center
-    background-color white
+    &.white
+        background-color white
+    &.black
+        background-color black
 
 .timeline
     position absolute
@@ -189,3 +200,10 @@ span code
     right 0
     img
         max-width: 100%
+.reversed
+    background-color: $color-accent
+    color: $darkGray
+    code
+        color: $lightGray
+        font-size: 2em
+        

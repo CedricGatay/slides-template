@@ -18,6 +18,7 @@ https://unsplash.com/photos/2FaCKyEEtis
 [.author]
 --
 {author} - {localdate}
+image:CG_BW.jpg[role=author_img]
 --
 
 == Agenda
@@ -69,12 +70,12 @@ Je fais partie des co-fondateurs de Code-Troopers, des leads du Google Developer
 Je fais aussi des apps web, mobiles, et de l'open source sur quelques projets
 ****
 
-
+[.no-padding]
 == ! Disclaimer
 
 [.two-columns]
 --
-[.left-content centered white]
+[.left-content.contain]
 [[JavaEE7Packt]]
 image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[]
 
@@ -127,6 +128,15 @@ image::javase_timeline.png[]
     ** stable 1.0.2
     ** originellement nommé Oak
 
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Duke_Nukem_3D_Coverart.png[title="Duke Nukem 3D"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=17965118
+--
+
 == !
 [.timeline]
 image::javase_timeline_2.png[]
@@ -138,6 +148,15 @@ image::javase_timeline_2.png[]
     ** Inner classes
     ** JIT (on Windows)
 
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::goldeneye007.jpg[title="Golden Eye"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=6057470
+--
+
+
 == !
 [.timeline]
 image::javase_timeline_3.png[]
@@ -148,6 +167,16 @@ image::javase_timeline_3.png[]
     ** Collections
     ** JIT everywhere
 
+
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Half-Life_Cover_Art.jpg[title="Half Life"]
+// [.credit]
+// By The image may be obtained from the Valve Corporation ; this particular version comes from Combine OverWiki in which the PC Gamer quote and logos from the bottom section were readded from vector sources by Klow., Fair use, https://en.wikipedia.org/w/index.php?curid=13514455
+--
+
 == !
 [.timeline]
 image::javase_timeline_4.png[]
@@ -156,6 +185,15 @@ image::javase_timeline_4.png[]
     ** JNDI
     ** JPDA
     ** JavaSound
+
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Quake3Title.jpg[title="Quake III"]
+// [.credit]
+// Fair use, https://en.wikipedia.org/w/index.php?curid=553887
+--
 
 == !
 [.timeline]
@@ -168,6 +206,15 @@ image::javase_timeline_5.png[]
     ** JAXP
     ** Java WebStart
 
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Battlefield_1942_Box_Art.jpg[title="Battlefield 1942"]
+// [.credit]
+// By EA, DICE, Fair use, https://en.wikipedia.org/w/index.php?curid=1117906
+--
+
 == !
 [.timeline]
 image::javase_timeline_6.png[]
@@ -179,6 +226,14 @@ image::javase_timeline_6.png[]
     ** static imports
     ** `java.util.concurrent`
 
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Far_Cry_Coverart.png[title="Far Cry"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=15268220
+--
+
 == !
 [.timeline]
 image::javase_timeline_7.png[]
@@ -187,6 +242,14 @@ image::javase_timeline_7.png[]
     ** Performances
     ** Scripting
     ** JAX-WS
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::gearsofwar.jpg[title="Gears of war"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=20437886
+--
 
 == !
 [.timeline]
@@ -198,6 +261,14 @@ image::javase_timeline_8.png[]
     ** NIO 2
     ** Concurrency utilities
 
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Portal2cover.jpg[title="Portal 2"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=30172974
+--
+
 == !
 [.timeline]
 image::javase_timeline_9.png[]
@@ -207,6 +278,14 @@ image::javase_timeline_9.png[]
     ** Date and time API
     ** Overhauled annotations
 
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::Dragon_Age_Inquisition_BoxArt.jpg[title="Dragon Age Inquisition"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=42548622
+--
+
 == !
 [.timeline]
 image::javase_timeline_10.png[]
@@ -214,6 +293,14 @@ image::javase_timeline_10.png[]
 //  * Java SE 9 : 2017
     ** Java Modules
     ** Java REPL
+
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::The_Legend_of_Zelda_Breath_of_the_Wild.jpg[title="Zelda BOTW"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=52854893
+--
 
 == !
 [.timeline]
@@ -224,19 +311,31 @@ image::javase_timeline_11.png[]
     ** Time-based releases
     ** Parallel Full GC
 
+[%build]
+--
+[.image_slide.upper.right.captioned.small-padding]
+image::DBFZ_cover_art.jpg[title="Dragon Ball FighterZ"]
+// [.credit]
+// By Source, Fair use, https://en.wikipedia.org/w/index.php?curid=55982881
+--
+
 == JavaEE
 
  * Java SE + des APIS "entreprise"
  * cycle de release indépendant
 
+[.black.center]
 == ! Versions
-[.two-columns]
---
-[.left-content]
+[.canvas.contain]
 [[ee-roadmap]]
 image::ee-roadmap-8.png[]
+// [.two-columns]
+// --
+// [.left-content]
 
-[.right-content]
+// [.right-content]
+[.cue]
+****
  * 1999 : J2EE 1.2 (10 specs)
  * 2001 : J2EE 1.3 (13 specs)
  * 2003 : J2EE 1.4 (20 specs)
@@ -244,17 +343,28 @@ image::ee-roadmap-8.png[]
  * 2009 : JavaEE 6 (28 specs)
  * 2013 : JavaEE 7 (31 specs)
  * 2017 : JavaEE 8 (12 specs)
+****
+
+[.no-padding]
+== ! Version entreprise
+
+[.two-columns]
 --
 
-== Version entreprise
+[.left-content]
+image::jakub-gorajek-173097-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/AvhMrjYC8L8
 
-Applications visant à être
-
-[%build]
+[.right-content.no-bullet]
+//Applications visant à être
+//[%build]
 * complexes
 * fiables
 * interconnectées
 * sécurisées
+
+--
 
 == !
 
@@ -308,71 +418,109 @@ image::mvc-mobile.png[role=left-content white centered]
 
 --
 
-== Méta-programmation
+[.no-padding]
+== ! Méta-programmation
+[.two-columns]
+--
+[.left-content]
+image::john-jason-383954-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/99cl-_hPa-0
 
-[%build]
+[.right-content]
+//[%build]
+ * ajout d'informations au code
+ * XML (pre Java EE 6)
+ * annotations (Java EE 6)
+
+// [source,java]
+// -----
+// include:sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
+// -----
+
 --
 
-[%build]
- * Besoin d'ajouter des informations au code
- * Utilisation intensive de XML (pre Java EE 6)
- * Configuration par annotations (Java EE 6)
+[.no-padding]
+== ! Convention over configuration
 
-[source,java]
------
-include::sample/src/main/java/com/codetroopers/eput/MyServlet.java[tags=annot]
------
-
+[.two-columns]
 --
+[.left-content]
+image::rakicevic-nenad-600164-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/p4RAXOTdlMk
 
-== Convention over configuration
+[.right-content]
+* _pattern_ émergeants
+* largement utilisés
+* surchargeables
 
-[%build]
---
- * à l'utilisation des _patterns_ sont apparus
- * simplification de l'utilisation en les adoptant par défaut
- * possibilité de redéfinition manuelle
-
-[%build]
+[.cue]
+****
+à l'utilisation des _patterns_ sont apparus
+simplification de l'utilisation en les adoptant par défaut
+possibilité de redéfinition manuelle
 -> Rassurez-vous il reste du XML
+****
 
-[%build]
-image::trollface.jpg[width=300px,role="center"]
+// [%build]
+
+// [%build]
+// image::trollface.jpg[width=300px,role="center"]
 --
 
 == Process de normalisation
 
-[%build]
+// [%build]
  * Ecriture d'une **J**ava **S**pecification **R**equest
  * Fourniture du **T**oolkit **C**ompatibility **K**it
  * Ecriture d'une **R**eference **I**mplementation
 
 == Cycle de travail
 
-[%build]
+// [%build]
  * Implémentation
  * Compilation
  * Packaging
  * Déploiement
 
-== Implémentation
+[.no-padding]
+== ! Implémentation
 
-IDE Java
+[.two-columns]
+--
+[.left-content]
+image::ben-kolde-367194-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/lqZPleZ4ERA
 
+[.right-content.no-bullet]
  * Netbeans
  * Eclipse
  * IntelliJ Idea
  * vim / emacs...
 
-== Compilation
+--
 
-Outils spécialisés
+[.no-padding]
+== ! Compilation
 
+[.two-columns]
+--
+[.left-content]
+image::markus-spiske-193031-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/OO89_95aUC0
+
+[.right-content.no-bullet]
+//Outils spécialisés
  * Make
  * ant
  * Maven
  * Gradle
  * SBT
+--
+
 
 == Packaging
 
@@ -543,10 +691,17 @@ include::sample/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 <1> Injection du UserService
 
 
+[.reversed]
 == !
 
- * `@Inject` demande l'injection
- * `@Produces` permet de mettre un objet dans le cycle d'injection
+`@Inject` +
+ demande l'injection
+
+[.reversed]
+== !
+ 
+`@Produces` +
+permet de mettre un objet dans le cycle d'injection
 
 == ! 
 
@@ -770,13 +925,20 @@ link:tpjavaee/login.xhtml[]
 include::sample/src/main/webapp/WEB-INF/templates/default.xhtml[tags=sample]
 -----
 
+[.reversed]
 == !
 
-Expression Language
+//Expression Language
 
- * `${prop.in.a.bean}` : évaluation immédiate
- * `#{prop.in.a.bean}` : évaluation différée
- * accès à des variables ou méthodes
+`${prop.in.a.bean}` +
+évaluation immédiate
+
+[.reversed]
+== !
+
+`#{prop.in.a.bean}` +
+évaluation différée
+// * accès à des variables ou méthodes
 
 == !
 
@@ -1035,8 +1197,16 @@ image::yourturn.gif[]
 == Références
 [bibliography]
 
+- [[this]] https://github.com/CedricGatay/slides-template/tree/talk/201804-JavaEEEPUT
 - [[ee-roadmap]] http://blog.eisele.net/2013/06/javaee7-is-final.html
 - [[mvc-chart]] https://netbeans.org/kb/docs/javaee/ecommerce/design.html
 - [[mvc-mobile]] https://dzone.com/articles/load-data-from-database-using-web-api
 - [[jakartaee-name]] https://mmilinkov.wordpress.com/2018/02/26/and-the-name-is/
 - [[javaee-8]] https://www.phillip-kruger.com/post/creativity_has_no_filter/
+
+[.reversed]
+== ! Slides
+
+`Asciidoctor`
+
+`Bespoke.js`

@@ -12,6 +12,7 @@ section.title
     border 6px solid $lightBlue
     color: $lightGray
     transform: rotate(2deg);
+    box-shadow: 1px 0px 20px 0px $gray;
   .author
     position: absolute;
     bottom: -20px
@@ -22,6 +23,17 @@ section.title
     color: $lightGray
     transform: rotate(2deg)
     font-size 0.5em
+    box-shadow: 1px 0px 20px 0px $gray;
+    p
+      padding-right: 100px
+    .author_img
+        position: absolute
+        bottom: 20px
+        width: 96px
+        right: 10px
+        box-shadow: 1px 0px 20px 0px $gray;
+        img
+          max-width:100%
 
 .bespoke-active:not(.image)
   background-image: url('/images/ct-logo.png');
