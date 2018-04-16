@@ -50,32 +50,38 @@ $(document).ready(function(){
     }
    };
    
-   $(".post").each(function (_, e) {
+   
+   $(".get").each(function (_, e) {
+     var $e = $(e);
+     var $h2 = $e.siblings("h2");
+     var $icon = $("<i class='header-action fa fa-globe get'></i>");
+     $($e.parents()[0]).prepend($icon);
+     var url = buildDemoURL($(e).find("a").attr("href"));
+     if ($e.hasClass("blank")){
+       $icon.click(function() {
+         var $modal = $("<div class='modal iframe'><i class='fa fa-close'></i><iframe src='"+url+"'></iframe></div>")
+         $modal.find(".fa-close").click(function(){
+           $(".modal").remove()
+          })
+          $(e).parents(".deck").append($modal)
+          //window.open(url, '_blank');
+        });
+      }else {
+        $icon.click(function () {
+          $.ajax({url: url, dataType: "text"}).then(setResponseContentInModal(e));
+        });
+      }
+    });
+    
+    $(".post").each(function (_, e) {
     var $h2 = $(e).siblings("h2");
     var i = $("<i class='header-action fa fa-envelope post'></i>");
     $($(e).parents()[0]).prepend(i);
     i.click(function () {
-     var url = buildDemoURL($(e).find("a").attr("href"));
-     $.ajax({url: url, dataType: "text", method: 'POST'}).then(setResponseContentInModal(e));
+      var url = buildDemoURL($(e).find("a").attr("href"));
+      $.ajax({url: url, dataType: "text", method: 'POST'}).then(setResponseContentInModal(e));
     });
-   });
-   
-   $(".get").each(function (_, e) {
-    var $e = $(e);
-    var $h2 = $e.siblings("h2");
-    var $icon = $("<i class='header-action fa fa-globe get'></i>");
-    $($e.parents()[0]).prepend($icon);
-    var url = buildDemoURL($(e).find("a").attr("href"));
-    if ($e.hasClass("blank")){
-     $icon.click(function() {
-      window.open(url, '_blank');
-     });
-    }else {
-     $icon.click(function () {
-      $.ajax({url: url, dataType: "text"}).then(setResponseContentInModal(e));
-     });
-    }
-   });
+    });
  
   }
  

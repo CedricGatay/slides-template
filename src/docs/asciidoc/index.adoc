@@ -810,11 +810,13 @@ image::blackbook.gif[]
 //TODO here comes a new challenger
 
 == !
-
-[.get]
-link:tpjavaee/ws/users[]
+[.header-actions]
+--
 [.post]
 link:tpjavaee/ws/users?name=aeaze&email=\qsd@qsd.fr[]
+[.get]
+link:tpjavaee/ws/users[]
+--
 
 **RE**presentational **S**tate **T**ransfer
 
