@@ -871,6 +871,7 @@ image::ecosystem.jpg[]
 image::wildfly.png[role="image_slide captioned", title="Wildfly"]
 image::glassfish.png[role="image_slide captioned", title="Glassfish"]
 image::jbossas.png[role="image_slide captioned", title="JBoss AS"]
+image::apache-tomee-logo.png[role="image_slide captioned", title="Apache TomEE"]
 image::websphere.jpg[role="image_slide captioned", title="Websphere"]
 image::weblogic.png[role="image_slide captioned", title="Weblogic"]
 --
@@ -882,8 +883,7 @@ image::weblogic.png[role="image_slide captioned", title="Weblogic"]
 image::github.png[role="image_slide captioned", title="Github"]
 image::apache.png[role="image_slide captioned", title="Apache"]
 image::eclipse.png[role="image_slide captioned", title="Eclipse"]
-//TODO replace by JFROG
-image::codehaus.png[role="image_slide captioned", title="Codehaus"]
+image::jfrog-logo.png[role="image_slide captioned", title="JFrog"]
 --
 
 
@@ -894,7 +894,7 @@ image::codehaus.png[role="image_slide captioned", title="Codehaus"]
 image::maven.png[role="image_slide captioned", title="Maven"]
 image::jenkins.png[role="image_slide captioned", title="Jenkins"]
 image::hibernate.png[role="image_slide captioned", title="Hibernate"]
-image::aspectj.png[role="image_slide captioned", title="AspectJ"]
+image::gradle-1.svg[role="image_slide captioned", title="Gradle"]
 image::jetty.png[role="image_slide captioned", title="Jetty"]
 image::tomcat.png[role="image_slide captioned", title="Tomcat"]
 --
@@ -908,6 +908,7 @@ image::play.png[role="image_slide captioned", title="Play! Framework"]
 image::grails.png[role="image_slide captioned", title="Grails"]
 image::rails.png[role="image_slide captioned", title="Ruby On Rails"]
 image::symfony.png[role="image_slide captioned", title="Symfony"]
+image::nodejs-logo.png[role="image_slide captioned", title="NodeJS"]
 --
 
 == ! Packaging
@@ -988,17 +989,17 @@ https://unsplash.com/photos/7RtM37cLJ3c[]
 ****
 Dans les événements récents autour de l'écosystème JavaEE il y a quelque chose que vous devez quand même savoir.
 C'est que Java EE est mort, il n'existe plus, je vous parle de tout plein de choses qui ne sont plus.
-Enfin, qui sont utilisées dans des milliers d'applicatifs sur la planète, comme...
-****
-
-== Java EE Apps
-
-[.cue]
-****
+Enfin, qui sont utilisées dans des milliers d'applicatifs sur la planète, comme chez Spotify, Google, Dailymotion, Orange, Renault...
 
 Bon, j'ai peut être aggravé la situation, Java EE est mort, mais il a surtout été transféré d'Oracle à la fondation Eclipse.
 Et il a changé de nom...
 ****
+
+// == ! Java EE Apps
+
+// [.cue]
+// ****
+// ****
 
 [.white.center]
 == ! Welcome Jakarta EE
@@ -1035,3 +1036,5 @@ image::yourturn.gif[]
 - [[ee-roadmap]] http://blog.eisele.net/2013/06/javaee7-is-final.html
 - [[mvc-chart]] https://netbeans.org/kb/docs/javaee/ecommerce/design.html
 - [[mvc-mobile]] https://dzone.com/articles/load-data-from-database-using-web-api
+- [[jakartaee-name]] https://mmilinkov.wordpress.com/2018/02/26/and-the-name-is/
+- [[javaee-8]] https://www.phillip-kruger.com/post/creativity_has_no_filter/
