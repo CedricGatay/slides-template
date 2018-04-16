@@ -1,26 +1,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- tag::project[] -->
     <groupId>com.codetroopers.eput</groupId>
-    <artifactId>2016-javaee-servlet</artifactId>
+    <artifactId>2018-javaee-servlet</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <!-- end::project[] -->
     <dependencies>
+    <!-- tag::dependency[] -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
+    <!-- end::dependency[] -->
     </dependencies>
     <build>
         <finalName>tpjavaee</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.2.1.Final</version>
-            </plugin>
+            <!-- tag::plugin[] -->
+        <plugin>
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>1.2.1.Final</version>
+        </plugin>
+            <!-- end::plugin[] -->
         </plugins>
     </build>
     <properties>

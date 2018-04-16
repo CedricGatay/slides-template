@@ -1,4 +1,3 @@
-= Tour d'horizon de JavaEE
 :encoding: UTF-8
 :author: Cedric Gatay
 :keywords: @Cedric_Gatay
@@ -6,7 +5,20 @@
 :source-highlighter: prettify
 :imagesdir: ./images
 :icons: font
+:title: Tour d'horizon de Java EE
 :iconfont-cdn: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css
+
+[#title]
+== {title}
+[.canvas]
+image::rick-mason-532835-unsplash.jpg[]
+[.credit]
+https://unsplash.com/photos/2FaCKyEEtis
+
+[.author]
+--
+{author} - {localdate}
+--
 
 == Agenda
  * Java vs Java EE
@@ -107,6 +119,8 @@ Promesse du Write Once Run Anywhere
 
 == Java
 //This can be long, maybe introduce codenames with pictures to ease flow
+[.timeline]
+image::javase_timeline.png[]
 
  * Java 1.0 : 1996
     ** initial version
@@ -114,6 +128,8 @@ Promesse du Write Once Run Anywhere
     ** originellement nommé Oak
 
 == !
+[.timeline]
+image::javase_timeline_2.png[]
 
  * Java 1.1 : 1997
     ** JavaBeans
@@ -123,6 +139,8 @@ Promesse du Write Once Run Anywhere
     ** JIT (on Windows)
 
 == !
+[.timeline]
+image::javase_timeline_3.png[]
 
  * J2SE 1.2 : 1998
     ** 1520 classes (taille triplée)
@@ -131,6 +149,8 @@ Promesse du Write Once Run Anywhere
     ** JIT everywhere
 
 == !
+[.timeline]
+image::javase_timeline_4.png[]
 
  * J2SE 1.3 : 2000
     ** JNDI
@@ -138,6 +158,8 @@ Promesse du Write Once Run Anywhere
     ** JavaSound
 
 == !
+[.timeline]
+image::javase_timeline_5.png[]
 
  * J2SE 1.4 : 2002
     ** Regex
@@ -147,6 +169,8 @@ Promesse du Write Once Run Anywhere
     ** Java WebStart
 
 == !
+[.timeline]
+image::javase_timeline_6.png[]
 
  * J2SE 5.0 : 2004
     ** Generics
@@ -156,6 +180,8 @@ Promesse du Write Once Run Anywhere
     ** `java.util.concurrent`
 
 == !
+[.timeline]
+image::javase_timeline_7.png[]
 
  * Java SE 6 : 2006
     ** Performances
@@ -163,6 +189,8 @@ Promesse du Write Once Run Anywhere
     ** JAX-WS
 
 == !
+[.timeline]
+image::javase_timeline_8.png[]
 
  * Java SE 7 : 2011
     ** Invokedynamic
@@ -171,6 +199,8 @@ Promesse du Write Once Run Anywhere
     ** Concurrency utilities
 
 == !
+[.timeline]
+image::javase_timeline_9.png[]
 
  * Java SE 8 : 2014
     ** Lambda
@@ -178,12 +208,16 @@ Promesse du Write Once Run Anywhere
     ** Overhauled annotations
 
 == !
+[.timeline]
+image::javase_timeline_10.png[]
 
  * Java SE 9 : 2017
     ** Java Modules
     ** Java REPL
 
 == !
+[.timeline]
+image:javase_timeline_11.png[]
 
  * Java SE 10 : 2018 
     ** Local-variable type inference
@@ -889,7 +923,7 @@ Outils principaux
  * Maven
  * Gradle
 
-== !
+== ! Structure d'un projet
 
 [source,shell]
 ----
@@ -908,6 +942,42 @@ Outils principaux
 <4> Fichiers de ressources
 <5> Fichiers web
 <6> Sources de tests
+
+== ! Anatomie d'un descripteur de projet
+
+[source,xml]
+----
+include::sample/pom.xml[tag=project]
+----
+
+== ! Dependences
+
+[source,xml]
+----
+include::sample/pom.xml[tag=dependency]
+----
+
+== ! Plugins
+
+[source,xml]
+----
+include::sample/pom.xml[tag=plugin]
+----
+
+
+== ! Utilisation de maven
+
+[source, shell]
+----
+mvn clean <1>
+mvn package <2>
+mvn verify <3>
+mvn wildfly:run <4>
+----
+<1> Supprime les résultats de la compilation
+<2> Construit le livrable applicatif
+<3> Lance les tests pour valider le livrable
+<4> Démarre un `Wildfly` (TP)
 
 == ! Java EE est mort
 [.canvas]
