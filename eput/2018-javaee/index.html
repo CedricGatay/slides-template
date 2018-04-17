@@ -1,0 +1,755 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tour d'horizon de Java EE</title><meta name="keywords" content="@Cedric_Gatay"><meta name="author" content="Cedric Gatay"><meta name="generator" content="Asciidoctor 1.5.6.1 (Bespoke.js converter)"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="build/build.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css"></head><body><article class="deck"><section id="title" class="image" style="background-image: url(./images/rick-mason-532835-unsplash.jpg); background-size: cover; background-repeat: no-repeat"><h2>Tour d'horizon de Java EE</h2>
+<p class="credit"><a href="https://unsplash.com/photos/2FaCKyEEtis" class="bare">https://unsplash.com/photos/2FaCKyEEtis</a></p>
+<div class="author"><p>Cedric Gatay - 2018-04-16
+<span class="image author_img"><img src="./images/CG_BW.jpg" alt="CG BW"></span></p></div></section>
+<section id="_agenda"><h2>Agenda</h2><ul><li><span class="primary">Java vs Java EE</span></li><li><span class="primary">Concepts</span></li><li><span class="primary">Spécifications</span><ul><li><span class="primary">Java Persistence API</span></li><li><span class="primary">Enterprise Java Bean</span></li><li><span class="primary">CDI</span></li><li><span class="primary">Servlet / Filter</span></li><li><span class="primary">Java Server Pages / Java Server Faces</span></li><li><span class="primary">Webservices</span></li></ul></li></ul></section>
+<section id="_forewords" class="image" style="background-image: url(./images/me_you.gif); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_cedric_gatay"><p><span class="icon"><i class="fa fa-twitter"></i></span> @Cedric_Gatay</p>
+<p><span class="icon"><i class="fa fa-code"></i></span> Developer</p>
+<p><span class="image small ct"><img src="./images/ct-square.png" alt="ct square"></span> Code-Troopers co-founder</p>
+<p><span class="icon"><i class="fa fa-google"></i></span> GDG Tours lead</p>
+<p><span class="image small"><img src="./images/tnt_logo.png" alt="tnt logo"></span> TouraineTech co-organizer</p>
+<aside role="note"><p>Je fais partie des co-fondateurs de Code-Troopers, des leads du Google Developer Group de Tours et co-organisateur de Touraine Tech.</p></aside></section>
+<section id="_span_class_icon_i_class_fa_fa_code_fork_title_tour_d_horizon_de_java_ee_i_span"><ul><li><span class="primary"><span class="icon"><i class="fa fa-bus"></i></span> <a href="http://navigtours.com">Navig&#8217;Tours</a> <span class="icon"><i class="fa fa-apple"></i></span> <span class="icon"><i class="fa fa-android"></i></span></span></li><li><span class="primary"><span class="icon"><i class="fa fa-music"></i></span> <a href="http://chapi.to">Chapi.to</a> <span class="icon"><i class="fa fa-apple"></i></span> <span class="icon"><i class="fa fa-android"></i></span></span></li><li><span class="primary"><span class="icon"><i class="fa fa-github"></i></span> FOSS:</span><ul><li><span class="primary"><span class="icon"><i class="fa fa-calendar"></i></span> Android Betterpickers <span class="icon"><i class="fa fa-android"></i></span></span></li><li><span class="primary"><span class="icon"><i class="fa fa-github-alt"></i></span> sbt plugins <span class="icon"><i class="fa fa-globe"></i></span></span></li><li><span class="primary"><span class="icon"><i class="fa fa-github-alt"></i></span> wicket-hot-reload <span class="icon"><i class="fa fa-globe"></i></span></span></li><li><span class="primary"><span class="icon"><i class="fa fa-gitlab"></i></span> Gitlab <span class="icon"><i class="fa fa-globe"></i></span></span></li></ul></li></ul>
+<aside role="note"><p>Je fais aussi des apps web, mobiles, et de l&#8217;open source sur quelques projets</p></aside></section>
+<section id="_disclaimer" class="no-padding"><div class="two-columns"><figure class="image left-content contain" id="JavaEE7Packt"><img src="./images/1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg" alt="1496 6640EN Java%20EE%207%20Web%20Application%20Development"></figure>
+<ul class="right-content"><li><span class="primary">JavaEE est très vaste</span></li><li><span class="primary">JavaEE7 @ PacktPub : 496 pages
+&#8594; 2H de CM / 6H de TP</span></li></ul></div></section>
+<section id="_java_vs_javaee" class="image" style="background-image: url(./images/home.jpg); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_contexte"><h2>Contexte</h2><p>Java</p>
+<ul><li><span class="primary">langage objet</span></li><li><span class="primary">v1.0 en 1995 / 10 en 2018</span></li><li><span class="primary">≠ Javascript</span></li></ul></section>
+<section id="_flashback" class="image" style="background-image: url(./images/flashback.png); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_flashback_2"><h2>Flashback</h2><p>1996, internet balbutiant, cible applications lourdes</p>
+<p>Concurrence des MFC / C++</p>
+<p>Promesse du Write Once Run Anywhere</p>
+<ul><li><span class="primary">machine virtuelle</span></li><li><span class="primary">"assembleur universel"</span></li></ul></section>
+<section id="_java"><figure class="image timeline"><img src="./images/javase_timeline.png" alt="javase timeline"></figure>
+<ul><li><span class="primary">initial version</span></li><li><span class="primary">stable 1.0.2</span></li><li><span class="primary">originellement nommé Oak</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Duke_Nukem_3D_Coverart.png" alt="Duke Nukem 3D Coverart"><figcaption>Duke Nukem 3D</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_2.png" alt="javase timeline 2"></figure>
+<ul><li><span class="primary">JavaBeans</span></li><li><span class="primary">JDBC</span></li><li><span class="primary">Reflection (Read-only)</span></li><li><span class="primary">Inner classes</span></li><li><span class="primary">JIT (on Windows)</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/goldeneye007.jpg" alt="goldeneye007"><figcaption>Golden Eye</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_3.png" alt="javase timeline 3"></figure>
+<ul><li><span class="primary">1520 classes (taille triplée)</span></li><li><span class="primary">Swing</span></li><li><span class="primary">Collections</span></li><li><span class="primary">JIT everywhere</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Half-Life_Cover_Art.jpg" alt="Half Life Cover Art"><figcaption>Half Life</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_4.png" alt="javase timeline 4"></figure>
+<ul><li><span class="primary">JNDI</span></li><li><span class="primary">JPDA</span></li><li><span class="primary">JavaSound</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Quake3Title.jpg" alt="Quake3Title"><figcaption>Quake III</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_5.png" alt="javase timeline 5"></figure>
+<ul><li><span class="primary">Regex</span></li><li><span class="primary">Exception chaining</span></li><li><span class="primary">NIO</span></li><li><span class="primary">JAXP</span></li><li><span class="primary">Java WebStart</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Battlefield_1942_Box_Art.jpg" alt="Battlefield 1942 Box Art"><figcaption>Battlefield 1942</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_6.png" alt="javase timeline 6"></figure>
+<ul><li><span class="primary">Generics</span></li><li><span class="primary">Annotations</span></li><li><span class="primary">enum</span></li><li><span class="primary">static imports</span></li><li><span class="primary"><code>java.util.concurrent</code></span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Far_Cry_Coverart.png" alt="Far Cry Coverart"><figcaption>Far Cry</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_7.png" alt="javase timeline 7"></figure>
+<ul><li><span class="primary">Performances</span></li><li><span class="primary">Scripting</span></li><li><span class="primary">JAX-WS</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/gearsofwar.jpg" alt="gearsofwar"><figcaption>Gears of war</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_8.png" alt="javase timeline 8"></figure>
+<ul><li><span class="primary">Invokedynamic</span></li><li><span class="primary">try with resources</span></li><li><span class="primary">NIO 2</span></li><li><span class="primary">Concurrency utilities</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Portal2cover.jpg" alt="Portal2cover"><figcaption>Portal 2</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_9.png" alt="javase timeline 9"></figure>
+<ul><li><span class="primary">Lambda</span></li><li><span class="primary">Date and time API</span></li><li><span class="primary">Overhauled annotations</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/Dragon_Age_Inquisition_BoxArt.jpg" alt="Dragon Age Inquisition BoxArt"><figcaption>Dragon Age Inquisition</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_10.png" alt="javase timeline 10"></figure>
+<ul><li><span class="primary">Java Modules</span></li><li><span class="primary">Java REPL</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/The_Legend_of_Zelda_Breath_of_the_Wild.jpg" alt="The Legend of Zelda Breath of the Wild"><figcaption>Zelda BOTW</figcaption></figure></div></section>
+<section><figure class="image timeline"><img src="./images/javase_timeline_11.png" alt="javase timeline 11"></figure>
+<ul><li><span class="primary">Local-variable type inference</span></li><li><span class="primary">Time-based releases</span></li><li><span class="primary">Parallel Full GC</span></li></ul>
+<div class="build build-items"><figure class="image image_slide upper right captioned small-padding"><img src="./images/DBFZ_cover_art.jpg" alt="DBFZ cover art"><figcaption>Dragon Ball FighterZ</figcaption></figure></div></section>
+<section id="_javaee"><h2>JavaEE</h2><ul><li><span class="primary">Java SE + des APIS "entreprise"</span></li><li><span class="primary">cycle de release indépendant</span></li></ul></section>
+<section id="_versions" class="black center image" style="background-image: url(./images/ee-roadmap-8.png); background-size: contain; background-repeat: no-repeat">
+<aside role="note"><ul><li><span class="primary">1999 : J2EE 1.2 (10 specs)</span></li><li><span class="primary">2001 : J2EE 1.3 (13 specs)</span></li><li><span class="primary">2003 : J2EE 1.4 (20 specs)</span></li><li><span class="primary">2006 : JavaEE 5 (23 specs)</span></li><li><span class="primary">2009 : JavaEE 6 (28 specs)</span></li><li><span class="primary">2013 : JavaEE 7 (31 specs)</span></li><li><span class="primary">2017 : JavaEE 8 (12 specs)</span></li></ul></aside></section>
+<section id="_version_entreprise" class="no-padding"><div class="two-columns"><figure class="image left-content"><img src="./images/jakub-gorajek-173097-unsplash.jpg" alt="jakub gorajek 173097 unsplash"></figure>
+<p class="credit"><a href="https://unsplash.com/photos/AvhMrjYC8L8" class="bare">https://unsplash.com/photos/AvhMrjYC8L8</a></p>
+<ul class="right-content no-bullet"><li><span class="primary">complexes</span></li><li><span class="primary">fiables</span></li><li><span class="primary">interconnectées</span></li><li><span class="primary">sécurisées</span></li></ul></div></section>
+<section><ul><li><span class="primary">conçu pour répondre à la montée d&#8217;internet</span></li><li><span class="primary">rationaliser les développements</span><ul><li><span class="primary">maîtrise des coûts</span></li><li><span class="primary"><strong>D</strong>on&#8217;t <strong>R</strong>epeat <strong>Y</strong>ourself</span></li></ul></li></ul></section>
+<section id="_concepts"><h2>Concepts</h2><ul><li><span class="primary">philosophie n-tiers</span></li><li><span class="primary">meta programmation par annotations</span></li><li><span class="primary">convention over configuration</span></li><li><span class="primary">système de normalisation "ouvert"</span></li></ul></section>
+<section id="_architecture_n_tiers"><h2>Architecture n-tiers</h2><ul><li><span class="primary">applications d&#8217;envergures</span></li><li><span class="primary">équipes multiples</span></li><li><span class="primary">responsabilités partagées</span></li><li><span class="primary">modèle de conception</span></li></ul></section>
+<section><div class="two-columns"><ul><li><span class="primary">MVC</span><ul><li><span class="primary">Model</span></li><li><span class="primary">View</span></li><li><span class="primary">Controller</span></li></ul></li></ul>
+<figure class="image left-content white centered" id="mvc-chart"><img src="./images/mvc-diagram.png" alt="mvc diagram"></figure></div></section>
+<section><div class="two-columns"><ul><li><span class="primary">Mobile/Rich client</span><ul><li><span class="primary">REST endpoints</span></li><li><span class="primary">Model</span></li><li><span class="primary">Controller</span></li></ul></li></ul>
+<figure class="image left-content white centered" id="mvc-mobile"><img src="./images/mvc-mobile.png" alt="mvc mobile"></figure></div></section>
+<section id="_méta_programmation" class="no-padding"><div class="two-columns"><figure class="image left-content"><img src="./images/john-jason-383954-unsplash.jpg" alt="john jason 383954 unsplash"></figure>
+<p class="credit"><a href="https://unsplash.com/photos/99cl-_hPa-0" class="bare">https://unsplash.com/photos/99cl-_hPa-0</a></p>
+<ul class="right-content"><li><span class="primary">ajout d&#8217;informations au code</span></li><li><span class="primary">XML (pre Java EE 6)</span></li><li><span class="primary">annotations (Java EE 6)</span></li></ul></div></section>
+<section id="_convention_over_configuration" class="no-padding"><div class="two-columns"><figure class="image left-content"><img src="./images/rakicevic-nenad-600164-unsplash.jpg" alt="rakicevic nenad 600164 unsplash"></figure>
+<p class="credit"><a href="https://unsplash.com/photos/p4RAXOTdlMk" class="bare">https://unsplash.com/photos/p4RAXOTdlMk</a></p>
+<ul class="right-content"><li><span class="primary"><em>pattern</em> émergeants</span></li><li><span class="primary">largement utilisés</span></li><li><span class="primary">surchargeables</span></li></ul>
+<aside role="note"><p>à l&#8217;utilisation des <em>patterns</em> sont apparus
+simplification de l&#8217;utilisation en les adoptant par défaut
+possibilité de redéfinition manuelle
+&#8594; Rassurez-vous il reste du XML</p></aside></div></section>
+<section id="_process_de_normalisation"><h2>Process de normalisation</h2><ul><li><span class="primary">Ecriture d&#8217;une <strong>J</strong>ava <strong>S</strong>pecification <strong>R</strong>equest</span></li><li><span class="primary">Fourniture du <strong>T</strong>oolkit <strong>C</strong>ompatibility <strong>K</strong>it</span></li><li><span class="primary">Ecriture d&#8217;une <strong>R</strong>eference <strong>I</strong>mplementation</span></li></ul></section>
+<section id="_cycle_de_travail"><h2>Cycle de travail</h2><ul><li><span class="primary">Implémentation</span></li><li><span class="primary">Compilation</span></li><li><span class="primary">Packaging</span></li><li><span class="primary">Déploiement</span></li></ul></section>
+<section id="_implémentation" class="no-padding"><div class="two-columns"><figure class="image left-content"><img src="./images/ben-kolde-367194-unsplash.jpg" alt="ben kolde 367194 unsplash"></figure>
+<p class="credit"><a href="https://unsplash.com/photos/lqZPleZ4ERA" class="bare">https://unsplash.com/photos/lqZPleZ4ERA</a></p>
+<ul class="right-content no-bullet"><li><span class="primary">Netbeans</span></li><li><span class="primary">Eclipse</span></li><li><span class="primary">IntelliJ Idea</span></li><li><span class="primary">vim / emacs&#8230;&#8203;</span></li></ul></div></section>
+<section id="_compilation" class="no-padding"><div class="two-columns"><figure class="image left-content"><img src="./images/markus-spiske-193031-unsplash.jpg" alt="markus spiske 193031 unsplash"></figure>
+<p class="credit"><a href="https://unsplash.com/photos/OO89_95aUC0" class="bare">https://unsplash.com/photos/OO89_95aUC0</a></p>
+<ul class="right-content no-bullet"><li><span class="primary">Make</span></li><li><span class="primary">ant</span></li><li><span class="primary">Maven</span></li><li><span class="primary">Gradle</span></li><li><span class="primary">SBT</span></li></ul></div></section>
+<section id="_packaging"><h2>Packaging</h2><ul><li><span class="primary">format d&#8217;archives en *AR</span><ul><li><span class="primary">WAR : <strong>W</strong>eb <strong>AR</strong>chive</span></li><li><span class="primary">JAR : <strong>J</strong>ava <strong>AR</strong>chive</span></li><li><span class="primary">EAR : <strong>E</strong>nterprise <strong>AR</strong>chive</span></li></ul></li><li><span class="primary">Exécution gérée par le serveur d&#8217;application</span></li></ul></section>
+<section id="_serveurs_d_application"><h2>Serveurs d&#8217;application</h2><ul class="build build-items"><li><span class="primary">exécute le code métier</span></li><li><span class="primary">fournit des services</span><ul class="build-items"><li><span class="primary">gestion des transactions</span></li><li><span class="primary">gestion des sources de données</span></li><li><span class="primary">mise en place de cluster</span></li><li><span class="primary">remontée d&#8217;informations</span></li><li><span class="primary">gestion des logs</span></li><li><span class="primary">gestion des utilisateurs</span></li></ul></li></ul></section>
+<section id="_show_me_the_code" class="image" style="background-image: url(./images/showcode.gif); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_stockage_des_données"><h2>Stockage des données</h2><p><strong>Comment passer du monde relationnel au monde objet ?</strong></p>
+<ul><li><span class="primary"><strong>O</strong>bject <strong>R</strong>elational <strong>M</strong>apper</span></li><li><span class="primary">Association entre objets et tables</span></li></ul>
+<p>&#8594; facilité d&#8217;utilisation et portabilité</p></section>
+<section><p><strong>Java Persistence API</strong></p>
+<ul><li><span class="primary"><em>ORM</em></span></li><li><span class="primary">Gestion des transactions (<strong>J</strong>ava <strong>T</strong>ransaction <strong>A</strong>PI)</span></li><li><span class="primary">Langage de requêtage spécifique (<strong>J</strong>ava <strong>P</strong>ersistence <strong>Q</strong>uery <strong>L</strong>anguage)</span></li><li><span class="primary">Agnostique du SGBD</span></li></ul></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">//acquire a connection to your DB in connection var
+Statement stmt = connection.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT name,email FROM users;");
+while(rs.next()){
+	 user = new User(
+		rs.getString("name"),
+		rs.getString("email")
+	 );
+	// do what you want with your user object
+}
+rs.close();
+//need to nest into try/catch/finally and close connection too</code></pre></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@Entity <i class="conum" data-value="1"></i><b>(1)</b>
+@Table(name = "user") <i class="conum" data-value="2"></i><b>(2)</b>
+public class User {
+    @Id @GeneratedValue <i class="conum" data-value="3"></i><b>(3)</b>
+    public Long id;
+    @NotNull <i class="conum" data-value="4"></i><b>(4)</b>
+    public String name;
+    @NotNull <i class="conum" data-value="4"></i><b>(4)</b>
+    public String email;
+    @NotNull
+    public String password;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public User() {
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Définition en tant qu&#8217;entité</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Contraintes sur la table (nom&#8230;&#8203;)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Définition du champ clef primaire</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Contraintes sur les champs</td>
+</tr>
+</table>
+</div></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">    public List&lt;User&gt; all(){
+        return em.createQuery("SELECT u FROM User u",
+                              User.class
+                             ).getResultList();
+    }</code></pre></section>
+<section id="_cdi" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>CDI</h2></section>
+<section id="_dépendances_entre_composants"><h2>Dépendances entre composants</h2><ul><li><span class="primary">le découpage en tiers introduit des dépendances</span></li></ul></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">public class UserServiceNoIoC {
+    private UserDAO userDAO;
+
+    public UserServiceNoIoC(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public List&lt;User&gt; all(){
+        return this.userDAO.all();
+    }
+}</code></pre></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">    public UserServiceNoIoC(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }</code></pre></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@WebServlet(urlPatterns = "/users_no_ioc")
+public class UserServletNoIoC extends HttpServlet{
+
+    UserServiceNoIoC userService;
+
+    public UserServletNoIoC() {
+        userService = new  UserServiceNoIoC(new UserDAO());
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService.all().forEach(u -&gt;{
+            try {
+                resp.getWriter().println(u.name + " - " + u.email);
+            } catch (IOException e) {
+                //don't ever do this
+            }
+        });
+    }
+}</code></pre></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">    public UserServletNoIoC() {
+        userService = new  UserServiceNoIoC(new UserDAO());
+    }</code></pre></section>
+<section><p><strong>Problèmes</strong></p>
+<ul><li><span class="primary">enchaînement des <code>new</code></span><ul><li><span class="primary">création pas toujours triviale des dépendances</span></li><li><span class="primary"><code>boilerplate</code> de création d&#8217;objet à gérer</span></li></ul></li><li><span class="primary">aucun recyclage des objets</span></li></ul>
+<p>&#8594; beaucoup de code inutile</p></section>
+<section><p><strong>Inversion Of Control</strong></p>
+<ul><li><span class="primary"><strong>C</strong>ontext and <strong>D</strong>ependency <strong>I</strong>njection</span></li><li><span class="primary">mécanisme d&#8217;IoC, central à JavaEE</span></li><li><span class="primary">définition d&#8217;un <code>scope</code>, de l&#8217;association à des services</span></li><li><span class="primary">déclaration des dépendances</span></li><li><span class="primary">le serveur d&#8217;application fait le reste</span></li></ul></section>
+<section id="_hollywood_principle" class="image" style="background-image: url(./images/hollywood.jpg); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_context_and_dependency_injection"><pre class="source"><code data-lang="java" class="language-java prettyprint">@Stateless
+public class UserService {
+    @Inject
+    public UserDAO userDAO; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    public List&lt;User&gt; all(){
+        return userDAO.all();
+    }
+
+    public User create(){
+        return userDAO.create();
+    }
+
+    public User create(User user) {
+        return userDAO.save(user);
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Injection d&#8217;un UserDAO</td>
+</tr>
+</table>
+</div></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@WebServlet(urlPatterns = "/users")
+public class UserServlet extends HttpServlet {
+
+    @Inject
+    UserService userService; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService.all().forEach(user -&gt; {
+            try {
+                resp.getWriter()
+                        .println(user.name
+                                + " - "
+                                + user.email
+                                + " - "
+                                + user.password
+                        );
+            } catch (IOException e) {
+                //don't ever do this
+            }
+        });
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService.create();
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Injection du UserService</td>
+</tr>
+</table>
+</div></section>
+<section class="reversed"><p><code>@Inject</code><br>
+ demande l&#8217;injection</p></section>
+<section class="reversed"><p><code>@Produces</code><br>
+permet de mettre un objet dans le cycle d&#8217;injection</p></section>
+<section><p><strong>Notion de <code>scope</code></strong></p>
+<ul><li><span class="primary">Cycles de vies différents selon l&#8217;utilisation</span><ul><li><span class="primary"><code>@ApplicationScoped</code> vit toute l&#8217;application</span></li><li><span class="primary"><code>@SessionScoped</code> vit toute la session utilisateur</span></li><li><span class="primary"><code>@RequestScoped</code> vit la durée de la requête utilisateur</span></li></ul></li></ul></section>
+<section id="_ejb" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>EJB</h2></section>
+<section id="_enterprise_java_bean"><h2>Enterprise Java Bean</h2><ul><li><span class="primary">encapsule la logique métier</span></li><li><span class="primary">cycle de vie automatique</span></li><li><span class="primary">trois types principaux</span><ul><li><span class="primary">sans état</span></li><li><span class="primary">avec état</span></li><li><span class="primary">singletons</span></li></ul></li></ul></section>
+<section id="_sans_état"><h2>Sans état</h2><ul><li><span class="primary">annotation <code>@Stateless</code></span></li><li><span class="primary">objets pouvant être réutilisés &#8594; Thread Safe</span></li><li><span class="primary">peut être partagé par plusieurs utilisateurs</span></li></ul>
+<p><strong>Exemple</strong> : récupération des promotions du jour</p></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@Stateless <i class="conum" data-value="1"></i><b>(1)</b>
+public class UUIDService {
+
+    public String makeUUID(){
+        return UUID.randomUUID().toString(); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Bean sans état</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Génération d&#8217;un identifiant</td>
+</tr>
+</table>
+</div></section>
+<section id="_avec_état"><h2>Avec état</h2><ul><li><span class="primary">annotation <code>@Stateful</code></span></li><li><span class="primary">le container gère l&#8217;état et l&#8217;associe à un client</span></li><li><span class="primary">contient des données propres à l&#8217;utilisateur</span></li></ul>
+<p><strong>Exemple</strong> : panier d&#8217;achat e-commerce</p></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@Stateful <i class="conum" data-value="1"></i><b>(1)</b>
+@SessionScoped <i class="conum" data-value="2"></i><b>(2)</b>
+public class CartService implements Serializable {
+
+    @Inject
+    ItemPriceService itemPriceService;
+
+    private List&lt;String&gt; cartContent;
+
+    public CartService() {
+        this.cartContent = new ArrayList&lt;&gt;();
+    }
+
+    public List&lt;String&gt; addItemToCart(String item) {
+        itemPriceService.checkPrice(item);
+        this.cartContent.add(item);
+        return this.cartContent; <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Bean avec état</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>attaché à la session utilisateur</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>contenu du panier par utilisateur</td>
+</tr>
+</table>
+</div></section>
+<section id="_singleton"><h2>Singleton</h2><ul><li><span class="primary">annotation <code>@Singleton</code></span></li><li><span class="primary">une seule instance partagée</span></li><li><span class="primary">doit être le même pour tous les utilisateurs</span></li></ul>
+<p><strong>Exemple</strong> : compteur de visiteurs</p></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@Singleton
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+public class VisitBean {
+    Logger logger = Logger.getLogger(getClass().getName());
+    private int visits = 0; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @PostConstruct
+    public void initialized(){
+        logger.info("VisitBean initialized..."); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+
+    @PreDestroy
+    public void willBeDestroyed(){
+        logger.info("VisitBean will be terminated..."); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+
+    @Lock(LockType.WRITE) <i class="conum" data-value="3"></i><b>(3)</b>
+    public int increment() {
+        return visits++;
+    }
+
+    @Lock(LockType.READ) <i class="conum" data-value="3"></i><b>(3)</b>
+    public int count() {
+        return visits;
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>variable partagée</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>traces sur la création / destruction</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>verrous en lecture / écriture</td>
+</tr>
+</table>
+</div></section>
+<section id="_servlet" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>Servlet</h2></section>
+<section id="_servlet_2"><h2>Servlet</h2><ul><li><span class="primary">bas niveau</span></li><li><span class="primary">très utilisées</span></li><li><span class="primary">traite les requêtes HTTP</span></li></ul></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@WebServlet(urlPatterns = "/")
+public class MyServlet extends HttpServlet{
+
+    static int count[] = new int[]{0,0};
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        count[0]++;
+        writeResponse(resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        count[1]++;
+        writeResponse(resp);
+    }
+
+    private void writeResponse(HttpServletResponse response) throws IOException {
+        response.getWriter().println("Get count : " + count[0]);
+        response.getWriter().println("Post count : " + count[1]);
+    }
+}</code></pre></section>
+<section><p class="get"><a href="tpjavaee/" class="bare">tpjavaee/</a></p>
+<pre class="source"><code data-lang="java" class="language-java prettyprint">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        count[0]++;
+        writeResponse(resp);
+    }</code></pre></section>
+<section><p class="post"><a href="tpjavaee/" class="bare">tpjavaee/</a></p>
+<pre class="source"><code data-lang="java" class="language-java prettyprint">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        count[1]++;
+        writeResponse(resp);
+    }</code></pre></section>
+<section id="_filter" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>Filter</h2></section>
+<section id="_filter_2"><h2>Filter</h2><ul><li><span class="primary">bas niveau</span></li><li><span class="primary">très utilisées</span></li><li><span class="primary">"décore" les requêtes HTTP</span></li></ul></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@WebFilter(urlPatterns = "/*") <i class="conum" data-value="1"></i><b>(1)</b>
+public class MyFilter implements  Filter{
+    Logger logger;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // init your filter
+        logger = Logger.getLogger(getClass().getName());
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
+        logger.info("Before filtering");
+        filterChain.doFilter(request, response); <i class="conum" data-value="2"></i><b>(2)</b>
+        logger.info("After filtering");
+    }
+
+    @Override
+    public void destroy() {
+        // destroy allocated things
+    }
+
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Motif d&#8217;URL à prendre en compte</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Délégation au filtre suivant</td>
+</tr>
+</table>
+</div></section>
+<section><pre class="source"><code data-lang="shell" class="language-shell prettyprint">INFO  [com.codetroopers.eput.MyFilter] Before filtering
+INFO  [com.codetroopers.eput.MyFilter] After filtering</code></pre></section>
+<section id="_jsp" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>JSP</h2></section>
+<section id="_javaserver_pages"><h2>JavaServer Pages</h2><ul><li><span class="primary">ensemble d&#8217;outils pour décrire une page HTML</span></li><li><span class="primary">écriture de XML</span></li><li><span class="primary">la page <code>.jsp</code> peut contenir du code</span></li><li><span class="primary">de moins en moins utilisé</span></li></ul></section>
+<section><p class="get blank"><a href="tpjavaee/helloWorld.jsp" class="bare">tpjavaee/helloWorld.jsp</a></p>
+<pre class="source"><code data-lang="jsp" class="language-jsp prettyprint">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Basic JSP sample&lt;/h1&gt;
+&lt;% for (int i = 0; i &lt; 10; i++){
+%&gt;
+Item &lt;%= i %&gt; &lt;br&gt;
+&lt;%
+}
+%&gt;
+&lt;em&gt;Please delete me now, I am so ugly !&lt;/em&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></section>
+<section><p><strong>Problèmes</strong></p>
+<ul><li><span class="primary">du code dans les vues</span></li><li><span class="primary">MVC <em>mélangé</em></span></li><li><span class="primary">compilé par le serveur d&#8217;application</span></li></ul></section>
+<section id="_jsf" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>JSF</h2></section>
+<section id="_javaserver_faces"><h2>JavaServer Faces</h2><ul><li><span class="primary">écriture orientée composants</span><ul><li><span class="primary">réutilisabilité</span></li><li><span class="primary">composition de comportement</span></li></ul></li><li><span class="primary">CDI au coeur du système</span></li><li><span class="primary">support des technologies "modernes"</span></li></ul></section>
+<section><pre class="source"><code data-lang="xml" class="language-xml prettyprint">&lt;html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"&gt;
+&lt;h:head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+    &lt;title&gt;Golden Book&lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+    &lt;meta name="description" content=""/&gt;
+    &lt;meta name="author" content=""/&gt;
+
+    &lt;!-- Le styles --&gt;
+    &lt;h:outputStylesheet name="css/bootstrap.min.css"/&gt;
+
+    &lt;style type="text/css"&gt;
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    &lt;/style&gt;
+
+    &lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- Le fav and touch icons
+    &lt;link rel="shortcut icon" href="../assets/ico/favicon.ico"&gt;
+    &lt;link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png"&gt;
+    &lt;link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png"&gt;
+    &lt;link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png"&gt;
+    --&gt;
+
+&lt;/h:head&gt;
+&lt;h:body&gt;
+    &lt;h:form&gt;
+
+        &lt;div class="navbar navbar-fixed-top"&gt;
+            &lt;div class="navbar-inner"&gt;
+                &lt;div class="container"&gt;
+                    &lt;a class="brand" href="/tpjavaee/entries.jsf"&gt;Golden Book&lt;/a&gt;
+
+                    &lt;div class="nav-collapse"&gt;
+                        &lt;ul class="nav"&gt;
+                            &lt;li&gt;&lt;h:outputLink value="/tpjavaee/newEntry.jsf" rendered="#{userInfo.loggedIn}"&gt;
+                                Create Entry
+                            &lt;/h:outputLink&gt;
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+&lt;!-- bad indent for asciidoc --&gt;
+&lt;p class="navbar-text pull-right"&gt;
+    &lt;h:outputText value="Logged in as #{userInfo.name}"
+                  rendered="#{userInfo.loggedIn}"/&gt;
+    &lt;h:commandLink action="#{authenticationService.logout}"
+                   value="Logout"
+                   rendered="#{userInfo.loggedIn}"/&gt;
+    &lt;h:outputLink value="/tpjavaee/login.jsf"
+                  rendered="#{!userInfo.loggedIn}"&gt;
+        Login
+    &lt;/h:outputLink&gt;
+&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;!--/.nav-collapse --&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/h:form&gt;
+
+
+    &lt;div class="container"&gt;
+
+        &lt;ui:insert name="content"&gt;
+            [Template content will be inserted here]
+        &lt;/ui:insert&gt;
+        &lt;hr/&gt;
+
+        &lt;footer&gt;
+            &lt;p&gt;&amp;copy; EPUT 2012-Current&lt;/p&gt;
+        &lt;/footer&gt;
+
+    &lt;/div&gt;
+    &lt;!--/.fluid-container--&gt;
+
+    &lt;!-- Le javascript
+    ================================================== --&gt;
+    &lt;!-- Placed at the end of the document so the pages load faster --&gt;
+    &lt;h:outputScript name="js/jquery-1.8.3.min.js"/&gt;
+    &lt;h:outputScript name="js/bootstrap.min.js"/&gt;
+&lt;/h:body&gt;
+&lt;/html&gt;
+&lt;!-- end:full[] --&gt;</code></pre></section>
+<section><p class="get blank"><a href="tpjavaee/login.xhtml" class="bare">tpjavaee/login.xhtml</a></p>
+<pre class="source"><code data-lang="xml" class="language-xml prettyprint">&lt;p class="navbar-text pull-right"&gt;
+    &lt;h:outputText value="Logged in as #{userInfo.name}"
+                  rendered="#{userInfo.loggedIn}"/&gt;
+    &lt;h:commandLink action="#{authenticationService.logout}"
+                   value="Logout"
+                   rendered="#{userInfo.loggedIn}"/&gt;
+    &lt;h:outputLink value="/tpjavaee/login.jsf"
+                  rendered="#{!userInfo.loggedIn}"&gt;
+        Login
+    &lt;/h:outputLink&gt;
+&lt;/p&gt;</code></pre></section>
+<section class="reversed"><p><code>${prop.in.a.bean}</code><br>
+évaluation immédiate</p></section>
+<section class="reversed"><p><code>#{prop.in.a.bean}</code><br>
+évaluation différée</p></section>
+<section><p><strong>Problèmes</strong></p>
+<ul><li><span class="primary">du code dans les vues (mais beaucoup moins)</span></li><li><span class="primary">fais partie de la spec, pas forcément aussi largement utilisé</span></li></ul></section>
+<section id="_jax_rs" class="book-canvas image" style="background-image: url(./images/blackbook.gif); background-size: cover; background-repeat: no-repeat"><h2>JAX-RS</h2></section>
+<section id="_webservices"><h2>Webservices</h2><ul><li><span class="primary">moyen de communication inter-app principal</span></li><li><span class="primary">REST / SOAP</span></li><li><span class="primary">assemblage transparent avec les autres services</span></li></ul></section>
+<section><p><strong>S</strong>imple <strong>O</strong>bject <strong>A</strong>ccess <strong>P</strong>rotocol</p>
+<ul><li><span class="primary">format d&#8217;échange XML</span><ul><li><span class="primary">objets</span></li><li><span class="primary">méthodes</span></li></ul></li><li><span class="primary">verbeux</span></li><li><span class="primary">en train de disparaître</span></li></ul></section>
+<section><div class="header-actions"><p class="post"><a href="tpjavaee/ws/users?name=aeaze&amp;email=qsd@qsd.fr" class="bare">tpjavaee/ws/users?name=aeaze&amp;email=qsd@qsd.fr</a></p>
+<p class="get"><a href="tpjavaee/ws/users" class="bare">tpjavaee/ws/users</a></p></div>
+<p><strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer</p>
+<ul><li><span class="primary">façon de penser un webservice</span></li><li><span class="primary">utilisation des verbes http</span></li><li><span class="primary">pas d&#8217;état côté serveur</span></li></ul></section>
+<section><pre class="source"><code data-lang="java" class="language-java prettyprint">@ApplicationPath("ws") <i class="conum" data-value="1"></i><b>(1)</b>
+@Path("/users") <i class="conum" data-value="2"></i><b>(2)</b>
+@Produces(MediaType.APPLICATION_JSON) <i class="conum" data-value="3"></i><b>(3)</b>
+public class UserWebService extends Application{
+
+    @Inject
+    UserService userService;
+
+    @GET <i class="conum" data-value="4"></i><b>(4)</b>
+    public List&lt;User&gt; users(){
+        return userService.all();
+    }
+
+    @POST <i class="conum" data-value="4"></i><b>(4)</b>
+    public User create(
+            @QueryParam("name") String name, <i class="conum" data-value="5"></i><b>(5)</b>
+            @QueryParam(value = "email") String email){
+        User user = new User(name, email);
+        user.password = "&lt;FROMWS&gt;";
+        return userService.create(user);
+    }
+}</code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Base de l&#8217;application REST</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Chemin de réponse</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Type de données créées par le webservice</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Verbe HTTP à considérer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Récupération de la valeur des paramètres</td>
+</tr>
+</table>
+</div></section>
+<section id="_retour_à_la_discussion" class="image" style="background-image: url(./images/end_examples.gif); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_pourquoi_est_ce_populaire"><h2>Pourquoi est-ce populaire ?</h2><p>Souvent en entreprise :</p>
+<ul><li><span class="primary">stations de dev Windows</span></li><li><span class="primary">serveurs Linux</span></li></ul>
+<p>&#8594; peu d&#8217;adhérences à l&#8217;os</p></section>
+<section><ul><li><span class="primary">specs publiques, concurrence des serveurs</span></li><li><span class="primary">FOSS : culture open source importante</span></li><li><span class="primary">marché lucratif</span></li></ul></section>
+<section id="_ecosystème" class="image" style="background-image: url(./images/ecosystem.jpg); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_serveurs_d_application_2"><h2>Serveurs d&#8217;application</h2><div class="image_grid"><figure class="image image_slide captioned"><img src="./images/wildfly.png" alt="wildfly"><figcaption>Wildfly</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/glassfish.png" alt="glassfish"><figcaption>Glassfish</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/jbossas.png" alt="jbossas"><figcaption>JBoss AS</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/apache-tomee-logo.png" alt="apache tomee logo"><figcaption>Apache TomEE</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/websphere.jpg" alt="websphere"><figcaption>Websphere</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/weblogic.png" alt="weblogic"><figcaption>Weblogic</figcaption></figure></div></section>
+<section id="_foss"><h2>FOSS</h2><div class="image_grid two_per_row"><figure class="image image_slide captioned"><img src="./images/github.png" alt="github"><figcaption>Github</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/apache.png" alt="apache"><figcaption>Apache</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/eclipse.png" alt="eclipse"><figcaption>Eclipse</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/jfrog-logo.png" alt="jfrog logo"><figcaption>JFrog</figcaption></figure></div></section>
+<section id="_projets_notables"><h2>Projets notables</h2><div class="image_grid"><figure class="image image_slide captioned"><img src="./images/maven.png" alt="maven"><figcaption>Maven</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/jenkins.png" alt="jenkins"><figcaption>Jenkins</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/hibernate.png" alt="hibernate"><figcaption>Hibernate</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/gradle-1.svg" alt="gradle 1"><figcaption>Gradle</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/jetty.png" alt="jetty"><figcaption>Jetty</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/tomcat.png" alt="tomcat"><figcaption>Tomcat</figcaption></figure></div></section>
+<section id="_concurrents"><h2>"Concurrents"</h2><div class="image_grid"><figure class="image image_slide captioned"><img src="./images/spring.png" alt="spring"><figcaption>Spring</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/play.png" alt="play"><figcaption>Play! Framework</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/grails.png" alt="grails"><figcaption>Grails</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/rails.png" alt="rails"><figcaption>Ruby On Rails</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/symfony.png" alt="symfony"><figcaption>Symfony</figcaption></figure>
+<figure class="image image_slide captioned"><img src="./images/nodejs-logo.png" alt="nodejs logo"><figcaption>NodeJS</figcaption></figure></div></section>
+<section id="_packaging_2" class="image" style="background-image: url(./images/michal-parzuchowski-224092-unsplash.jpg); background-size: cover; background-repeat: no-repeat">
+<p class="credit"><a href="https://unsplash.com/photos/geNNFqfvw48" class="bare">https://unsplash.com/photos/geNNFqfvw48</a></p></section>
+<section id="_packaging_3"><h2>Packaging</h2><p>Outils principaux</p>
+<ul><li><span class="primary">Maven</span></li><li><span class="primary">Gradle</span></li></ul></section>
+<section id="_structure_d_un_projet"><pre class="source"><code data-lang="shell" class="language-shell prettyprint">├── pom.xml <i class="conum" data-value="1"></i><b>(1)</b>
+└── src
+    └── main <i class="conum" data-value="2"></i><b>(2)</b>
+        ├── java <i class="conum" data-value="3"></i><b>(3)</b>
+        ├── resources <i class="conum" data-value="4"></i><b>(4)</b>
+        └── webapp <i class="conum" data-value="5"></i><b>(5)</b>
+    └── test <i class="conum" data-value="6"></i><b>(6)</b>
+        └── java <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Descripteur du projet</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Source de production</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Sources Java</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Fichiers de ressources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Fichiers web</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Sources de tests</td>
+</tr>
+</table>
+</div></section>
+<section id="_anatomie_d_un_descripteur_de_projet"><pre class="source"><code data-lang="xml" class="language-xml prettyprint">    &lt;groupId&gt;com.codetroopers.eput&lt;/groupId&gt;
+    &lt;artifactId&gt;2018-javaee-servlet&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;</code></pre></section>
+<section id="_dependences"><pre class="source"><code data-lang="xml" class="language-xml prettyprint">        &lt;dependency&gt;
+            &lt;groupId&gt;javax&lt;/groupId&gt;
+            &lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
+            &lt;version&gt;8.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;</code></pre></section>
+<section id="_plugins"><pre class="source"><code data-lang="xml" class="language-xml prettyprint">        &lt;plugin&gt;
+            &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;wildfly-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;1.2.1.Final&lt;/version&gt;
+        &lt;/plugin&gt;</code></pre></section>
+<section id="_utilisation_de_maven"><pre class="source"><code data-lang="shell" class="language-shell prettyprint">mvn clean <i class="conum" data-value="1"></i><b>(1)</b>
+mvn package <i class="conum" data-value="2"></i><b>(2)</b>
+mvn verify <i class="conum" data-value="3"></i><b>(3)</b>
+mvn wildfly:run <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Supprime les résultats de la compilation</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Construit le livrable applicatif</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Lance les tests pour valider le livrable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Démarre un <code>Wildfly</code> (TP)</td>
+</tr>
+</table>
+</div></section>
+<section id="_java_ee_est_mort" class="image" style="background-image: url(./images/luiz-hanfilaque-342635-unsplash.jpg); background-size: cover; background-repeat: no-repeat">
+<p class="credit"><a href="https://unsplash.com/photos/7RtM37cLJ3c" class="bare">https://unsplash.com/photos/7RtM37cLJ3c</a></p>
+<aside role="note"><p>Dans les événements récents autour de l&#8217;écosystème JavaEE il y a quelque chose que vous devez quand même savoir.
+C&#8217;est que Java EE est mort, il n&#8217;existe plus, je vous parle de tout plein de choses qui ne sont plus.
+Enfin, qui sont utilisées dans des milliers d&#8217;applicatifs sur la planète, comme chez Spotify, Google, Dailymotion, Orange, Renault&#8230;&#8203;</p>
+<p>Bon, j&#8217;ai peut être aggravé la situation, Java EE est mort, mais il a surtout été transféré d&#8217;Oracle à la fondation Eclipse.
+Et il a changé de nom&#8230;&#8203;</p></aside></section>
+<section id="_welcome_jakarta_ee" class="white center image" style="background-image: url(./images/Jakarta_Drop-smaller.jpg); background-size: contain; background-repeat: no-repeat">
+<aside role="note"><p>Il s&#8217;appelle désormais Jakarta EE, on peut l&#8217;abréger JEE sans problème.</p></aside></section>
+<section id="_a_vous_de_jouer" class="image" style="background-image: url(./images/yourturn.gif); background-size: cover; background-repeat: no-repeat"></section>
+<section id="_tp_cc"><h2>TP + CC</h2><ul><li><span class="primary">mini projet à 2</span></li><li><span class="primary">base de travail commune à tous</span><ul><li><span class="primary">squelette fonctionnel</span></li><li><span class="primary">sujet identique</span></li><li><span class="primary">1 TP &#8594; 1 ajout fonctionnel</span></li><li><span class="primary">max 1h de travail entre les TPs</span></li></ul></li><li><span class="primary">notation à l&#8217;issue de la dernière séance</span></li></ul></section>
+<section id="_références"><h2>Références</h2><ul class="bibliography"><li><span class="primary"><a id="this"></a> <a href="https://github.com/CedricGatay/slides-template/tree/talk/201804-JavaEEEPUT" class="bare">https://github.com/CedricGatay/slides-template/tree/talk/201804-JavaEEEPUT</a></span></li><li><span class="primary"><a id="ee-roadmap"></a> <a href="http://blog.eisele.net/2013/06/javaee7-is-final.html" class="bare">http://blog.eisele.net/2013/06/javaee7-is-final.html</a></span></li><li><span class="primary"><a id="mvc-chart"></a> <a href="https://netbeans.org/kb/docs/javaee/ecommerce/design.html" class="bare">https://netbeans.org/kb/docs/javaee/ecommerce/design.html</a></span></li><li><span class="primary"><a id="mvc-mobile"></a> <a href="https://dzone.com/articles/load-data-from-database-using-web-api" class="bare">https://dzone.com/articles/load-data-from-database-using-web-api</a></span></li><li><span class="primary"><a id="jakartaee-name"></a> <a href="https://mmilinkov.wordpress.com/2018/02/26/and-the-name-is/" class="bare">https://mmilinkov.wordpress.com/2018/02/26/and-the-name-is/</a></span></li><li><span class="primary"><a id="javaee-8"></a> <a href="https://www.phillip-kruger.com/post/creativity_has_no_filter/" class="bare">https://www.phillip-kruger.com/post/creativity_has_no_filter/</a></span></li></ul></section>
+<section id="_slides" class="reversed"><p><code>Asciidoctor</code></p>
+<p><code>Bespoke.js</code></p></section></article><script src="build/build.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script><script>Array.prototype.forEach.call(document.querySelectorAll('i.conum+b'),function(n){n.parentNode.removeChild(n)})</script><script>prettyPrint()</script></body></html>
